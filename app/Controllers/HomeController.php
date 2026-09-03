@@ -14,14 +14,15 @@ class HomeController
     {
         $products   = Product::allActive();
         $categories = Category::all();
-        $news       = News::allActive();
+        $page       = \App\Models\Page::findBySlug('home');
 
         View::render('home/index', [
+            'page'            => $page,
             'products'        => $products,
             'categories'      => $categories,
             'news'            => $news,
-            'pageTitle'       => __('Seyitler Kimya - Sağlık Üretiyoruz', 'Seyitler Kimya - Sağlık Üretiyoruz'),
-            'pageDescription' => __('Seyitler Kimya - Medikal plaster, yara örtüleri ve ilk yardım ürünlerinde Türkiye’nin öncü üreticisi.', 'Seyitler Kimya - Medikal plaster, yara örtüleri ve ilk yardım ürünlerinde Türkiye’nin öncü üreticisi.'),
+            'pageTitle'       => $page ? \App\Models\Page::getMetaTitle($page) : __('Seyitler Kimya - Sağlık Üretiyoruz', 'Seyitler Kimya - We Produce Health'),
+            'pageDescription' => $page ? \App\Models\Page::getMetaDescription($page) : __('Seyitler Kimya - Medikal plaster, yara örtüleri ve ilk yardım ürünlerinde Türkiye’nin öncü üreticisi.', 'Seyitler Kimya - Leading manufacturer of medical plasters and wound care.'),
         ]);
     }
 }

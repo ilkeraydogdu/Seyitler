@@ -27,11 +27,14 @@ class InvestorController
             ];
         }
 
+        $page = \App\Models\Page::findBySlug('investors');
+
         View::render('investors/index', [
+            'page'             => $page,
             'tree'             => $tree,
             'documentsGrouped' => $documentsGrouped,
-            'pageTitle'        => __('Yatırımcı İlişkileri - Seyitler Kimya', 'Yatırımcı İlişkileri - Seyitler Kimya'),
-            'pageDescription'  => __('Seyitler Kimya Yatırımcı İlişkileri, Finansal Tablolar, Faaliyet Raporları, Genel Kurul ve Kurumsal Yönetim Belgeleri.', 'Seyitler Kimya Yatırımcı İlişkileri, Finansal Tablolar, Faaliyet Raporları, Genel Kurul ve Kurumsal Yönetim Belgeleri.'),
+            'pageTitle'        => $page ? \App\Models\Page::getMetaTitle($page) : __('Yatırımcı İlişkileri - Seyitler Kimya', 'Investor Relations - Seyitler Kimya'),
+            'pageDescription'  => $page ? \App\Models\Page::getMetaDescription($page) : __('Seyitler Kimya Yatırımcı İlişkileri, Finansal Tablolar, Faaliyet Raporları, Genel Kurul ve Kurumsal Yönetim Belgeleri.', 'Seyitler Kimya Investor Relations, Financial Statements, Reports.'),
         ]);
     }
 }

@@ -14,9 +14,11 @@ class ContactController
 {
     public function index(Request $request): void
     {
+        $page = \App\Models\Page::findBySlug('contact');
         View::render('contact/index', [
-            'pageTitle'       => __('İletişim - Seyitler Kimya', 'İletişim - Seyitler Kimya'),
-            'pageDescription' => __('Seyitler Kimya iletişim kanalları, fabrika ve genel merkez adresi, müşteri ilişkileri formu.', 'Seyitler Kimya iletişim kanalları, fabrika ve genel merkez adresi, müşteri ilişkileri formu.'),
+            'page'            => $page,
+            'pageTitle'       => $page ? \App\Models\Page::getMetaTitle($page) : __('İletişim - Seyitler Kimya', 'Contact - Seyitler Kimya'),
+            'pageDescription' => $page ? \App\Models\Page::getMetaDescription($page) : __('Seyitler Kimya iletişim kanalları, fabrika ve genel merkez adresi, müşteri ilişkileri formu.', 'Seyitler Kimya contact information and headquarters.'),
         ]);
     }
 

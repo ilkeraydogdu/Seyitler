@@ -1,1 +1,77 @@
-<div><section class="relative bg-center bg-cover py-12"><div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl"><nav class="flex items-center gap-2 mb-6 text-sm border-b py-4"><span class="text-seyitler-primary text-2xl uppercase">Sürdürülebilirlik</span><span class="text-seyitler-txt/50"><svg class="lucide lucide-arrow-left-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg></span><a class="router-link-active text-seyitler-txt/50 uppercase text-xs" href="<?= url('/about-us') ?>">Kurumsal</a></nav></div></section><section class="relative py-8"><div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl"><div class="grid grid-cols-1 md:grid-cols-12 gap-8"><aside class="md:col-span-4 lg:col-span-3"><ul class="space-y-2"><li><a class="router-link-active w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg4 border-seyitler-bg4 text-seyitler-txt hover:bg-gray-50" href="<?= url('/about-us') ?>"><span class="text-left">Hakkımızda</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li><li><a class="w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg4 border-seyitler-bg4 text-seyitler-txt hover:bg-gray-50" href="<?= url('/about-us/history') ?>"><span class="text-left">Tarihçe</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li><li><a class="w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg4 border-seyitler-bg4 text-seyitler-txt hover:bg-gray-50" href="<?= url('/about-us/mission-vision') ?>"><span class="text-left">Misyon ve Vizyon</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li><li><a class="w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg4 border-seyitler-bg4 text-seyitler-txt hover:bg-gray-50" href="<?= url('/about-us/values') ?>"><span class="text-left">Değerler</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li><li><a class="w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg4 border-seyitler-bg4 text-seyitler-txt hover:bg-gray-50" href="<?= url('/about-us/organization') ?>"><span class="text-left">Organizasyon Yapısı</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li><li><a aria-current="page" class="router-link-active router-link-exact-active w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg3 border-seyitler-bg3 text-white" href="<?= url('/about-us/sustainability') ?>"><span class="text-left">Sürdürülebilirlik</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li><li><a class="w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg4 border-seyitler-bg4 text-seyitler-txt hover:bg-gray-50" href="<?= url('/about-us/human-resources') ?>"><span class="text-left">İnsan Kaynakları</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li></ul></aside><div class="md:col-span-8 lg:col-span-9 min-h-64"><div class="prose max-w-none"><div class=""><div class="w-full bg-gray-100 border-b border-gray-200"><div class="mx-auto max-w-7xl"><div class="aspect-[5/1] md:aspect-[6/1] lg:aspect-[7/1] bg-gray-100"><img alt="" src="<?= asset('assets/images/surdurulebilirlik-min.webp') ?>"/></div></div></div><div class="px-5 mx-auto xl:px-0 max-w-7xl py-8"><h1 class="text-2xl md:text-3xl font-semibold mb-4">Bilimle Üreten, Doğaya Saygı Duyan Bir Marka</h1><div class="prose prose-seyitler max-w-none text-seyitler-txt"><p>Seyitler Kimya’da sürdürülebilirlik, yalnızca çevre politikası değil; üretim anlayışımızın temelidir.</p><p>Her ürün, her proses ve her yatırım; enerji verimliliği, atık yönetimi ve çalışan sağlığı kriterleri dikkate alınarak planlanır.</p><p>Üretim tesislerimizde kullanılan sistemler; düşük emisyonlu hot-melt teknolojileri, geri dönüştürülebilir ambalaj malzemeleri ve atık azaltma odaklı üretim planları ile desteklenir.</p><p>Bu sayede hem üretim verimliliği artar, hem de çevresel ayak izimiz en aza indirilir.</p><p>Etik üretim, sadece çevreyle değil, insanla da ilgilidir.</p><p>Seyitler Kimya, eşitlikçi çalışma ilkeleri, güvenli iş ortamı ve kadın istihdamını destekleyen politikalarıyla kurumsal sorumluluğunu her kademede sürdürür.</p><p>Sürdürülebilirlik yaklaşımımız, “bilimsel üretim – sosyal sorumluluk – çevresel duyarlılık” üçgeni üzerine kuruludur.</p><p>Çünkü biz inanıyoruz ki; gerçek yenilik, sadece teknolojiyle değil, değerlerle mümkündür.</p></div></div></div></div></div></div></div></section></div>
+<?php
+/** @var array $page */
+use App\Models\Page;
+use App\Core\I18n;
+
+$hero = Page::getHero($page);
+$images = Page::getImages($page);
+$paragraphs = Page::getParagraphs($page);
+$locale = I18n::getLocale();
+
+$bannerImg = !empty($images[0]['url']) ? $images[0]['url'] : 'assets/images/surdurulebilirlik-min.webp';
+?>
+<div>
+    <!-- Hero / Breadcrumb -->
+    <section class="relative bg-center bg-cover py-12">
+        <div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl">
+            <nav class="flex items-center gap-2 mb-6 text-sm border-b py-4">
+                <span class="text-seyitler-primary text-2xl uppercase font-semibold"><?= e(Page::getTitle($page)) ?></span>
+                <span class="text-seyitler-txt/50">
+                    <svg class="size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="m12 19-7-7 7-7"></path>
+                        <path d="M19 12H5"></path>
+                    </svg>
+                </span>
+                <a class="text-seyitler-txt/50 uppercase text-xs hover:text-seyitler-primary transition-colors" href="<?= url('/about-us') ?>">
+                    <?= __('Kurumsal', 'Corporate') ?>
+                </a>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Content Body -->
+    <section class="relative py-8">
+        <div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                
+                <!-- Reusable Corporate Sidebar -->
+                <?php require __DIR__ . '/_sidebar.php'; ?>
+
+                <!-- Dynamic Page Content -->
+                <div class="md:col-span-8 lg:col-span-9 min-h-64">
+                    <div class="prose max-w-none">
+                        
+                        <!-- Banner Image -->
+                        <div class="w-full aspect-[5/1] md:aspect-[6/1] lg:aspect-[7/1] overflow-hidden rounded-2xl border border-slate-100 shadow-xs mb-8 bg-slate-50">
+                            <img alt="<?= e(Page::getTitle($page)) ?>" src="<?= asset($bannerImg) ?>" class="w-full h-full object-cover"/>
+                        </div>
+
+                        <!-- Title -->
+                        <h1 class="text-2xl md:text-3xl font-semibold mb-4 text-slate-900">
+                            <?= e($hero['title'] ?? 'Bilimle Üreten, Doğaya Saygı Duyan Bir Marka') ?>
+                        </h1>
+
+                        <?php if (!empty($hero['subtitle'])): ?>
+                            <p class="text-emerald-800 font-semibold text-sm mb-4 leading-relaxed">
+                                <?= e($hero['subtitle']) ?>
+                            </p>
+                        <?php endif; ?>
+
+                        <!-- Paragraphs -->
+                        <div class="space-y-4 text-seyitler-txt leading-relaxed text-sm sm:text-base">
+                            <?php if (!empty($paragraphs)): ?>
+                                <?php foreach ($paragraphs as $p): ?>
+                                    <p><?= nl2br(e($p)) ?></p>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p><?= nl2br(e(Page::getContent($page))) ?></p>
+                            <?php endif; ?>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,1 +1,48 @@
-<div><section class="relative bg-center bg-cover py-12"><div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl"><nav class="flex items-center gap-2 mb-6 text-sm border-b py-4"><span class="text-seyitler-primary text-2xl uppercase">KVKK Aydınlatma Metni</span><span class="text-seyitler-txt/50"><svg class="lucide lucide-arrow-left-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg></span><a class="text-seyitler-txt/50 uppercase text-xs" href="<?= url('/') ?>">Anasayfa</a></nav></div></section><section class="relative pb-16"><div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl"><div class="prose max-w-none text-seyitler-txt space-y-6"><h2 class="text-2xl font-bold text-seyitler-primary">KİŞİSEL VERİLERİN KORUNMASI VE İŞLENMESİ AYDINLATMA METNİ</h2><p>Seyitler Kimya Sanayi A.Ş. ("Şirket") olarak, kişisel verilerinizin güvenliğine ve mahremiyetine önem veriyoruz. 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca, veri sorumlusu sıfatıyla, kişisel verilerinizi aşağıda açıklanan amaçlar doğrultusunda ve mevzuata uygun olarak işlemekteyiz.</p><h3 class="text-xl font-semibold">1. Kişisel Verilerin Toplanma Yöntemi ve Hukuki Sebebi</h3><p>Kişisel verileriniz, Şirketimizle kurduğunuz ticari iliş, web sitemiz üzerinden yapılan başvurular, iletişim formları, çerezler ve fiziki ziyaretleriniz gibi kanallar aracılığıyla otomatik veya otomatik olmayan yöntemlerle toplanmaktadır. Bu veriler, KVKK’nın 5. ve 6. maddelerinde belirtilen; kanunlarda açıkça öngörülmesi, bir sözleşmenin kurulması veya ifasıyla doğrudan ilgili olması, veri sorumlusunun hukuki yükümlülüğünü yerine getirebilmesi ve meşru menfaatlerimiz gibi hukuki sebeplere dayalı olarak işlenmektedir.</p><h3 class="text-xl font-semibold">2. Kişisel Verilerin İşlenme Amaçları</h3><p>Toplanan kişisel verileriniz aşağıdaki amaçlarla işlenmektedir:</p><ul class="list-disc pl-6 space-y-2"><li>Şirketimiz tarafından sunulan ürün ve hizmetlerin sunulabilmesi ve operasyonel süreçlerin yürütülmesi,</li><li>Ticari faaliyetlerimizin planlanması ve icrası,</li><li>Müşteri ilişkileri yönetimi ve satış sonrası destek süreçlerinin takibi,</li><li>Yasal yükümlülüklerin yerine getirilmesi ve resmi kurumlarla olan süreçlerin yönetilmesi,</li><li>Bilgi güvenliği süreçlerinin planlanması ve denetimi,</li><li>İnsan kaynakları politikalarının yürütülmesi.</li></ul><h3 class="text-xl font-semibold">3. İşlenen Kişisel Verilerin Aktarımı</h3><p>Kişisel verileriniz, yukarıda belirtilen amaçların gerçekleştirilmesi doğrultusunda; iş ortaklarımıza, tedarikçilerimize, kanunen yetkili kamu kurumlarına ve özel kişilere, KVKK’nın 8. ve 9. maddelerinde belirtilen kişisel veri işleme şartları ve amaçları çerçevesinde aktarılabilmektedir.</p><h3 class="text-xl font-semibold">4. Veri Sahibinin Hakları</h3><p>KVKK’nın 11. maddesi uyarınca, Şirketimize başvurarak; kişisel verilerinizin işlenip işlenmediğini öğrenme, işlenmişse bilgi talep etme, işlenme amacını ve buna uygun kullanılıp kullanılmadığını öğrenme, yurt içinde veya yurt dışında aktarıldığı üçüncü kişileri bilme, eksik veya yanlış işlenmişse düzeltilmesini isteme, silinmesini veya yok edilmesini isteme ve bu işlemlerের aktarıldığı üçüncü kişilere bildirilmesini isteme haklarına sahipsiniz.</p><p>Haklarınızı kullanmak için Şirketimizin kurumsal web sitesinde yer alan iletişim kanalları üzerinden bizimle iletişime geçebilirsiniz.</p></div></div></section></div>
+<?php
+/** @var array|null $page */
+use App\Models\Page;
+
+$title = $page ? Page::getTitle($page) : 'KVKK Aydınlatma Metni';
+$content = $page ? Page::getContent($page) : '';
+$paragraphs = $page ? Page::getParagraphs($page) : [];
+?>
+<div>
+    <!-- Hero / Breadcrumb -->
+    <section class="relative bg-center bg-cover py-12">
+        <div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl">
+            <nav class="flex items-center gap-2 mb-6 text-sm border-b py-4">
+                <span class="text-seyitler-primary text-2xl uppercase font-semibold"><?= e($title) ?></span>
+                <span class="text-seyitler-txt/50">
+                    <svg class="size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="m12 19-7-7 7-7"></path>
+                        <path d="M19 12H5"></path>
+                    </svg>
+                </span>
+                <a class="text-seyitler-txt/50 uppercase text-xs hover:text-seyitler-primary transition-colors" href="<?= url('/') ?>">
+                    <?= __('Anasayfa', 'Home') ?>
+                </a>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="relative pb-16">
+        <div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl">
+            <div class="prose max-w-none text-seyitler-txt space-y-6 text-sm sm:text-base leading-relaxed">
+                <?php if (!empty($paragraphs)): ?>
+                    <h2 class="text-2xl font-bold text-seyitler-primary"><?= e($title) ?></h2>
+                    <?php foreach ($paragraphs as $p): ?>
+                        <p><?= nl2br(e($p)) ?></p>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <h2 class="text-2xl font-bold text-seyitler-primary">KİŞİSEL VERİLERİN KORUNMASI VE İŞLENMESİ AYDINLATMA METNİ</h2>
+                    <p>Seyitler Kimya Sanayi A.Ş. ("Şirket") olarak, kişisel verilerinizin güvenliğine ve mahremiyetine önem veriyoruz. 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca, veri sorumlusu sıfatıyla, kişisel verilerinizi mevzuata uygun olarak işlemekteyiz.</p>
+                    <h3 class="text-xl font-semibold">1. Kişisel Verilerin Toplanma Yöntemi ve Hukuki Sebebi</h3>
+                    <p>Kişisel verileriniz, Şirketimizle kurduğunuz ticari ilişki, web sitemiz üzerinden yapılan başvurular, iletişim formları ve çerezler aracılığıyla toplanmaktadır.</p>
+                    <h3 class="text-xl font-semibold">2. Kişisel Verilerin İşlenme Amaçları</h3>
+                    <p>Toplanan kişisel verileriniz; ürün ve hizmetlerin sunulabilmesi, operasyonel süreçlerin yürütülmesi ve yasal yükümlülüklerin yerine getirilmesi amacıyla işlenmektedir.</p>
+                <?php endif; ?>
+            </div>
+        </div>
+    </section>
+</div>

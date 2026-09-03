@@ -97,7 +97,10 @@ class ProductController
             }
         }
 
+        $pageModel = \App\Models\Page::findBySlug('products');
+
         View::render('products/index', [
+            'page'             => $pageModel,
             'products'         => $pagination['items'],
             'pagination'       => $pagination,
             'categories'       => $categories,
@@ -108,7 +111,7 @@ class ProductController
             'prevUrl'          => $prevUrl,
             'nextUrl'          => $nextUrl,
             'pageTitle'        => $pageTitle,
-            'pageDescription'  => __('Tıbbi plasterler, yara bakım örtüleri, enjeksiyon bantları ve medikal ürünler portföyümüz.', 'Tıbbi plasterler, yara bakım örtüleri, enjeksiyon bantları ve medikal ürünler portföyümüz.'),
+            'pageDescription'  => ($pageModel && !empty(\App\Models\Page::getMetaDescription($pageModel))) ? \App\Models\Page::getMetaDescription($pageModel) : __('Tıbbi plasterler, yara bakım örtüleri, enjeksiyon bantları ve medikal ürünler portföyümüz.', 'Tıbbi plasterler, yara bakım örtüleri, enjeksiyon bantları ve medikal ürünler portföyümüz.'),
         ]);
     }
 

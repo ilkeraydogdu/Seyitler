@@ -1,1 +1,104 @@
-<div><section class="relative bg-center bg-cover py-12"><div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl"><nav class="flex items-center gap-2 mb-6 text-sm border-b py-4"><span class="text-seyitler-primary text-2xl uppercase">İnsan Kaynakları</span><span class="text-seyitler-txt/50"><svg class="lucide lucide-arrow-left-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg></span><a class="router-link-active text-seyitler-txt/50 uppercase text-xs" href="<?= url('/about-us') ?>">Kurumsal</a></nav></div></section><section class="relative py-8"><div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl"><div class="grid grid-cols-1 md:grid-cols-12 gap-8"><aside class="md:col-span-4 lg:col-span-3"><ul class="space-y-2"><li><a class="router-link-active w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg4 border-seyitler-bg4 text-seyitler-txt hover:bg-gray-50" href="<?= url('/about-us') ?>"><span class="text-left">Hakkımızda</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li><li><a class="w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg4 border-seyitler-bg4 text-seyitler-txt hover:bg-gray-50" href="<?= url('/about-us/history') ?>"><span class="text-left">Tarihçe</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li><li><a class="w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg4 border-seyitler-bg4 text-seyitler-txt hover:bg-gray-50" href="<?= url('/about-us/mission-vision') ?>"><span class="text-left">Misyon ve Vizyon</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li><li><a class="w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg4 border-seyitler-bg4 text-seyitler-txt hover:bg-gray-50" href="<?= url('/about-us/values') ?>"><span class="text-left">Değerler</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li><li><a class="w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg4 border-seyitler-bg4 text-seyitler-txt hover:bg-gray-50" href="<?= url('/about-us/organization') ?>"><span class="text-left">Organizasyon Yapısı</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li><li><a class="w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg4 border-seyitler-bg4 text-seyitler-txt hover:bg-gray-50" href="<?= url('/about-us/sustainability') ?>"><span class="text-left">Sürdürülebilirlik</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li><li><a aria-current="page" class="router-link-active router-link-exact-active w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg3 border-seyitler-bg3 text-white" href="<?= url('/about-us/human-resources') ?>"><span class="text-left">İnsan Kaynakları</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li></ul></aside><div class="md:col-span-8 lg:col-span-9 min-h-64"><div class="prose max-w-none"><div class=""><div class="w-full bg-gray-100 border-b border-gray-200"><div class="mx-auto max-w-7xl"><div class="aspect-[5/1] md:aspect-[6/1] lg:aspect-[7/1] bg-gray-100"><img alt="" src="<?= asset('assets/images/insan_kaynaklari-min.webp') ?>"/></div></div></div><div class="px-5 mx-auto xl:px-0 max-w-7xl py-8"><h1 class="text-2xl md:text-3xl font-semibold mb-4">İnsan Kaynakları</h1><div class="prose prose-seyitler max-w-none text-seyitler-txt"><p>Seyitler Kimya olarak, üretimden yönetime kadar tüm süreçlerde görev alan çalışanlarımızı, şirketimizin sürdürülebilir başarısının temel taşı olarak görüyoruz. Bünyemizde görev yapan personelimiz; medikal üretim alanında deneyimli, kalite standartlarına hâkim, gelişime açık ve ekip çalışmasına yatkın profesyonellerden oluşuyor.</p><p>Her bir çalışanımız, üretim süreçlerinde yüksek verimlilik ve kaliteyi sağlamak üzere eğitiliyor; görev tanımları net şekilde belirlenirken sorumluluk alanları, kurumsal yapımızla uyumlu şekilde yapılandırılıyor. Operatörlerimiz, makine parkurumuzu etkin şekilde kullanarak uluslararası standartlara uygun üretim gerçekleştiriyor.</p><p>Seyitler Kimya bünyesinde görev alan personel kadromuz; uzun yıllardır bizimle birlikte yol alan, ürünleri ve üretim süreçlerini yakından tanıyan, teknik bilgi birikimi yüksek bireylerden oluşuyor. Ar-Ge, üretim, kalite kontrol, satış ve lojistik gibi farklı departmanlarda görev alan ekip üyelerimiz; hem bireysel yetkinlikleri hem de takım uyumlarıyla şirketimizin global başarısına katkı sağlıyor.</p><p>Çalışan profilimiz; yenilikçi düşünceye açık, kalite odaklı, çözüm üreten ve etik değerlere bağlı bireylerden oluşuyor. Üniversite-sanayi iş birlikleri kapsamında yürütülen projelerde görev alan uzmanlarımız, sektörel gelişmeleri yakından takip ederek şirketimizin rekabet gücünü arttırıyor.</p><p>Seyitler Kimya olarak büyüyen organizasyon yapımız içinde, farklı alanlarda yeni ekip arkadaşları arıyoruz. Açık pozisyonlarımız dönemsel olarak güncellenmekte olup üretim, kalite kontrol, Ar-Ge, satış ve lojistik gibi birimlerde Seyitler Kimya olarak çeşitli kariyer fırsatları sunuyoruz.</p></div><div class="relative my-10"><div class="h-px bg-gray-200"></div><div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-white px-3 text-sm md:text-base text-gray-700 text-center font-medium">Güncel pozisyonlarımıza aşağıdaki bağlantıdan ulaşabilir, başvurunuzu kolayca iletebilirsiniz.</div></div><div><div class="border border-dashed border-gray-300 rounded-md p-8 text-center text-gray-600">Şu anda açık pozisyon bulunmamaktadır.</div></div></div></div></div></div></div></div></section></div>
+<?php
+/** @var array $page */
+use App\Models\Page;
+use App\Core\I18n;
+
+$hero = Page::getHero($page);
+$images = Page::getImages($page);
+$paragraphs = Page::getParagraphs($page);
+$buttons = Page::getButtons($page);
+$locale = I18n::getLocale();
+
+$bannerImg = !empty($images[0]['url']) ? $images[0]['url'] : 'assets/images/insan_kaynaklari-min.webp';
+?>
+<div>
+    <!-- Hero / Breadcrumb -->
+    <section class="relative bg-center bg-cover py-12">
+        <div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl">
+            <nav class="flex items-center gap-2 mb-6 text-sm border-b py-4">
+                <span class="text-seyitler-primary text-2xl uppercase font-semibold"><?= e(Page::getTitle($page)) ?></span>
+                <span class="text-seyitler-txt/50">
+                    <svg class="size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="m12 19-7-7 7-7"></path>
+                        <path d="M19 12H5"></path>
+                    </svg>
+                </span>
+                <a class="text-seyitler-txt/50 uppercase text-xs hover:text-seyitler-primary transition-colors" href="<?= url('/about-us') ?>">
+                    <?= __('Kurumsal', 'Corporate') ?>
+                </a>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Content Body -->
+    <section class="relative py-8">
+        <div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                
+                <!-- Reusable Corporate Sidebar -->
+                <?php require __DIR__ . '/_sidebar.php'; ?>
+
+                <!-- Dynamic Page Content -->
+                <div class="md:col-span-8 lg:col-span-9 min-h-64">
+                    <div class="prose max-w-none">
+                        
+                        <!-- Banner Image -->
+                        <div class="w-full aspect-[5/1] md:aspect-[6/1] lg:aspect-[7/1] overflow-hidden rounded-2xl border border-slate-100 shadow-xs mb-8 bg-slate-50">
+                            <img alt="<?= e(Page::getTitle($page)) ?>" src="<?= asset($bannerImg) ?>" class="w-full h-full object-cover"/>
+                        </div>
+
+                        <!-- Title -->
+                        <h1 class="text-2xl md:text-3xl font-semibold mb-4 text-slate-900">
+                            <?= e($hero['title'] ?? 'İnsan Kaynakları Politikamız') ?>
+                        </h1>
+
+                        <?php if (!empty($hero['subtitle'])): ?>
+                            <p class="text-emerald-800 font-semibold text-sm mb-4 leading-relaxed">
+                                <?= e($hero['subtitle']) ?>
+                            </p>
+                        <?php endif; ?>
+
+                        <!-- Paragraphs -->
+                        <div class="space-y-4 text-seyitler-txt leading-relaxed text-sm sm:text-base">
+                            <?php if (!empty($paragraphs)): ?>
+                                <?php foreach ($paragraphs as $p): ?>
+                                    <p><?= nl2br(e($p)) ?></p>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <p><?= nl2br(e(Page::getContent($page))) ?></p>
+                            <?php endif; ?>
+                        </div>
+
+                        <!-- Open Positions or Buttons -->
+                        <div class="relative my-10">
+                            <div class="h-px bg-gray-200"></div>
+                            <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-white px-3 text-xs md:text-sm text-gray-500 text-center font-medium">
+                                <?= __('Açık Pozisyonlar ve Kariyer Başvuruları', 'Open Positions and Career Applications') ?>
+                            </div>
+                        </div>
+
+                        <?php if (!empty($buttons)): ?>
+                            <div class="flex flex-wrap items-center justify-center gap-4 py-4">
+                                <?php foreach ($buttons as $btn): ?>
+                                    <?php 
+                                    $bText = $btn["text_{$locale}"] ?? $btn['text_tr'] ?? '';
+                                    if (empty($bText)) continue;
+                                    ?>
+                                    <a href="<?= url($btn['url'] ?? '#') ?>" target="<?= e($btn['target'] ?? '_self') ?>" class="px-6 py-3 rounded-xl bg-seyitler-primary text-white font-bold text-xs shadow-md shadow-emerald-700/20 hover:bg-emerald-700 transition-all">
+                                        <?= e($bText) ?>
+                                    </a>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php else: ?>
+                            <div class="border border-dashed border-gray-300 rounded-2xl p-8 text-center text-gray-500 text-xs sm:text-sm bg-slate-50/50">
+                                <?= __('Şu anda aktif açık pozisyon bulunmamaktadır. Genel başvurularınız için info@seyitler.com adresine özgeçmişinizi iletebilirsiniz.', 'Currently there are no open positions. You can send your CV to info@seyitler.com.') ?>
+                            </div>
+                        <?php endif; ?>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>

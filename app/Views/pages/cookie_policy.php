@@ -1,1 +1,48 @@
-<div><section class="relative bg-center bg-cover py-12"><div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl"><nav class="flex items-center gap-2 mb-6 text-sm border-b py-4"><span class="text-seyitler-primary text-2xl uppercase">Çerez Politikası</span><span class="text-seyitler-txt/50"><svg class="lucide lucide-arrow-left-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg></span><a class="text-seyitler-txt/50 uppercase text-xs" href="<?= url('/') ?>">Anasayfa</a></nav></div></section><section class="relative pb-16"><div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl"><div class="prose max-w-none text-seyitler-txt space-y-6"><h2 class="text-2xl font-bold text-seyitler-primary">ÇEREZ POLİTİKASI</h2><p>Seyitler Kimya Sanayi A.Ş. ("Şirket") olarak, web sitemizi ("Sitemiz") ziyaret edenlerin gizliliğini korumak ve kullanıcı deneyimini iyileştirmek amacıyla çerezler (cookies) kullanmaktayız. İşbu Çerez Politikası, hangi tür çerezlerin kullanıldığını ve kullanıcıların bu konudaki tercihlerini nasıl yönetebileceğini açıklamaktadır.</p><h3 class="text-xl font-semibold">1. Çerez Nedir?</h3><p>Çerezler, bir web sitesini ziyaret ettiğinizde tarayıcınız aracılığıyla cihazınıza (bilgisayar, akıllı telefon, tablet) depolanan küçük metin dosyalarıdır. Çerezler, web sitesinin daha verimli çalışmasını sağlamak, kişiselleştirilmiş bir deneyim sunmak ve site sahiplerine bilgi sağlamak amacıyla yaygın olarak kullanılır.</p><h3 class="text-xl font-semibold">2. Kullanılan Çerez Türleri</h3><ul class="list-disc pl-6 space-y-2"><li><strong>Zorunlu Çerezler:</strong> Sitenin temel işlevlerini yerine getirmesi için gerekli olan çerezlerdir (örneğin oturum yönetimi, güvenlik).</li><li><strong>Performans ve Analiz Çerezleri:</strong> Sitenin nasıl kullanıldığını anlamamıza yardımcı olan, ziyaretçi sayıları ve trafik kaynaklarını analiz eden çerezlerdir.</li><li><strong>İşlevsel Çerezler:</strong> Dil seçimi gibi tercihlerinizin hatırlanmasını sağlayan ve siteyi daha kolay kullanmanıza imkan veren çerezlerdir.</li><li><strong>Hedefleme ve Reklam Çerezleri:</strong> İlgi alanlarınıza göre size özel içerik ve reklamlar sunmak amacıyla kullanılan çerezlerdir.</li></ul><h3 class="text-xl font-semibold">3. Çerezlerin Kullanım Amaçları</h3><p>Çerezler aşağıdaki amaçlarla kullanılmaktadır:</p><ul class="list-disc pl-6 space-y-2"><li>Sitemizin düzgün ve güvenli çalışmasını sağlamak,</li><li>Ziyaretçilerin tercihlerini hatırlayarak kullanım kolaylığı sağlamak,</li><li>Sitemizin performansını analiz etmek ve iyileştirmek,</li><li>Kullanıcılarımıza daha uygun içerik ve hizmetler sunmak.</li></ul><h3 class="text-xl font-semibold">4. Çerez Tercihlerinin Yönetimi</h3><p>Çoğu tarayıcı çerezleri otomatik olarak kabul eder. Ancak, tarayıcı ayarlarınızı değiştirerek çerezleri reddedebilir veya cihazınıza çerez kaydedildiğinde uyarı alabilirsiniz. Çerezleri devre dışı bırakmanız halinde, Sitemizin bazı özelliklerinin tam olarak çalışmayabileceğini hatırlatmak isteriz.</p><p>Tarayıcınızın "Ayarlar" veya "Seçenekler" bölümünden çerez tercihlerinizi yönetebilirsiniz.</p><h3 class="text-xl font-semibold">5. İletişim</h3><p>Çerez Politikası ile ilgili her türlü soru ve görüşünüz için bizimle iletişime geçebilirsiniz.</p></div></div></section></div>
+<?php
+/** @var array|null $page */
+use App\Models\Page;
+
+$title = $page ? Page::getTitle($page) : 'Çerez Politikası';
+$content = $page ? Page::getContent($page) : '';
+$paragraphs = $page ? Page::getParagraphs($page) : [];
+?>
+<div>
+    <!-- Hero / Breadcrumb -->
+    <section class="relative bg-center bg-cover py-12">
+        <div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl">
+            <nav class="flex items-center gap-2 mb-6 text-sm border-b py-4">
+                <span class="text-seyitler-primary text-2xl uppercase font-semibold"><?= e($title) ?></span>
+                <span class="text-seyitler-txt/50">
+                    <svg class="size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="m12 19-7-7 7-7"></path>
+                        <path d="M19 12H5"></path>
+                    </svg>
+                </span>
+                <a class="text-seyitler-txt/50 uppercase text-xs hover:text-seyitler-primary transition-colors" href="<?= url('/') ?>">
+                    <?= __('Anasayfa', 'Home') ?>
+                </a>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="relative pb-16">
+        <div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl">
+            <div class="prose max-w-none text-seyitler-txt space-y-6 text-sm sm:text-base leading-relaxed">
+                <?php if (!empty($paragraphs)): ?>
+                    <h2 class="text-2xl font-bold text-seyitler-primary"><?= e($title) ?></h2>
+                    <?php foreach ($paragraphs as $p): ?>
+                        <p><?= nl2br(e($p)) ?></p>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <h2 class="text-2xl font-bold text-seyitler-primary">ÇEREZ POLİTİKASI</h2>
+                    <p>Seyitler Kimya Sanayi A.Ş. ("Şirket") olarak, web sitemizi ("Sitemiz") ziyaret edenlerin gizliliğini korumak ve kullanıcı deneyimini iyileştirmek amacıyla çerezler (cookies) kullanmaktayız.</p>
+                    <h3 class="text-xl font-semibold">1. Çerez Nedir?</h3>
+                    <p>Çerezler, bir web sitesini ziyaret ettiğinizde tarayıcınız aracılığıyla cihazınıza depolanan küçük metin dosyalarıdır.</p>
+                    <h3 class="text-xl font-semibold">2. Kullanılan Çerez Türleri</h3>
+                    <p>Sitemizde zorunlu çerezler, analiz çerezleri ve tercih çerezleri kullanılmaktadır.</p>
+                <?php endif; ?>
+            </div>
+        </div>
+    </section>
+</div>

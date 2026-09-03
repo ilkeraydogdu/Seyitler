@@ -1,1 +1,77 @@
-<div><section class="relative bg-center bg-cover py-12"><div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl"><nav class="flex items-center gap-2 mb-6 text-sm border-b py-4"><span class="text-seyitler-primary text-2xl uppercase">Değerler</span><span class="text-seyitler-txt/50"><svg class="lucide lucide-arrow-left-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg></span><a class="router-link-active text-seyitler-txt/50 uppercase text-xs" href="<?= url('/about-us') ?>">Kurumsal</a></nav></div></section><section class="relative py-8"><div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl"><div class="grid grid-cols-1 md:grid-cols-12 gap-8"><aside class="md:col-span-4 lg:col-span-3"><ul class="space-y-2"><li><a class="router-link-active w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg4 border-seyitler-bg4 text-seyitler-txt hover:bg-gray-50" href="<?= url('/about-us') ?>"><span class="text-left">Hakkımızda</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li><li><a class="w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg4 border-seyitler-bg4 text-seyitler-txt hover:bg-gray-50" href="<?= url('/about-us/history') ?>"><span class="text-left">Tarihçe</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li><li><a class="w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg4 border-seyitler-bg4 text-seyitler-txt hover:bg-gray-50" href="<?= url('/about-us/mission-vision') ?>"><span class="text-left">Misyon ve Vizyon</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li><li><a aria-current="page" class="router-link-active router-link-exact-active w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg3 border-seyitler-bg3 text-white" href="<?= url('/about-us/values') ?>"><span class="text-left">Değerler</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li><li><a class="w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg4 border-seyitler-bg4 text-seyitler-txt hover:bg-gray-50" href="<?= url('/about-us/organization') ?>"><span class="text-left">Organizasyon Yapısı</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li><li><a class="w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg4 border-seyitler-bg4 text-seyitler-txt hover:bg-gray-50" href="<?= url('/about-us/sustainability') ?>"><span class="text-left">Sürdürülebilirlik</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li><li><a class="w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg4 border-seyitler-bg4 text-seyitler-txt hover:bg-gray-50" href="<?= url('/about-us/human-resources') ?>"><span class="text-left">İnsan Kaynakları</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li></ul></aside><div class="md:col-span-8 lg:col-span-9 min-h-64"><div class="prose max-w-none"><div class="px-5 mx-auto xl:px-0 max-w-7xl"><div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center"><div class="bg-white/70 rounded-md p-5"><div class="flex items-center gap-3"><svg aria-hidden="true" class="w-auto h-32 flex-shrink-0 text-seyitler-primary" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="0.5" viewbox="0 0 24 24"><path d="M7.5 3.401a2 2 0 0 1 1.732-1l5.536.001a2 2 0 0 1 1.732 1l3.2 5.543a2 2 0 0 1 0 2.012l-3.2 5.543a2 2 0 0 1-1.732 1H9.232a2 2 0 0 1-1.732-1L4.3 10.956a2 2 0 0 1 0-2.012l3.2-5.543z"></path></svg><div class="flex-1"><h4 class="font-semibold text-seyitler-primary text-lg">Güven</h4><p class="mt-2 text-seyitler-txt">Tüm ilişkilerimizde dürüstlük ve etik sorumluluğa önem veriyoruz.</p></div></div></div><div class="bg-white/70 rounded-md p-5"><div class="flex items-center gap-3"><svg aria-hidden="true" class="w-auto h-32 flex-shrink-0 text-seyitler-primary" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="0.5" viewbox="0 0 24 24"><path d="M7.5 3.401a2 2 0 0 1 1.732-1l5.536.001a2 2 0 0 1 1.732 1l3.2 5.543a2 2 0 0 1 0 2.012l-3.2 5.543a2 2 0 0 1-1.732 1H9.232a2 2 0 0 1-1.732-1L4.3 10.956a2 2 0 0 1 0-2.012l3.2-5.543z"></path></svg><div class="flex-1"><h4 class="font-semibold text-seyitler-primary text-lg">Kalite</h4><p class="mt-2 text-seyitler-txt">Ürün ve süreçlerimizde mükemmelliği hedefliyoruz.</p></div></div></div><div class="bg-white/70 rounded-md p-5"><div class="flex items-center gap-3"><svg aria-hidden="true" class="w-auto h-32 flex-shrink-0 text-seyitler-primary" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="0.5" viewbox="0 0 24 24"><path d="M7.5 3.401a2 2 0 0 1 1.732-1l5.536.001a2 2 0 0 1 1.732 1l3.2 5.543a2 2 0 0 1 0 2.012l-3.2 5.543a2 2 0 0 1-1.732 1H9.232a2 2 0 0 1-1.732-1L4.3 10.956a2 2 0 0 1 0-2.012l3.2-5.543z"></path></svg><div class="flex-1"><h4 class="font-semibold text-seyitler-primary text-lg">Şeffaflık</h4><p class="mt-2 text-seyitler-txt">Faaliyetlerimizi açık, izlenebilir ve hesap verebilir şekilde yürütüyoruz.</p></div></div></div><div class="bg-white/70 rounded-md p-5"><div class="flex items-center gap-3"><svg aria-hidden="true" class="w-auto h-32 flex-shrink-0 text-seyitler-primary" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="0.5" viewbox="0 0 24 24"><path d="M7.5 3.401a2 2 0 0 1 1.732-1l5.536.001a2 2 0 0 1 1.732 1l3.2 5.543a2 2 0 0 1 0 2.012l-3.2 5.543a2 2 0 0 1-1.732 1H9.232a2 2 0 0 1-1.732-1L4.3 10.956a2 2 0 0 1 0-2.012l3.2-5.543z"></path></svg><div class="flex-1"><h4 class="font-semibold text-seyitler-primary text-lg">Yenilik</h4><p class="mt-2 text-seyitler-txt">Ar-Ge ve teknolojiyi merkeze alarak sürekli gelişimi destekliyoruz.</p></div></div></div><div class="bg-white/70 rounded-md p-5"><div class="flex items-center gap-3"><svg aria-hidden="true" class="w-auto h-32 flex-shrink-0 text-seyitler-primary" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="0.5" viewbox="0 0 24 24"><path d="M7.5 3.401a2 2 0 0 1 1.732-1l5.536.001a2 2 0 0 1 1.732 1l3.2 5.543a2 2 0 0 1 0 2.012l-3.2 5.543a2 2 0 0 1-1.732 1H9.232a2 2 0 0 1-1.732-1L4.3 10.956a2 2 0 0 1 0-2.012l3.2-5.543z"></path></svg><div class="flex-1"><h4 class="font-semibold text-seyitler-primary text-lg">Sorumluluk</h4><p class="mt-2 text-seyitler-txt">İnsan sağlığı, çevre ve topluma karşı duyarlılıkla hareket ediyoruz.</p></div></div></div><div class="bg-white/70 rounded-md p-5"><div class="flex items-center gap-3"><svg aria-hidden="true" class="w-auto h-32 flex-shrink-0 text-seyitler-primary" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="0.5" viewbox="0 0 24 24"><path d="M7.5 3.401a2 2 0 0 1 1.732-1l5.536.001a2 2 0 0 1 1.732 1l3.2 5.543a2 2 0 0 1 0 2.012l-3.2 5.543a2 2 0 0 1-1.732 1H9.232a2 2 0 0 1-1.732-1L4.3 10.956a2 2 0 0 1 0-2.012l3.2-5.543z"></path></svg><div class="flex-1"><h4 class="font-semibold text-seyitler-primary text-lg">İş Birliği</h4><p class="mt-2 text-seyitler-txt">Çalışanlarımız, müşterilerimiz ve paydaşlarımızla ortak başarı kültürünü benimsiyoruz.</p></div></div></div></div></div></div></div></div></div></section></div>
+<?php
+/** @var array $page */
+use App\Models\Page;
+use App\Core\I18n;
+
+$hero = Page::getHero($page);
+$sections = Page::getSectionsData($page);
+$values = Page::getValues($page);
+$locale = I18n::getLocale();
+
+if (empty($values)) {
+    $values = [
+        ['title_tr' => 'Güven', 'desc_tr' => 'Tüm ilişkilerimizde dürüstlük ve etik sorumluluğa önem veriyoruz.'],
+        ['title_tr' => 'Kalite', 'desc_tr' => 'Ürün ve süreçlerimizde mükemmelliği hedefliyoruz.'],
+        ['title_tr' => 'Şeffaflık', 'desc_tr' => 'Faaliyetlerimizi açık, izlenebilir ve hesap verebilir şekilde yürütüyoruz.'],
+        ['title_tr' => 'Yenilik', 'desc_tr' => 'Ar-Ge ve teknolojiyi merkeze alarak sürekli gelişimi destekliyoruz.'],
+        ['title_tr' => 'Sorumluluk', 'desc_tr' => 'İnsan sağlığı, çevre ve topluma karşı duyarlılıkla hareket ediyoruz.'],
+        ['title_tr' => 'İş Birliği', 'desc_tr' => 'Çalışanlarımız, müşterilerimiz ve paydaşlarımızla ortak başarı kültürünü benimsiyoruz.']
+    ];
+}
+?>
+<div>
+    <!-- Hero / Breadcrumb -->
+    <section class="relative bg-center bg-cover py-12">
+        <div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl">
+            <nav class="flex items-center gap-2 mb-6 text-sm border-b py-4">
+                <span class="text-seyitler-primary text-2xl uppercase font-semibold"><?= e(Page::getTitle($page)) ?></span>
+                <span class="text-seyitler-txt/50">
+                    <svg class="size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="m12 19-7-7 7-7"></path>
+                        <path d="M19 12H5"></path>
+                    </svg>
+                </span>
+                <a class="text-seyitler-txt/50 uppercase text-xs hover:text-seyitler-primary transition-colors" href="<?= url('/about-us') ?>">
+                    <?= __('Kurumsal', 'Corporate') ?>
+                </a>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Content Body -->
+    <section class="relative py-8">
+        <div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                
+                <!-- Reusable Corporate Sidebar -->
+                <?php require __DIR__ . '/_sidebar.php'; ?>
+
+                <!-- Dynamic Page Content -->
+                <div class="md:col-span-8 lg:col-span-9 min-h-64">
+                    <div class="prose max-w-none">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+                            <?php foreach ($values as $val): ?>
+                                <?php 
+                                $vTitle = $val["title_{$locale}"] ?? $val['title_tr'] ?? '';
+                                $vDesc = $val["desc_{$locale}"] ?? $val['desc_tr'] ?? '';
+                                ?>
+                                <div class="bg-white/80 rounded-2xl p-6 border border-slate-100 shadow-xs hover:border-emerald-200 hover:shadow-md transition-all flex items-start gap-4">
+                                    <div class="size-12 rounded-xl bg-emerald-50 text-seyitler-primary flex items-center justify-center shrink-0">
+                                        <svg class="size-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-bold text-slate-900 text-lg mb-1"><?= e($vTitle) ?></h4>
+                                        <p class="text-sm text-seyitler-txt leading-relaxed"><?= nl2br(e($vDesc)) ?></p>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>

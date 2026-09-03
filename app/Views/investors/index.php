@@ -44,7 +44,7 @@ foreach ($tree as $cat) {
         <section class="relative bg-center bg-cover py-12">
             <div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl">
                 <nav class="flex items-center gap-2 mb-6 text-sm border-b py-4">
-                    <span class="text-seyitler-primary text-2xl uppercase font-semibold"><?= __('menu_investors', 'Yatırımcı İlişkileri') ?></span>
+                    <span class="text-seyitler-primary text-2xl uppercase font-semibold"><?= e(!empty($page) ? \App\Models\Page::getTitle($page) : __('menu_investors', 'Yatırımcı İlişkileri')) ?></span>
                     <span class="text-seyitler-txt/50">
                         <svg class="lucide lucide-arrow-left-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
                     </span>
