@@ -11,6 +11,35 @@ $buttons = $sections['buttons'] ?? [];
 $btn1 = $buttons[0] ?? ['text_tr' => '', 'text_en' => '', 'text_ar' => '', 'url' => '', 'target' => '_self'];
 $btn2 = $buttons[1] ?? ['text_tr' => '', 'text_en' => '', 'text_ar' => '', 'url' => '', 'target' => '_self'];
 $timeline = $sections['timeline'] ?? [];
+$video = Page::getVideo($page);
+
+// Akıllı Medya Etiketleri
+$img1Label = '1. Tanıtım Görseli';
+$img2Label = '2. Tanıtım Görseli';
+$hasVideo = in_array($page['slug'], ['rd', 'areas', 'home', 'about-us'], true) || !empty($video['url']);
+
+if ($page['slug'] === 'organization') {
+    $img1Label = 'Başkanın Portre Fotoğrafı';
+    $img2Label = 'Organizasyon Şeması Görseli';
+} elseif ($page['slug'] === 'mission-vision') {
+    $img1Label = 'Misyonumuz Tanıtım Görseli';
+    $img2Label = 'Vizyonumuz Tanıtım Görseli';
+} elseif ($page['slug'] === 'sustainability') {
+    $img1Label = 'Sürdürülebilirlik Geniş Banner Görseli';
+    $img2Label = 'İkinci Çevre & Tesis Görseli';
+} elseif ($page['slug'] === 'human-resources') {
+    $img1Label = 'İnsan Kaynakları Banner Görseli';
+    $img2Label = 'Ekip / Çalışma Ortamı Görseli';
+} elseif ($page['slug'] === 'rd') {
+    $img1Label = 'Ar-Ge Laboratuvarı Görseli';
+    $img2Label = 'İnovasyon & Test Merkezi Görseli';
+} elseif ($page['slug'] === 'areas') {
+    $img1Label = 'Üretim Tesisi Görseli (Video Posteri)';
+    $img2Label = 'Küresel Dağıtım & İhracat Görseli';
+} elseif ($page['slug'] === 'about-us') {
+    $img1Label = '1. Üretim & Tesis Görseli';
+    $img2Label = '2. Fabrika & Makine Parkuru Görseli';
+}
 
 $publicUrl = $page['slug'] === 'home' 
     ? url('/') 
@@ -98,67 +127,219 @@ $publicUrl = $page['slug'] === 'home'
         </div>
 
         <!-- SECTION 2: MEDYA & SAYFA İÇİ GÖRSELLER -->
-        <div class="bg-white rounded-3xl border border-slate-200/80 shadow-subtle p-6 sm:p-8 space-y-5">
-            <div class="flex items-center gap-3 pb-3 border-b border-slate-100">
-                <div class="size-8 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center font-bold text-xs">02</div>
-                <div>
-                    <h3 class="font-bold text-slate-900 text-sm">Sayfa İçi Görseller & Medya Yönetimi</h3>
-                    <p class="text-xs text-slate-400">Sayfanın gövdesinde gösterilen tanıtım ve tesis fotoğrafları</p>
+        <!-- SECTION 2: MEDYA, VİDEO & GÖRSEL YÖNETİMİ -->
+        <div class="bg-white rounded-3xl border border-slate-200/80 shadow-subtle p-6 sm:p-8 space-y-6">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div class="flex items-center gap-3">
+                    <div class="size-8 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center font-bold text-xs">02</div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-sm">Medya, Video & Görseller</h3>
+                        <p class="text-xs text-slate-400">Sayfada yer alan video gösterimleri, ana tanıtım görselleri ve galeri fotoğrafları</p>
+                    </div>
+                </div>
+                <span class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-100">
+                    <?= !empty($video['url']) ? 'Video + Görseller Aktif' : 'Görseller Aktif' ?>
+                </span>
+            </div>
+
+            <!-- 2.A: SAYFA TANITIM VİDEOSU -->
+            <div class="p-5 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 text-white shadow-md border border-slate-800 space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/10">
+                    <div class="flex items-center gap-2.5">
+                        <div class="size-8 rounded-xl bg-red-600/30 border border-red-500/40 text-red-400 flex items-center justify-center">
+                            <svg class="size-4" fill="currentColor" viewBox="0 0 24 24"><path d="m9.5 7.5 7 4.5-7 4.5z"/></svg>
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold text-white flex items-center gap-2">
+                                <span>Sayfa Tanıtım Videosu (Video Showcase)</span>
+                                <?php if ($hasVideo): ?>
+                                    <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-normal">Bu Sayfada Video Var</span>
+                                <?php endif; ?>
+                            </h4>
+                            <p class="text-[11px] text-slate-400">Sayfadaki tanıtım videosunu, MP4 bağlantısını veya video kapak görselini buradan yönetebilirsiniz.</p>
+                        </div>
+                    </div>
+                    <?php if (!empty($video['url'])): ?>
+                        <a href="<?= str_starts_with($video['url'], 'http') ? $video['url'] : asset($video['url']) ?>" target="_blank" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-[11px] text-slate-200 transition-colors flex items-center gap-1.5 self-start sm:self-auto">
+                            <svg class="size-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                            <span>Videoyu Aç</span>
+                        </a>
+                    <?php endif; ?>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-start">
+                    <!-- Inputs -->
+                    <div class="md:col-span-7 space-y-3">
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Video Dosya Yolu veya Harici URL (MP4 / WebM)</label>
+                            <input type="text" name="video_url" value="<?= e($video['url'] ?? '') ?>" placeholder="https://r2-content-api.../ArGe.mp4 veya assets/videos/tanitim.mp4" class="w-full px-3 py-2 text-xs rounded-xl border border-white/15 bg-white/5 font-mono text-white placeholder-slate-500 outline-none focus:border-red-500 focus:bg-white/10"/>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Yeni Video Dosyası Yükle</label>
+                                <input type="file" name="video_file" accept="video/mp4,video/webm,video/ogg" class="w-full text-xs text-slate-400 file:mr-2 file:py-1.5 file:px-2.5 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-red-600/30 file:text-red-200 hover:file:bg-red-600/50"/>
+                                <span class="text-[10px] text-slate-500 mt-0.5 block">Formatlar: .mp4, .webm (Maks 100MB)</span>
+                            </div>
+
+                            <div>
+                                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Video Başlığı (Title)</label>
+                                <input type="text" name="video_title" value="<?= e($video['title'] ?? '') ?>" placeholder="Seyitler Kimya Tanıtım Filmi" class="w-full px-3 py-2 text-xs rounded-xl border border-white/15 bg-white/5 text-white placeholder-slate-500 outline-none focus:border-red-500 focus:bg-white/10"/>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Video Kapak Görseli (Poster) URL</label>
+                            <input type="text" name="video_poster" value="<?= e($video['poster'] ?? '') ?>" placeholder="assets/images/arge_1-min.webp" class="w-full px-3 py-2 text-xs rounded-xl border border-white/15 bg-white/5 font-mono text-white placeholder-slate-500 outline-none focus:border-red-500 focus:bg-white/10"/>
+                        </div>
+                    </div>
+
+                    <!-- Video Preview Player -->
+                    <div class="md:col-span-5 bg-black/40 rounded-xl p-3 border border-white/10 flex flex-col items-center justify-center text-center">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">Canlı Video Önizlemesi</span>
+                        <?php if (!empty($video['url'])): ?>
+                            <video controls preload="metadata" class="w-full max-h-44 rounded-lg bg-black object-cover shadow-inner" src="<?= str_starts_with($video['url'], 'http') ? $video['url'] : asset($video['url']) ?>" poster="<?= !empty($video['poster']) ? asset($video['poster']) : '' ?>"></video>
+                        <?php else: ?>
+                            <div class="py-8 px-4 text-slate-500 text-xs flex flex-col items-center gap-2">
+                                <svg class="size-8 opacity-40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
+                                <span>Bu sayfa için henüz bir video bağlantısı girilmedi.</span>
+                            </div>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- 2.B: SAYFA ANA GÖRSELLERİ -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
                 <!-- Image 1 -->
                 <div class="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-3">
                     <div class="flex items-center justify-between">
-                        <span class="text-xs font-bold text-slate-800">1. Tanıtım Görseli</span>
+                        <span class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                            <span class="size-2 rounded-full bg-blue-600"></span>
+                            <span><?= e($img1Label) ?></span>
+                        </span>
                         <?php if (!empty($img1['url'])): ?>
                             <a href="<?= asset($img1['url']) ?>" target="_blank" class="text-[11px] text-emerald-700 hover:underline font-semibold flex items-center gap-1">
                                 <svg class="size-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/></svg>
-                                <span>Mevcut Görsel</span>
+                                <span>Görseli Gör</span>
                             </a>
                         <?php endif; ?>
                     </div>
+
+                    <?php if (!empty($img1['url'])): ?>
+                        <div class="w-full h-32 rounded-xl overflow-hidden border border-slate-200 bg-white shadow-2xs">
+                            <img src="<?= asset($img1['url']) ?>" alt="<?= e($img1['alt'] ?? '') ?>" class="w-full h-full object-cover"/>
+                        </div>
+                    <?php endif; ?>
+
                     <div>
-                        <label class="block text-[11px] font-semibold text-slate-500 mb-1">Dosya Yolu veya Harici URL</label>
-                        <input type="text" name="image_1_url" value="<?= e($img1['url'] ?? '') ?>" placeholder="assets/images/hakkimizda_01.webp" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white font-mono text-slate-700 outline-none"/>
+                        <label class="block text-[11px] font-semibold text-slate-600 mb-1">Dosya Yolu veya URL</label>
+                        <input type="text" name="image_1_url" value="<?= e($img1['url'] ?? '') ?>" placeholder="assets/images/..." class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white font-mono text-slate-700 outline-none focus:border-emerald-500"/>
                     </div>
                     <div>
-                        <label class="block text-[11px] font-semibold text-slate-500 mb-1">Yeni Dosya Yükle</label>
-                        <input type="file" name="image_1_file" accept="image/*" class="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100"/>
+                        <label class="block text-[11px] font-semibold text-slate-600 mb-1">Yeni Dosya Yükle</label>
+                        <input type="file" name="image_1_file" accept="image/*" class="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"/>
                     </div>
                     <div>
-                        <label class="block text-[11px] font-semibold text-slate-500 mb-1">SEO Alt Açıklaması</label>
-                        <input type="text" name="image_1_alt" value="<?= e($img1['alt'] ?? '') ?>" placeholder="Seyitler Kimya Üretim Kampüsü" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white text-slate-800 outline-none"/>
+                        <label class="block text-[11px] font-semibold text-slate-600 mb-1">SEO Alt Açıklaması</label>
+                        <input type="text" name="image_1_alt" value="<?= e($img1['alt'] ?? '') ?>" placeholder="<?= e($img1Label) ?>" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white text-slate-800 outline-none focus:border-emerald-500"/>
                     </div>
                 </div>
 
                 <!-- Image 2 -->
                 <div class="p-4 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-3">
                     <div class="flex items-center justify-between">
-                        <span class="text-xs font-bold text-slate-800">2. Tanıtım Görseli</span>
+                        <span class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                            <span class="size-2 rounded-full bg-purple-600"></span>
+                            <span><?= e($img2Label) ?></span>
+                        </span>
                         <?php if (!empty($img2['url'])): ?>
                             <a href="<?= asset($img2['url']) ?>" target="_blank" class="text-[11px] text-emerald-700 hover:underline font-semibold flex items-center gap-1">
                                 <svg class="size-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/></svg>
-                                <span>Mevcut Görsel</span>
+                                <span>Görseli Gör</span>
                             </a>
                         <?php endif; ?>
                     </div>
+
+                    <?php if (!empty($img2['url'])): ?>
+                        <div class="w-full h-32 rounded-xl overflow-hidden border border-slate-200 bg-white shadow-2xs">
+                            <img src="<?= asset($img2['url']) ?>" alt="<?= e($img2['alt'] ?? '') ?>" class="w-full h-full object-cover"/>
+                        </div>
+                    <?php endif; ?>
+
                     <div>
-                        <label class="block text-[11px] font-semibold text-slate-500 mb-1">Dosya Yolu veya Harici URL</label>
-                        <input type="text" name="image_2_url" value="<?= e($img2['url'] ?? '') ?>" placeholder="assets/images/hakkimizda_02.webp" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white font-mono text-slate-700 outline-none"/>
+                        <label class="block text-[11px] font-semibold text-slate-600 mb-1">Dosya Yolu veya URL</label>
+                        <input type="text" name="image_2_url" value="<?= e($img2['url'] ?? '') ?>" placeholder="assets/images/..." class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white font-mono text-slate-700 outline-none focus:border-emerald-500"/>
                     </div>
                     <div>
-                        <label class="block text-[11px] font-semibold text-slate-500 mb-1">Yeni Dosya Yükle</label>
-                        <input type="file" name="image_2_file" accept="image/*" class="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100"/>
+                        <label class="block text-[11px] font-semibold text-slate-600 mb-1">Yeni Dosya Yükle</label>
+                        <input type="file" name="image_2_file" accept="image/*" class="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100"/>
                     </div>
                     <div>
-                        <label class="block text-[11px] font-semibold text-slate-500 mb-1">SEO Alt Açıklaması</label>
-                        <input type="text" name="image_2_alt" value="<?= e($img2['alt'] ?? '') ?>" placeholder="Modern Makine Parkuru" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white text-slate-800 outline-none"/>
+                        <label class="block text-[11px] font-semibold text-slate-600 mb-1">SEO Alt Açıklaması</label>
+                        <input type="text" name="image_2_alt" value="<?= e($img2['alt'] ?? '') ?>" placeholder="<?= e($img2Label) ?>" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white text-slate-800 outline-none focus:border-emerald-500"/>
                     </div>
                 </div>
             </div>
+
+            <!-- 2.C: ÇOKLU GALERİ GÖRSELLERİ (Özellikle Galeri Barındıran Sayfalar İçin) -->
+            <?php 
+            $extraImages = array_slice($images, 2);
+            ?>
+            <div class="pt-4 border-t border-slate-100">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-bold text-slate-800">Ek Galeri Görselleri (Çoklu Medya)</span>
+                        <span class="text-[10px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-mono"><?= count($extraImages) ?> adet ekli</span>
+                    </div>
+                    <button type="button" onclick="addGalleryRow()" class="px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition-colors cursor-pointer flex items-center gap-1">
+                        <svg class="size-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
+                        <span>Galeri Görseli Ekle</span>
+                    </button>
+                </div>
+
+                <div id="gallery-container" class="space-y-3">
+                    <?php if (empty($extraImages)): ?>
+                        <div id="gallery-empty-hint" class="p-4 rounded-xl border border-dashed border-slate-200 text-center text-xs text-slate-400 bg-slate-50/50">
+                            Sayfaya özel ek galeri görselleri eklemek için yukarıdaki "Galeri Görseli Ekle" butonunu kullanabilirsiniz.
+                        </div>
+                    <?php else: ?>
+                        <?php foreach ($extraImages as $idx => $extraImg): ?>
+                            <div class="gallery-row p-3 rounded-xl border border-slate-200 bg-slate-50 flex items-center gap-3">
+                                <?php if (!empty($extraImg['url'])): ?>
+                                    <img src="<?= asset($extraImg['url']) ?>" class="size-10 rounded-lg object-cover border border-slate-200 shrink-0"/>
+                                <?php endif; ?>
+                                <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                    <input type="text" name="gallery_image_url[]" value="<?= e($extraImg['url'] ?? '') ?>" placeholder="Görsel URL / Dosya Yolu" class="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-white font-mono text-slate-700 outline-none"/>
+                                    <input type="text" name="gallery_image_alt[]" value="<?= e($extraImg['alt'] ?? '') ?>" placeholder="Görsel Başlığı / Açıklaması" class="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-white text-slate-700 outline-none"/>
+                                </div>
+                                <button type="button" onclick="this.closest('.gallery-row').remove()" class="p-1.5 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer shrink-0">
+                                    <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"/></svg>
+                                </button>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+            </div>
         </div>
+
+        <script>
+        function addGalleryRow() {
+            var hint = document.getElementById('gallery-empty-hint');
+            if (hint) hint.remove();
+            var container = document.getElementById('gallery-container');
+            var row = document.createElement('div');
+            row.className = 'gallery-row p-3 rounded-xl border border-slate-200 bg-slate-50 flex items-center gap-3 animate-fade-in';
+            row.innerHTML = '<div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-2">' +
+                '<input type="text" name="gallery_image_url[]" placeholder="assets/images/galeri_01.jpg" class="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-white font-mono text-slate-700 outline-none focus:border-blue-500"/>' +
+                '<input type="text" name="gallery_image_alt[]" placeholder="Galeri Görseli Açıklaması" class="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-white text-slate-700 outline-none focus:border-blue-500"/>' +
+                '</div>' +
+                '<button type="button" onclick="this.closest(\'.gallery-row\').remove()" class="p-1.5 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer shrink-0">' +
+                '<svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>' +
+                '</button>';
+            container.appendChild(row);
+        }
+        </script>
 
         <!-- SECTION 3: AKSİYON BUTONLARI & LİNKLER -->
         <div class="bg-white rounded-3xl border border-slate-200/80 shadow-subtle p-6 sm:p-8 space-y-5">

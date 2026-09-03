@@ -10,6 +10,10 @@ $buttons = $page ? Page::getButtons($page) : [];
 $locale = I18n::getLocale();
 
 $posterImg = !empty($images[0]['url']) ? $images[0]['url'] : 'assets/images/plant-picture-clean-room-equipment-stainless-steel-machines-min.webp';
+
+$video = $page ? Page::getVideo($page) : [];
+$videoSrc = !empty($video['url']) ? (str_starts_with($video['url'], 'http') ? $video['url'] : asset($video['url'])) : 'https://r2-content-api.okesici.workers.dev/files/photos/FaaliyetAlanlari.mp4';
+$videoPoster = !empty($video['poster']) ? (str_starts_with($video['poster'], 'http') ? $video['poster'] : asset($video['poster'])) : asset($posterImg);
 ?>
 <div>
     <!-- Hero / Breadcrumb -->
@@ -36,7 +40,7 @@ $posterImg = !empty($images[0]['url']) ? $images[0]['url'] : 'assets/images/plan
             
             <!-- Video Showcase -->
             <div class="overflow-hidden rounded-2xl mb-8 shadow-sm">
-                <video autoplay loop muted playsinline preload="none" poster="<?= asset($posterImg) ?>" class="w-full h-full rounded-2xl object-cover max-h-96" src="https://r2-content-api.okesici.workers.dev/files/photos/FaaliyetAlanlari.mp4"></video>
+                <video autoplay loop muted playsinline preload="none" poster="<?= e($videoPoster) ?>" class="w-full h-full rounded-2xl object-cover max-h-96" src="<?= e($videoSrc) ?>"></video>
             </div>
 
             <!-- Dynamic Text Content -->

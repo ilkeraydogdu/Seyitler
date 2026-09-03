@@ -66,7 +66,8 @@ class PageController
             'subtitle' => trim((string)$request->post('hero_subtitle')) ?: trim((string)$request->post('subtitle_tr')),
         ];
 
-        // 2. Images Handling
+        // 2. Images & Multi-Media Handling
+        $imagesList = [];
         $image1 = trim((string)$request->post('image_1_url'));
         $image2 = trim((string)$request->post('image_2_url'));
 
@@ -79,12 +80,45 @@ class PageController
             if ($uploaded) $image2 = $uploaded;
         }
 
-        $imagesList = [];
         if ($image1) $imagesList[] = ['url' => $image1, 'alt' => trim((string)$request->post('image_1_alt')) ?: $page['title_tr']];
         if ($image2) $imagesList[] = ['url' => $image2, 'alt' => trim((string)$request->post('image_2_alt')) ?: $page['title_tr']];
+
+        // Process Additional Gallery Images
+        $galleryUrls = $request->post('gallery_image_url');
+        $galleryAlts = $request->post('gallery_image_alt');
+        if (is_array($galleryUrls)) {
+            foreach ($galleryUrls as $gIdx => $gUrl) {
+                $gUrl = trim((string)$gUrl);
+                if ($gUrl !== '') {
+                    $imagesList[] = [
+                        'url' => $gUrl,
+                        'alt' => trim((string)($galleryAlts[$gIdx] ?? '')) ?: $page['title_tr']
+                    ];
+                }
+            }
+        }
         if (!empty($imagesList)) {
             $sectionsData['images'] = $imagesList;
         }
+
+        // 3. Video Handling (Embed / Direct MP4 / Uploaded Video)
+        $videoUrl = trim((string)$request->post('video_url'));
+        $videoPoster = trim((string)$request->post('video_poster'));
+
+        if (isset($_FILES['video_file']) && $_FILES['video_file']['error'] === UPLOAD_ERR_OK) {
+            $uploadedVideo = $this->handleFileUpload($_FILES['video_file'], 'assets/videos/');
+            if ($uploadedVideo) $videoUrl = $uploadedVideo;
+        }
+        if (isset($_FILES['video_poster_file']) && $_FILES['video_poster_file']['error'] === UPLOAD_ERR_OK) {
+            $uploadedPoster = $this->handleFileUpload($_FILES['video_poster_file'], 'assets/images/pages/');
+            if ($uploadedPoster) $videoPoster = $uploadedPoster;
+        }
+
+        $sectionsData['video'] = [
+            'url'    => $videoUrl,
+            'poster' => $videoPoster,
+            'title'  => trim((string)$request->post('video_title')) ?: $page['title_tr']
+        ];
 
         // 3. Action Buttons
         $btnTextTr = trim((string)$request->post('btn_primary_text_tr'));
@@ -194,7 +228,7 @@ class PageController
 
     private function handleFileUpload(array $file, string $targetDir): ?string
     {
-        $allowedExts = ['jpg', 'jpeg', 'png', 'webp', 'svg'];
+        $allowedExts = ['jpg', 'jpeg', 'png', 'webp', 'svg', 'mp4', 'webm', 'ogg', 'mov'];
         $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
 
         if (!in_array($ext, $allowedExts, true)) {

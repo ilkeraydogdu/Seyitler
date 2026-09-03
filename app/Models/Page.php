@@ -105,6 +105,16 @@ class Page
         return $sec['buttons'] ?? [];
     }
 
+    public static function getVideo(array $page): array
+    {
+        $sec = self::getSectionsData($page);
+        return $sec['video'] ?? [
+            'url'    => '',
+            'poster' => '',
+            'title'  => ''
+        ];
+    }
+
     public static function getParagraphs(array $page): array
     {
         $locale = I18n::getLocale();

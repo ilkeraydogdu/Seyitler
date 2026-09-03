@@ -11,6 +11,10 @@ $locale = I18n::getLocale();
 
 $img1 = !empty($images[0]['url']) ? $images[0]['url'] : 'assets/images/arge_1-min.webp';
 $img2 = !empty($images[1]['url']) ? $images[1]['url'] : 'assets/images/arge_2-min.webp';
+
+$video = $page ? Page::getVideo($page) : [];
+$videoSrc = !empty($video['url']) ? (str_starts_with($video['url'], 'http') ? $video['url'] : asset($video['url'])) : 'https://r2-content-api.okesici.workers.dev/files/photos/ArGe.mp4';
+$videoPoster = !empty($video['poster']) ? (str_starts_with($video['poster'], 'http') ? $video['poster'] : asset($video['poster'])) : asset($img1);
 ?>
 <div>
     <!-- Hero / Breadcrumb -->
@@ -71,7 +75,7 @@ $img2 = !empty($images[1]['url']) ? $images[1]['url'] : 'assets/images/arge_2-mi
 
                 <!-- Video Banner -->
                 <div class="overflow-hidden rounded-2xl shadow-sm">
-                    <video autoplay loop muted playsinline preload="none" poster="<?= asset($img1) ?>" class="w-full h-full rounded-2xl object-cover max-h-96" src="https://r2-content-api.okesici.workers.dev/files/photos/ArGe.mp4"></video>
+                    <video autoplay loop muted playsinline preload="none" poster="<?= e($videoPoster) ?>" class="w-full h-full rounded-2xl object-cover max-h-96" src="<?= e($videoSrc) ?>"></video>
                 </div>
 
                 <!-- Section 2 -->
