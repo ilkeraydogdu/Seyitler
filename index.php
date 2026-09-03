@@ -100,6 +100,12 @@ Router::get('/kvkk', 'App\Controllers\PageController@kvkk');
 Router::get('/cerez-politikasi', 'App\Controllers\PageController@cookiePolicy');
 Router::get('/cookie-policy', 'App\Controllers\PageController@cookiePolicy');
 
+// SEO, Dynamic XML Sitemap & Robots Routes
+Router::get('/sitemap.xml', 'App\Controllers\SeoController@sitemap');
+Router::get('/robots.txt', 'App\Controllers\SeoController@robots');
+Router::get('/.well-known/security.txt', 'App\Controllers\SeoController@securityTxt');
+Router::get('/security.txt', 'App\Controllers\SeoController@securityTxt');
+
 // Language Switcher Route
 Router::get('/lang/{locale}', function (Request $req, string $locale) {
     I18n::setLocale($locale);

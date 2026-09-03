@@ -11,7 +11,7 @@ use App\Models\Page;
 class SeoController
 {
     /**
-     * Generate Google-compliant dynamic XML sitemap with multi-lingual hreflang.
+     * Generate Google-compliant dynamic XML sitemap with multi-lingual hreflang & Google Images.
      */
     public function sitemap(Request $request): void
     {
@@ -20,7 +20,7 @@ class SeoController
         $baseUrl = "{$protocol}://{$host}" . rtrim(url('/'), '/');
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">' . "\n";
+        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
 
         $today = date('Y-m-d');
 
@@ -56,7 +56,7 @@ class SeoController
             $xml .= "  </url>\n";
         }
 
-        // 2. All Active Products
+        // 2. All Active Products with Image Sitemap
         $products = Product::allActive();
         foreach ($products as $p) {
             $loc = $baseUrl . '/products/' . $p['slug'];
@@ -69,6 +69,16 @@ class SeoController
             $xml .= "    <xhtml:link rel=\"alternate\" hreflang=\"tr\" href=\"" . htmlspecialchars($loc, ENT_XML1, 'UTF-8') . "\"/>\n";
             $xml .= "    <xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"" . htmlspecialchars($loc . '?lang=en', ENT_XML1, 'UTF-8') . "\"/>\n";
             $xml .= "    <xhtml:link rel=\"alternate\" hreflang=\"ar\" href=\"" . htmlspecialchars($loc . '?lang=ar', ENT_XML1, 'UTF-8') . "\"/>\n";
+
+            if (!empty($p['main_image'])) {
+                $imgUrl = $baseUrl . '/' . ltrim($p['main_image'], '/');
+                $imgTitle = htmlspecialchars($p['title_tr'] ?? 'Seyitler Kimya Medikal Ürün', ENT_XML1, 'UTF-8');
+                $xml .= "    <image:image>\n";
+                $xml .= "      <image:loc>" . htmlspecialchars($imgUrl, ENT_XML1, 'UTF-8') . "</image:loc>\n";
+                $xml .= "      <image:title>{$imgTitle}</image:title>\n";
+                $xml .= "    </image:image>\n";
+            }
+
             $xml .= "  </url>\n";
         }
 
@@ -103,7 +113,8 @@ class SeoController
         $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
         $sitemapUrl = "{$protocol}://{$host}" . rtrim(url('/sitemap.xml'), '/');
 
-        $txt = "User-agent: *\n";
+        $txt = "# SEYİTLER KİMYA SANAYİ A.Ş. - DYNAMIC ROBOTS POLICY\n";
+        $txt .= "User-agent: *\n";
         // Disallow executive backend completely
         $txt .= "Disallow: /podmin/\n";
         $txt .= "Disallow: /podmin\n";
@@ -117,12 +128,41 @@ class SeoController
         // Allow public assets and pages
         $txt .= "Allow: /assets/\n";
         $txt .= "Allow: /\n\n";
+
+        // AI Bot Policies
+        $txt .= "User-agent: GPTBot\nAllow: /\nDisallow: /podmin/\n\n";
+        $txt .= "User-agent: Google-Extended\nAllow: /\nDisallow: /podmin/\n\n";
+        $txt .= "User-agent: PerplexityBot\nAllow: /\nDisallow: /podmin/\n\n";
+
         // Sitemap specification
         $txt .= "Sitemap: {$sitemapUrl}\n";
 
         Response::status(200);
         Response::header('Content-Type', 'text/plain; charset=utf-8');
         Response::header('Cache-Control', 'public, max-age=86400');
+        echo $txt;
+        exit;
+    }
+
+    /**
+     * RFC 9116 Security.txt for enterprise trust & responsible disclosure.
+     */
+    public function securityTxt(Request $request): void
+    {
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+        $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+        $contactUrl = "{$protocol}://{$host}" . rtrim(url('/contact'), '/');
+
+        $txt = "Contact: mailto:info@seyitler.com\n";
+        $txt .= "Contact: {$contactUrl}\n";
+        $txt .= "Expires: 2028-12-31T23:59:59.000Z\n";
+        $txt .= "Preferred-Languages: tr, en\n";
+        $txt .= "Canonical: {$protocol}://{$host}/.well-known/security.txt\n";
+        $txt .= "Policy: {$contactUrl}\n";
+
+        Response::status(200);
+        Response::header('Content-Type', 'text/plain; charset=utf-8');
+        Response::header('Cache-Control', 'public, max-age=604800');
         echo $txt;
         exit;
     }

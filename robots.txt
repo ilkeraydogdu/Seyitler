@@ -1,0 +1,48 @@
+# ==============================================================================
+# SEYİTLER KİMYA SANAYİ A.Ş. - ENTERPRISE ROBOTS CONFIGURATION
+# Production Ready & Strict Crawler Policy (RFC 9309 Compliant)
+# ==============================================================================
+
+User-agent: *
+# Allowed Public Content & Assets
+Allow: /
+Allow: /assets/
+Allow: /products
+Allow: /categories
+Allow: /about-us
+Allow: /investors
+Allow: /rd
+Allow: /areas
+Allow: /contact
+Allow: /news
+
+# Strictly Disallowed Sensitive Administrative & System Directories
+Disallow: /podmin/
+Disallow: /podmin
+Disallow: /admin/
+Disallow: /admin
+Disallow: /app/
+Disallow: /vendor/
+Disallow: /seyitler.com/podmin/
+Disallow: /seyitler.com/podmin
+Disallow: /seyitler.com/admin/
+Disallow: /seyitler.com/admin
+
+# AI Bot Directives (Allow transparent citation for brand authority)
+User-agent: GPTBot
+Allow: /
+Disallow: /podmin/
+Disallow: /admin/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /podmin/
+Disallow: /admin/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /podmin/
+Disallow: /admin/
+
+# Sitemap Location
+Sitemap: http://localhost/seyitler.com/sitemap.xml

@@ -105,8 +105,11 @@ class Seo
      */
     public static function renderSchemaJsonLd(array $meta = []): string
     {
-        $siteUrl = url('/');
-        $logoUrl = asset(SiteSetting::get('site_logo', 'assets/images/logo.png'));
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+        $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+        $baseUrl = "{$protocol}://{$host}" . rtrim(url('/'), '/');
+        $siteUrl = $baseUrl;
+        $logoUrl = "{$protocol}://{$host}" . asset(SiteSetting::get('site_logo', 'assets/images/logo.png'));
 
         $phone = SiteSetting::get('company_phone') ?: '+90 236 314 83 83';
         $email = SiteSetting::get('company_email') ?: 'seyitler@seyitler.com';
@@ -125,6 +128,15 @@ class Seo
                 'description' => 'Sağlık sektöründe 1991 yılından bu yana tıbbi flaster, cerrahi bant ve medikal yara bakım ürünleri üreticisi.',
                 'telephone' => $phone,
                 'email' => $email,
+                'foundingDate' => '1991',
+                'tickerSymbol' => 'BIST:SEYKM',
+                'knowsAbout' => [
+                    'Medical Plasters',
+                    'Wound Dressing',
+                    'Surgical Tapes',
+                    'First Aid Bandages',
+                    'Silicone Gel Scars Sheeting'
+                ],
                 'address' => [
                     '@type' => 'PostalAddress',
                     'streetAddress' => $address,
@@ -136,6 +148,7 @@ class Seo
                     'https://www.linkedin.com/company/seyitler-kimya',
                     'https://x.com/SeyitlerA',
                     'https://www.instagram.com/seyitlerkimya/',
+                    'https://www.kap.org.tr/tr/sirket-bilgileri/genel/1638-seyitler-kimya-sanayi-a-s',
                 ],
             ],
             [
@@ -145,7 +158,7 @@ class Seo
                 'url' => $siteUrl,
                 'potentialAction' => [
                     '@type' => 'SearchAction',
-                    'target' => url('/products') . '?search={search_term_string}',
+                    'target' => $baseUrl . '/products?search={search_term_string}',
                     'query-input' => 'required name=search_term_string',
                 ],
             ],
@@ -155,11 +168,12 @@ class Seo
         if (!empty($meta['breadcrumbs']) && is_array($meta['breadcrumbs'])) {
             $itemList = [];
             foreach ($meta['breadcrumbs'] as $idx => $bc) {
+                $bcUrl = str_starts_with($bc['url'], 'http') ? $bc['url'] : "{$protocol}://{$host}" . $bc['url'];
                 $itemList[] = [
                     '@type' => 'ListItem',
                     'position' => $idx + 1,
                     'name' => $bc['name'],
-                    'item' => $bc['url'],
+                    'item' => $bcUrl,
                 ];
             }
             $schemas[] = [
@@ -172,11 +186,15 @@ class Seo
         // 3. Product Schema (when on product details)
         if (!empty($meta['product']) && is_array($meta['product'])) {
             $p = $meta['product'];
+            $pImg = \App\Models\Product::getImage($p);
+            $productImgUrl = str_starts_with($pImg, 'http') ? $pImg : "{$protocol}://{$host}" . $pImg;
+            $productUrl = $baseUrl . '/products/' . $p['slug'];
+
             $schemas[] = [
                 '@context' => 'https://schema.org',
                 '@type' => 'Product',
                 'name' => \App\Models\Product::getTitle($p),
-                'image' => asset(\App\Models\Product::getImage($p)),
+                'image' => $productImgUrl,
                 'description' => \App\Models\Product::getDescription($p),
                 'brand' => [
                     '@type' => 'Brand',
@@ -191,7 +209,7 @@ class Seo
                     'availability' => 'https://schema.org/InStock',
                     'priceCurrency' => 'TRY',
                     'price' => '0.00',
-                    'url' => url('/products/' . $p['slug']),
+                    'url' => $productUrl,
                 ],
             ];
         }
