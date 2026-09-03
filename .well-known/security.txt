@@ -1,0 +1,9 @@
+# RFC 9116 - The Security.txt File for Seyitler Kimya Sanayi A.Ş.
+Contact: mailto:security@seyitler.com
+Contact: https://www.seyitler.com/contact
+Expires: 2027-12-31T23:59:59.000Z
+Preferred-Languages: tr, en
+Canonical: https://www.seyitler.com/.well-known/security.txt
+Policy: https://www.seyitler.com/kvkk
+Acknowledgments: https://www.seyitler.com/about-us
+Hiring: https://www.seyitler.com/contact

@@ -1,11 +1,31 @@
+# ==============================================================
+# SENIOR SECURITY & SHIELD CONFIGURATION (.htaccess)
+# ==============================================================
+
+# 1. Dizin listelemeyi ve sunucu tarafı CGI çalıştırmayı tamamen kapat
+Options -Indexes -ExecCGI
+
+# 2. Hassas uzantıları (veritabanı, yedek, konfigürasyon, loglar) doğrudan indirmeye kapat
+<FilesMatch "\.(env|env\..*|sql|sqlite|db|json|lock|log|ini|bak|swp|yml|yaml|md|sh|bat)$">
+    Require all denied
+</FilesMatch>
+
+# 3. Gizli dosyalara erişimi engelle (RFC uyumluluğu için .well-known hariç)
+<FilesMatch "^\.(?!well-known)">
+    Require all denied
+</FilesMatch>
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /seyitler.com/
 
+    # 4. Hassas sistem klasörlerine (app, config, git, legacy) doğrudan erişimi anında 403 Forbidden yap
+    RewriteRule ^(\.git|app|config|vendor|node_modules|_legacy_html_backup)(/.*)?$ - [F,L]
+
     # Direct favicon requests rewrite to assets/images/favicon.png
     RewriteRule ^favicon\.(ico|png)$ assets/images/favicon.png [L]
 
-    # Existing files and directories serve directly
+    # Existing public files and directories serve directly
     RewriteCond %{REQUEST_FILENAME} -f [OR]
     RewriteCond %{REQUEST_FILENAME} -d
     RewriteRule ^ - [L]
@@ -56,8 +76,3 @@ DirectoryIndex index.php
     # Partial content streaming support for PDFs and media
     Header set Accept-Ranges "bytes"
 </IfModule>
-
-# Prevent access to sensitive dotfiles (except .well-known for RFC compliance)
-<FilesMatch "^\.(?!well-known)">
-    Require all denied
-</FilesMatch>

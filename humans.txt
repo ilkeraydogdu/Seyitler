@@ -1,0 +1,12 @@
+/* TEAM */
+Organization: Seyitler Kimya Sanayi A.Ş.
+Location: Turgutlu, Manisa, Türkiye
+Foundation: 1991
+Website: https://www.seyitler.com
+Sector: Tıbbi Plaster, Yara Bakımı, Medikal Sağlık Ürünleri
+
+/* SITE */
+Standards: HTML5, CSS3, Vanilla JS, MVC PHP Architecture, MySQL
+Security: OWASP Top 10 Hardened, RFC 9116 Compliant, Zero-Leak Error Shield
+Last update: 2026/09/03
+Language: Turkish / English / Arabic

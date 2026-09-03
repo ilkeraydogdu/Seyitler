@@ -1,0 +1,5 @@
+# Prevent PHP, scripts or executable execution in assets directory
+<FilesMatch "\.(php|phtml|php[0-9]|phar|sh|pl|cgi|exe|bat|js|html)$">
+    Require all denied
+</FilesMatch>
+Options -Indexes -ExecCGI

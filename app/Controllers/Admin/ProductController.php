@@ -289,25 +289,6 @@ class ProductController
 
     private function handleFileUpload(array $file, string $targetDir): ?string
     {
-        $allowed = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
-        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-
-        if (!in_array($ext, $allowed, true)) {
-            return null;
-        }
-
-        $realTargetDir = dirname(__DIR__, 2) . '/' . trim($targetDir, '/') . '/';
-        if (!is_dir($realTargetDir)) {
-            mkdir($realTargetDir, 0777, true);
-        }
-
-        $filename = uniqid('prod_', true) . '.' . $ext;
-        $dest = $realTargetDir . $filename;
-
-        if (move_uploaded_file($file['tmp_name'], $dest)) {
-            return trim($targetDir, '/') . '/' . $filename;
-        }
-
-        return null;
+        return \App\Core\FileUploader::uploadImage($file, $targetDir);
     }
 }

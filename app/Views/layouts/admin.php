@@ -62,9 +62,21 @@ $siteFavicon = SiteSetting::get('site_favicon', 'assets/images/favicon.png');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         .font-display { font-family: 'Outfit', sans-serif; }
         
-        /* Strict icon sizing */
-        aside svg { width: 16px !important; height: 16px !important; min-width: 16px !important; max-width: 16px !important; display: inline-block; }
-        header svg { width: 16px !important; height: 16px !important; min-width: 16px !important; max-width: 16px !important; display: inline-block; }
+        /* Universal safety for SVGs to prevent browser explosions */
+        svg {
+            max-width: 100%;
+            flex-shrink: 0;
+        }
+
+        /* Strict icon sizing for admin sidebar & header (immune to Tailwind CDN delay) */
+        aside svg, header svg, nav svg {
+            width: 16px !important;
+            height: 16px !important;
+            min-width: 16px !important;
+            max-width: 16px !important;
+            display: inline-block !important;
+            flex-shrink: 0 !important;
+        }
 
         /* Soft modern scrollbars */
         ::-webkit-scrollbar { width: 5px; height: 5px; }
@@ -99,7 +111,7 @@ $siteFavicon = SiteSetting::get('site_favicon', 'assets/images/favicon.png');
                     <?php $isDash = is_active_route('/podmin') && !is_active_route('/podmin/products') && !is_active_route('/podmin/categories') && !is_active_route('/podmin/pages') && !is_active_route('/podmin/investors') && !is_active_route('/podmin/news') && !is_active_route('/podmin/messages') && !is_active_route('/podmin/translations') && !is_active_route('/podmin/settings'); ?>
                     <a href="<?= url('/podmin') ?>" class="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-colors <?= $isDash ? 'bg-[#0AA64D] text-white font-bold shadow-xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' ?>">
                         <div class="flex items-center space-x-2.5">
-                            <svg class="w-4 h-4 <?= $isDash ? 'text-white' : 'text-slate-400' ?>" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>
+                            <svg width="16" height="16" style="width:16px;height:16px;min-width:16px;max-width:16px;" class="shrink-0 <?= $isDash ? 'text-white' : 'text-slate-400' ?>" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>
                             <span>Genel Bakış</span>
                         </div>
                     </a>
@@ -111,7 +123,7 @@ $siteFavicon = SiteSetting::get('site_favicon', 'assets/images/favicon.png');
 
                     <a href="<?= url('/podmin/products') ?>" class="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-colors <?= is_active_route('/podmin/products') ? 'bg-[#0AA64D] text-white font-bold shadow-xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' ?>">
                         <div class="flex items-center space-x-2.5">
-                            <svg class="w-4 h-4 <?= is_active_route('/podmin/products') ? 'text-white' : 'text-slate-400' ?>" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg>
+                            <svg width="16" height="16" style="width:16px;height:16px;min-width:16px;max-width:16px;" class="shrink-0 <?= is_active_route('/podmin/products') ? 'text-white' : 'text-slate-400' ?>" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg>
                             <span>Ürünler</span>
                         </div>
                         <span class="text-[10px] px-1.5 py-0.5 rounded <?= is_active_route('/podmin/products') ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500' ?>"><?= \App\Models\Product::count() ?></span>
@@ -119,7 +131,7 @@ $siteFavicon = SiteSetting::get('site_favicon', 'assets/images/favicon.png');
 
                     <a href="<?= url('/podmin/categories') ?>" class="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-colors <?= is_active_route('/podmin/categories') ? 'bg-[#0AA64D] text-white font-bold shadow-xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' ?>">
                         <div class="flex items-center space-x-2.5">
-                            <svg class="w-4 h-4 <?= is_active_route('/podmin/categories') ? 'text-white' : 'text-slate-400' ?>" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg>
+                            <svg width="16" height="16" style="width:16px;height:16px;min-width:16px;max-width:16px;" class="shrink-0 <?= is_active_route('/podmin/categories') ? 'text-white' : 'text-slate-400' ?>" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg>
                             <span>Kategoriler</span>
                         </div>
                     </a>
@@ -131,7 +143,7 @@ $siteFavicon = SiteSetting::get('site_favicon', 'assets/images/favicon.png');
 
                     <a href="<?= url('/podmin/investors') ?>" class="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-colors <?= is_active_route('/podmin/investors') ? 'bg-[#0AA64D] text-white font-bold shadow-xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' ?>">
                         <div class="flex items-center space-x-2.5">
-                            <svg class="w-4 h-4 <?= is_active_route('/podmin/investors') ? 'text-white' : 'text-slate-400' ?>" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+                            <svg width="16" height="16" style="width:16px;height:16px;min-width:16px;max-width:16px;" class="shrink-0 <?= is_active_route('/podmin/investors') ? 'text-white' : 'text-slate-400' ?>" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
                             <span>Yatırımcı Belgeleri</span>
                         </div>
                         <span class="text-[10px] px-1.5 py-0.5 rounded <?= is_active_route('/podmin/investors') ? 'bg-white/20 text-white' : 'bg-emerald-50 text-emerald-700' ?>"><?= \App\Models\InvestorDocument::count() ?></span>
@@ -139,21 +151,21 @@ $siteFavicon = SiteSetting::get('site_favicon', 'assets/images/favicon.png');
 
                     <a href="<?= url('/podmin/pages') ?>" class="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-colors <?= is_active_route('/podmin/pages') ? 'bg-[#0AA64D] text-white font-bold shadow-xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' ?>">
                         <div class="flex items-center space-x-2.5">
-                            <svg class="w-4 h-4 <?= is_active_route('/podmin/pages') ? 'text-white' : 'text-slate-400' ?>" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/></svg>
+                            <svg width="16" height="16" style="width:16px;height:16px;min-width:16px;max-width:16px;" class="shrink-0 <?= is_active_route('/podmin/pages') ? 'text-white' : 'text-slate-400' ?>" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/></svg>
                             <span>Sayfalar</span>
                         </div>
                     </a>
 
                     <a href="<?= url('/podmin/news') ?>" class="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-colors <?= is_active_route('/podmin/news') ? 'bg-[#0AA64D] text-white font-bold shadow-xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' ?>">
                         <div class="flex items-center space-x-2.5">
-                            <svg class="w-4 h-4 <?= is_active_route('/podmin/news') ? 'text-white' : 'text-slate-400' ?>" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z"/></svg>
+                            <svg width="16" height="16" style="width:16px;height:16px;min-width:16px;max-width:16px;" class="shrink-0 <?= is_active_route('/podmin/news') ? 'text-white' : 'text-slate-400' ?>" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z"/></svg>
                             <span>Haberler</span>
                         </div>
                     </a>
 
                     <a href="<?= url('/podmin/messages') ?>" class="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-colors <?= is_active_route('/podmin/messages') ? 'bg-[#0AA64D] text-white font-bold shadow-xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' ?>">
                         <div class="flex items-center space-x-2.5">
-                            <svg class="w-4 h-4 <?= is_active_route('/podmin/messages') ? 'text-white' : 'text-slate-400' ?>" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+                            <svg width="16" height="16" style="width:16px;height:16px;min-width:16px;max-width:16px;" class="shrink-0 <?= is_active_route('/podmin/messages') ? 'text-white' : 'text-slate-400' ?>" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
                             <span>Gelen Talepler</span>
                         </div>
                         <?php if ($unreadCount > 0): ?>
@@ -168,14 +180,14 @@ $siteFavicon = SiteSetting::get('site_favicon', 'assets/images/favicon.png');
 
                     <a href="<?= url('/podmin/translations') ?>" class="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-colors <?= is_active_route('/podmin/translations') ? 'bg-[#0AA64D] text-white font-bold shadow-xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' ?>">
                         <div class="flex items-center space-x-2.5">
-                            <svg class="w-4 h-4 <?= is_active_route('/podmin/translations') ? 'text-white' : 'text-slate-400' ?>" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802"/></svg>
+                            <svg width="16" height="16" style="width:16px;height:16px;min-width:16px;max-width:16px;" class="shrink-0 <?= is_active_route('/podmin/translations') ? 'text-white' : 'text-slate-400' ?>" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802"/></svg>
                             <span>Diller & Çeviriler</span>
                         </div>
                     </a>
 
                     <a href="<?= url('/podmin/settings') ?>" class="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-semibold transition-colors <?= is_active_route('/podmin/settings') ? 'bg-[#0AA64D] text-white font-bold shadow-xs' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' ?>">
                         <div class="flex items-center space-x-2.5">
-                            <svg class="w-4 h-4 <?= is_active_route('/podmin/settings') ? 'text-white' : 'text-slate-400' ?>" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 0 1 0 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 0 1 0-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>
+                            <svg width="16" height="16" style="width:16px;height:16px;min-width:16px;max-width:16px;" class="shrink-0 <?= is_active_route('/podmin/settings') ? 'text-white' : 'text-slate-400' ?>" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 0 1 0 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 0 1 0-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>
                             <span>Sistem Ayarları</span>
                         </div>
                     </a>
@@ -186,14 +198,14 @@ $siteFavicon = SiteSetting::get('site_favicon', 'assets/images/favicon.png');
             <div class="p-3 border-t border-slate-100 bg-slate-50/60 space-y-1.5">
                 <a href="<?= url('/') ?>" target="_blank" class="flex items-center justify-between w-full px-3 py-2 rounded-lg text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 hover:text-[#0AA64D] transition-colors border border-slate-200 shadow-xs">
                     <div class="flex items-center space-x-2">
-                        <svg class="w-3.5 h-3.5 text-[#0AA64D]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"/></svg>
+                        <svg width="14" height="14" style="width:14px;height:14px;min-width:14px;max-width:14px;" class="shrink-0 text-[#0AA64D]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"/></svg>
                         <span>Siteyi Görüntüle</span>
                     </div>
-                    <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                    <svg width="12" height="12" style="width:12px;height:12px;min-width:12px;max-width:12px;" class="shrink-0 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
                 </a>
 
                 <a href="<?= url('/podmin/logout') ?>" class="flex items-center space-x-2 w-full px-3 py-2 rounded-lg text-xs font-semibold text-red-600 hover:bg-red-50 transition-colors">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"/></svg>
+                    <svg width="14" height="14" style="width:14px;height:14px;min-width:14px;max-width:14px;" class="shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"/></svg>
                     <span>Çıkış Yap</span>
                 </a>
             </div>
@@ -208,7 +220,7 @@ $siteFavicon = SiteSetting::get('site_favicon', 'assets/images/favicon.png');
             <header class="sticky top-0 z-30 bg-white border-b border-slate-200 px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div class="flex items-center gap-3">
                     <button id="sidebar-open-btn" class="lg:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors" type="button" aria-label="Menüyü Aç">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+                        <svg width="20" height="20" style="width:20px;height:20px;min-width:20px;max-width:20px;" class="shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
                     </button>
                     <div>
                         <h1 class="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
@@ -222,14 +234,14 @@ $siteFavicon = SiteSetting::get('site_favicon', 'assets/images/favicon.png');
 
                 <div class="flex items-center space-x-3 self-end sm:self-auto">
                     <a href="<?= url('/') ?>" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg transition-colors shadow-xs" title="Web Sitesini Aç">
-                        <svg class="w-3.5 h-3.5 text-[#0AA64D]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"/></svg>
+                        <svg width="14" height="14" style="width:14px;height:14px;min-width:14px;max-width:14px;" class="shrink-0 text-[#0AA64D]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"/></svg>
                         <span>Siteye Git</span>
-                        <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                        <svg width="12" height="12" style="width:12px;height:12px;min-width:12px;max-width:12px;" class="shrink-0 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
                     </a>
 
                     <div class="flex items-center space-x-2 bg-slate-100 text-slate-800 px-3 py-1.5 rounded-lg border border-slate-200 shadow-xs">
                         <div class="w-6 h-6 rounded-full bg-[#0AA64D] text-white flex items-center justify-center text-xs font-bold">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
+                            <svg width="14" height="14" style="width:14px;height:14px;min-width:14px;max-width:14px;" class="shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
                         </div>
                         <span class="text-xs font-semibold text-slate-900">
                             <?= e($user['username'] ?? 'Yönetici') ?>

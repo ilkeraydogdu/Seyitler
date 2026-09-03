@@ -158,24 +158,6 @@ class SettingController
 
     private function handleFileUpload(array $file, string $targetDir, array $allowed = ['png', 'jpg', 'jpeg', 'webp', 'svg', 'ico']): ?string
     {
-        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-
-        if (!in_array($ext, $allowed, true)) {
-            return null;
-        }
-
-        $realTargetDir = dirname(__DIR__, 2) . '/' . trim($targetDir, '/') . '/';
-        if (!is_dir($realTargetDir)) {
-            mkdir($realTargetDir, 0755, true);
-        }
-
-        $filename = 'branding_' . time() . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
-        $destPath = $realTargetDir . $filename;
-
-        if (move_uploaded_file($file['tmp_name'], $destPath)) {
-            return trim($targetDir, '/') . '/' . $filename;
-        }
-
-        return null;
+        return \App\Core\FileUploader::uploadImage($file, $targetDir, $allowed);
     }
 }

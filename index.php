@@ -199,6 +199,27 @@ Router::get('/podmin/translations', 'App\Controllers\Admin\TranslationController
 Router::post('/podmin/translations/update', 'App\Controllers\Admin\TranslationController@update');
 
 // ==========================================
-// DISPATCH REQUEST
+// DISPATCH REQUEST WITH ZERO-LEAK ERROR SHIELD
 // ==========================================
-Router::dispatch($request);
+try {
+    Router::dispatch($request);
+} catch (\Throwable $e) {
+    // Log exception safely to server error log (Never expose internal stack trace to end user!)
+    error_log("[CRITICAL SYSTEM ERROR] " . $e->getMessage() . " in " . $e->getFile() . ":" . $e->getLine());
+
+    // Clean any partial output buffer
+    if (ob_get_level()) {
+        ob_clean();
+    }
+
+    \App\Core\Response::status(500);
+
+    // If admin portal, render safe admin notice
+    if (str_starts_with($request->uri(), '/podmin')) {
+        echo '<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8"/><title>Sistem Hatası</title><meta name="robots" content="noindex, nofollow"/><script src="https://cdn.tailwindcss.com"></script></head><body class="bg-slate-50 flex items-center justify-center min-h-screen p-6 font-sans"><div class="max-w-md w-full bg-white rounded-2xl shadow-sm border border-slate-200 p-8 text-center"><div class="size-12 bg-rose-50 text-rose-600 rounded-xl flex items-center justify-center mx-auto mb-4"><svg class="size-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 7.5h.008v.008H12v-.008Z"/></svg></div><h2 class="text-lg font-bold text-slate-900">Geçici Bir Hata Oluştu</h2><p class="text-xs text-slate-500 mt-2">İşleminiz kaydedilemedi. Sistem logları güvenlik kontrolü için bilgilendirildi.</p><a href="' . url('/podmin') . '" class="inline-block mt-6 px-4 py-2 bg-[#0AA64D] hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg transition-colors">Paneli Yeniden Başlat</a></div></body></html>';
+    } else {
+        \App\Core\View::render('pages/500', [
+            'pageTitle' => '500 Sistem Bakımı - Seyitler Kimya',
+        ]);
+    }
+}

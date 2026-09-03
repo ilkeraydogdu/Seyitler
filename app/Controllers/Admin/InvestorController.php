@@ -51,20 +51,17 @@ class InvestorController
         $fileSize = null;
 
         if (isset($_FILES['doc_file']) && $_FILES['doc_file']['error'] === UPLOAD_ERR_OK) {
-            $allowed = ['pdf', 'doc', 'docx', 'xls', 'xlsx'];
-            $ext = strtolower(pathinfo($_FILES['doc_file']['name'], PATHINFO_EXTENSION));
-
-            if (in_array($ext, $allowed, true)) {
-                $targetDir = BASE_PATH . '/assets/documents/';
-                if (!is_dir($targetDir)) {
-                    mkdir($targetDir, 0755, true);
+            $uploaded = \App\Core\FileUploader::uploadPdf($_FILES['doc_file'], 'assets/pdf/');
+            if ($uploaded) {
+                $url = $uploaded;
+                $fullPath = BASE_PATH . '/' . $uploaded;
+                if (file_exists($fullPath)) {
+                    $fileSize = round(filesize($fullPath) / 1024) . ' KB';
                 }
-                $safeName = preg_replace('/[^a-zA-Z0-9_\-\.]/', '_', pathinfo($_FILES['doc_file']['name'], PATHINFO_FILENAME));
-                $filename = $safeName . '_' . substr(md5(uniqid()), 0, 6) . '.' . $ext;
-                if (move_uploaded_file($_FILES['doc_file']['tmp_name'], $targetDir . $filename)) {
-                    $url = 'assets/documents/' . $filename;
-                    $fileSize = round(filesize($targetDir . $filename) / 1024) . ' KB';
-                }
+            } else {
+                Session::flash('error', 'Yüklenen dosya geçerli bir PDF formatında değil veya izin verilen boyutu aşıyor.');
+                Response::redirect(url('/podmin/investors'));
+                return;
             }
         }
 
