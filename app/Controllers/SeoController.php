@@ -116,7 +116,6 @@ class SeoController
         $txt .= "Disallow: /documents/download/\n";
         // Allow public assets and pages
         $txt .= "Allow: /assets/\n";
-        $txt .= "Allow: /uploads/\n";
         $txt .= "Allow: /\n\n";
         // Sitemap specification
         $txt .= "Sitemap: {$sitemapUrl}\n";

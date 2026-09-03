@@ -61,7 +61,7 @@ class ProductController
         // Image Handling
         $mainImage = trim((string)$request->post('main_image'));
         if (isset($_FILES['main_image_file']) && $_FILES['main_image_file']['error'] === UPLOAD_ERR_OK) {
-            $uploaded = $this->handleFileUpload($_FILES['main_image_file'], 'uploads/products/');
+            $uploaded = $this->handleFileUpload($_FILES['main_image_file'], 'assets/images/products/');
             if ($uploaded) {
                 $mainImage = $uploaded;
             }
@@ -134,7 +134,7 @@ class ProductController
 
         $mainImage = trim((string)$request->post('main_image'));
         if (isset($_FILES['main_image_file']) && $_FILES['main_image_file']['error'] === UPLOAD_ERR_OK) {
-            $uploaded = $this->handleFileUpload($_FILES['main_image_file'], 'uploads/products/');
+            $uploaded = $this->handleFileUpload($_FILES['main_image_file'], 'assets/images/products/');
             if ($uploaded) {
                 $mainImage = $uploaded;
             }
@@ -242,7 +242,7 @@ class ProductController
         $newUrl = trim((string)$request->post('gallery_image_url'));
 
         if (isset($_FILES['gallery_image_file']) && $_FILES['gallery_image_file']['error'] === UPLOAD_ERR_OK) {
-            $uploaded = $this->handleFileUpload($_FILES['gallery_image_file'], 'uploads/products/');
+            $uploaded = $this->handleFileUpload($_FILES['gallery_image_file'], 'assets/images/products/');
             if ($uploaded) {
                 $newUrl = $uploaded;
             }

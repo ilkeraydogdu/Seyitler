@@ -36,21 +36,21 @@ class SettingController
 
         // 1. Branding Files Upload (Logo, Negative Logo, Favicon)
         if (isset($_FILES['site_logo_file']) && $_FILES['site_logo_file']['error'] === UPLOAD_ERR_OK) {
-            $logoPath = $this->handleFileUpload($_FILES['site_logo_file'], 'uploads/branding/', ['png', 'webp', 'svg', 'jpg', 'jpeg']);
+            $logoPath = $this->handleFileUpload($_FILES['site_logo_file'], 'assets/images/', ['png', 'webp', 'svg', 'jpg', 'jpeg']);
             if ($logoPath) {
                 SiteSetting::set('site_logo', $logoPath);
             }
         }
 
         if (isset($_FILES['site_logo_negative_file']) && $_FILES['site_logo_negative_file']['error'] === UPLOAD_ERR_OK) {
-            $negLogoPath = $this->handleFileUpload($_FILES['site_logo_negative_file'], 'uploads/branding/', ['png', 'webp', 'svg', 'jpg', 'jpeg']);
+            $negLogoPath = $this->handleFileUpload($_FILES['site_logo_negative_file'], 'assets/images/', ['png', 'webp', 'svg', 'jpg', 'jpeg']);
             if ($negLogoPath) {
                 SiteSetting::set('site_logo_negative', $negLogoPath);
             }
         }
 
         if (isset($_FILES['site_favicon_file']) && $_FILES['site_favicon_file']['error'] === UPLOAD_ERR_OK) {
-            $favPath = $this->handleFileUpload($_FILES['site_favicon_file'], 'uploads/branding/', ['png', 'ico', 'webp', 'svg']);
+            $favPath = $this->handleFileUpload($_FILES['site_favicon_file'], 'assets/images/', ['png', 'ico', 'webp', 'svg']);
             if ($favPath) {
                 SiteSetting::set('site_favicon', $favPath);
             }

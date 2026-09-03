@@ -55,13 +55,14 @@ class InvestorController
             $ext = strtolower(pathinfo($_FILES['doc_file']['name'], PATHINFO_EXTENSION));
 
             if (in_array($ext, $allowed, true)) {
-                $targetDir = dirname(__DIR__, 2) . '/uploads/documents/';
+                $targetDir = BASE_PATH . '/assets/documents/';
                 if (!is_dir($targetDir)) {
-                    mkdir($targetDir, 0777, true);
+                    mkdir($targetDir, 0755, true);
                 }
-                $filename = uniqid('doc_', true) . '.' . $ext;
+                $safeName = preg_replace('/[^a-zA-Z0-9_\-\.]/', '_', pathinfo($_FILES['doc_file']['name'], PATHINFO_FILENAME));
+                $filename = $safeName . '_' . substr(md5(uniqid()), 0, 6) . '.' . $ext;
                 if (move_uploaded_file($_FILES['doc_file']['tmp_name'], $targetDir . $filename)) {
-                    $url = 'uploads/documents/' . $filename;
+                    $url = 'assets/documents/' . $filename;
                     $fileSize = round(filesize($targetDir . $filename) / 1024) . ' KB';
                 }
             }
