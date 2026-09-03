@@ -187,8 +187,29 @@ function initSwipers() {
         });
     }
 
-    // 4. News & Other Multi-slide Swipers
-    const otherSwipers = document.querySelectorAll('.swiper.w-full:not(.gallery-swiper):not(#home-products-swiper):not(.home-products-swiper)');
+    // 4. Homepage News Swiper (#home-news-swiper)
+    const newsEl = document.querySelector('#home-news-swiper, .home-news-swiper');
+    if (newsEl) {
+        new Swiper(newsEl, {
+            slidesPerView: 'auto',
+            spaceBetween: 24,
+            loop: true,
+            grabCursor: true,
+            speed: 600,
+            navigation: {
+                nextEl: '#news-next',
+                prevEl: '#news-prev',
+            },
+            autoplay: {
+                delay: 4500,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true
+            }
+        });
+    }
+
+    // 5. Other Multi-slide Swipers
+    const otherSwipers = document.querySelectorAll('.swiper.w-full:not(.gallery-swiper):not(#home-products-swiper):not(.home-products-swiper):not(#home-news-swiper):not(.home-news-swiper)');
     otherSwipers.forEach((el, index) => {
         new Swiper(el, {
             slidesPerView: 'auto',
