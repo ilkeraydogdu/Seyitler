@@ -187,39 +187,8 @@ function initSwipers() {
         });
     }
 
-    // 4. Homepage News Swiper (#home-news-swiper)
-    const newsEl = document.querySelector('#home-news-swiper, .home-news-swiper');
-    if (newsEl) {
-        new Swiper(newsEl, {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            loop: true,
-            grabCursor: true,
-            speed: 600,
-            navigation: {
-                nextEl: '#news-next',
-                prevEl: '#news-prev',
-            },
-            autoplay: {
-                delay: 4500,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true
-            },
-            breakpoints: {
-                640: {
-                    slidesPerView: 2,
-                    spaceBetween: 24
-                },
-                1024: {
-                    slidesPerView: 3,
-                    spaceBetween: 28
-                }
-            }
-        });
-    }
-
-    // 5. Other Multi-slide Swipers
-    const otherSwipers = document.querySelectorAll('.swiper.w-full:not(.gallery-swiper):not(#home-products-swiper):not(.home-products-swiper):not(#home-news-swiper):not(.home-news-swiper)');
+    // 4. Other Multi-slide Swipers (News / Fairs / Events as in original backup)
+    const otherSwipers = document.querySelectorAll('.swiper.w-full:not(.gallery-swiper):not(#home-products-swiper):not(.home-products-swiper)');
     otherSwipers.forEach((el, index) => {
         new Swiper(el, {
             slidesPerView: 'auto',
@@ -230,6 +199,20 @@ function initSwipers() {
             autoplay: {
                 delay: 3500 + index * 500,
                 disableOnInteraction: false,
+            },
+            breakpoints: {
+                320: {
+                    slidesPerView: 1.2,
+                    spaceBetween: 16
+                },
+                640: {
+                    slidesPerView: 2.2,
+                    spaceBetween: 20
+                },
+                1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 24
+                }
             }
         });
     });

@@ -45,16 +45,6 @@
 
     <!-- Structured Data (Schema.org JSON-LD for Google Rich Results) -->
     <?= \App\Core\Seo::renderSchemaJsonLd($seoMeta ?? []) ?>
-
-    <style>
-        #home-news-swiper .swiper-slide {
-            height: auto !important;
-            display: flex !important;
-        }
-        #home-news-swiper .swiper-slide article {
-            width: 100% !important;
-        }
-    </style>
 </head>
 <body>
     <div id="__nuxt">
