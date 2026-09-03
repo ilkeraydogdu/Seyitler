@@ -36,6 +36,7 @@ class Seo
 
     /**
      * Render rel="prev" and rel="next" pagination links for Google & search engine crawlers.
+     * Generates clean semantic SEO paths (/products/page/{page}) when no query parameters exist.
      */
     public static function renderPaginationMeta(int $currentPage, int $totalPages, string $baseUrl, array $queryParams = []): string
     {
@@ -47,23 +48,31 @@ class Seo
 
         // Previous page link
         if ($currentPage > 1) {
-            $prevParams = $queryParams;
-            if ($currentPage - 1 > 1) {
-                $prevParams['page'] = $currentPage - 1;
+            if (empty($queryParams)) {
+                $prevUrl = ($currentPage - 1 === 1) ? $baseUrl : rtrim($baseUrl, '/') . '/page/' . ($currentPage - 1);
             } else {
-                unset($prevParams['page']);
+                $prevParams = $queryParams;
+                if ($currentPage - 1 > 1) {
+                    $prevParams['page'] = $currentPage - 1;
+                } else {
+                    unset($prevParams['page']);
+                }
+                $prevQuery = !empty($prevParams) ? '?' . http_build_query($prevParams) : '';
+                $prevUrl = $baseUrl . $prevQuery;
             }
-            $prevQuery = !empty($prevParams) ? '?' . http_build_query($prevParams) : '';
-            $prevUrl = $baseUrl . $prevQuery;
             $html .= "<link rel=\"prev\" href=\"" . htmlspecialchars($prevUrl, ENT_QUOTES, 'UTF-8') . "\" />\n    ";
         }
 
         // Next page link
         if ($currentPage < $totalPages) {
-            $nextParams = $queryParams;
-            $nextParams['page'] = $currentPage + 1;
-            $nextQuery = '?' . http_build_query($nextParams);
-            $nextUrl = $baseUrl . $nextQuery;
+            if (empty($queryParams)) {
+                $nextUrl = rtrim($baseUrl, '/') . '/page/' . ($currentPage + 1);
+            } else {
+                $nextParams = $queryParams;
+                $nextParams['page'] = $currentPage + 1;
+                $nextQuery = '?' . http_build_query($nextParams);
+                $nextUrl = $baseUrl . $nextQuery;
+            }
             $html .= "<link rel=\"next\" href=\"" . htmlspecialchars($nextUrl, ENT_QUOTES, 'UTF-8') . "\" />\n    ";
         }
 

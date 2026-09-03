@@ -101,6 +101,9 @@
                             <nav aria-label="<?= __('Sayfalama', 'Sayfalama') ?>" class="inline-flex items-center gap-1.5">
                                 <?php
                                 $buildPageUrl = function(int $pNum) use ($queryParams): string {
+                                    if (empty($queryParams)) {
+                                        return $pNum > 1 ? url('/products/page/' . $pNum) : url('/products');
+                                    }
                                     $p = $queryParams;
                                     if ($pNum > 1) {
                                         $p['page'] = $pNum;

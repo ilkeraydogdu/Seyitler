@@ -76,6 +76,7 @@ Router::get('/about-us/human-resources', 'App\Controllers\CorporateController@hu
 
 // Product Catalog & Dynamic Detail
 Router::get('/products', 'App\Controllers\ProductController@index');
+Router::get('/products/page/{page}', 'App\Controllers\ProductController@index');
 Router::get('/products/{slug}', 'App\Controllers\ProductController@show');
 
 // Investor Relations Portal & Centralized Secure Document Delivery
