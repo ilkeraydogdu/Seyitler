@@ -113,7 +113,18 @@
 document.querySelectorAll('form[data-delete-form]').forEach(form => {
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
-        if (!confirm('Bu mesajı kalıcı olarak silmek istediğinize emin misiniz?')) {
+        
+        const confirmed = typeof AdminDialog !== 'undefined'
+            ? await AdminDialog.confirm({
+                title: 'Mesajı Kalıcı Olarak Sil',
+                message: 'Bu iletişim talebini kalıcı olarak silmek istediğinize emin misiniz? Bu işlem geri alınamaz.',
+                confirmText: 'Evet, Sil',
+                cancelText: 'Vazgeç',
+                type: 'danger'
+            })
+            : true;
+
+        if (!confirmed) {
             return;
         }
         
@@ -136,6 +147,13 @@ document.querySelectorAll('form[data-delete-form]').forEach(form => {
             });
             const data = await res.json();
             if (data.success) {
+                if (typeof AdminDialog !== 'undefined') {
+                    AdminDialog.toast({
+                        title: 'Başarılı',
+                        message: data.message || 'İletişim mesajı başarıyla silindi.',
+                        type: 'success'
+                    });
+                }
                 if (tr) {
                     tr.style.transition = 'all 0.3s ease';
                     tr.style.opacity = '0';
@@ -145,14 +163,19 @@ document.querySelectorAll('form[data-delete-form]').forEach(form => {
                     }, 300);
                 }
             } else {
-                alert(data.message || 'Silme işlemi gerçekleştirilemedi.');
+                if (typeof AdminDialog !== 'undefined') {
+                    AdminDialog.toast({
+                        title: 'Hata',
+                        message: data.message || 'Silme işlemi gerçekleştirilemedi.',
+                        type: 'error'
+                    });
+                }
                 if (btn) {
                     btn.disabled = false;
                     btn.classList.remove('opacity-50');
                 }
             }
         } catch (err) {
-            // Fallback to normal form submit if fetch fails
             this.submit();
         }
     });

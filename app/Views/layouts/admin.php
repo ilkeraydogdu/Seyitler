@@ -21,13 +21,39 @@ $siteFavicon = SiteSetting::get('site_favicon', 'assets/images/favicon.png');
     <title><?= e($pageTitle ?? 'Yönetim Paneli - Seyitler Kimya Sanayi A.Ş.') ?></title>
     <link href="<?= asset($siteFavicon) ?>" rel="icon"/>
 
+    <!-- Developer & Engineering Metadata -->
+    <meta name="author" content="Pofuduk Dijital - İlker Aydoğdu (https://pofudukdijital.com)"/>
+    <meta name="developer" content="Pofuduk Dijital"/>
+    <meta name="copyright" content="Seyitler Kimya Sanayi A.Ş."/>
+
     <!-- Google Fonts: Plus Jakarta Sans & Outfit (Clean, Modern, Corporate) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <!-- Enterprise Console Shield & Warning Suppressor -->
+    <script>
+        (function() {
+            // Suppress Tailwind CDN production warning from polluting Chrome console
+            const originalWarn = console.warn;
+            console.warn = function(...args) {
+                if (args[0] && typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com')) {
+                    return;
+                }
+                originalWarn.apply(console, args);
+            };
+
+            // Developer Security Signature in Console
+            console.log("%c Seyitler Kimya Sanayi A.Ş. %c Enterprise Management Portal %c Developed by Pofuduk Dijital (https://pofudukdijital.com) ", 
+                "background:#0AA64D;color:#fff;font-weight:bold;padding:4px 8px;border-radius:4px 0 0 4px;",
+                "background:#0f172a;color:#fff;font-weight:bold;padding:4px 8px;",
+                "background:#e2e8f0;color:#334155;padding:4px 8px;border-radius:0 4px 4px 0;");
+        })();
+    </script>
+
     <!-- Tailwind CDN for Admin UI -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="<?= asset('assets/js/admin-dialog.js') ?>"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -262,12 +288,6 @@ $siteFavicon = SiteSetting::get('site_favicon', 'assets/images/favicon.png');
             <main class="p-4 sm:p-5 lg:p-6 flex-1">
                 <?= $content ?>
             </main>
-
-            <!-- Admin Portal Footer -->
-            <footer class="px-5 sm:px-6 py-2.5 border-t border-slate-200/80 bg-white/60 text-slate-400 text-xs flex flex-col sm:flex-row items-center justify-between gap-2">
-                <div>© <?= date('Y') ?> Seyitler Kimya Sanayi A.Ş. Yönetim Portalı</div>
-                <div>Geliştirici: <a href="https://pofudukdijital.com" target="_blank" rel="noopener noreferrer" class="text-[#0AA64D] font-semibold hover:underline">Pofuduk Dijital</a> <span class="text-slate-500">(İlker Aydoğdu)</span></div>
-            </footer>
         </div>
 
     </div>

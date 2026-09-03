@@ -1,1 +1,99 @@
-<div><section class="relative bg-center bg-cover py-12"><div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl"><nav class="flex items-center gap-2 mb-6 text-sm border-b py-4"><span class="text-seyitler-primary text-2xl uppercase">Hakkımızda</span><span class="text-seyitler-txt/50"><svg class="lucide lucide-arrow-left-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg></span><a aria-current="page" class="router-link-active router-link-exact-active text-seyitler-txt/50 uppercase text-xs" href="<?= url('/about-us') ?>">Kurumsal</a></nav></div></section><section class="relative py-8"><div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl"><div class="grid grid-cols-1 md:grid-cols-12 gap-8"><aside class="md:col-span-4 lg:col-span-3"><ul class="space-y-2"><li><a aria-current="page" class="router-link-active router-link-exact-active w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg3 border-seyitler-bg3 text-white" href="<?= url('/about-us') ?>"><span class="text-left">Hakkımızda</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li><li><a class="w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg4 border-seyitler-bg4 text-seyitler-txt hover:bg-gray-50" href="<?= url('/about-us/history') ?>"><span class="text-left">Tarihçe</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li><li><a class="w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg4 border-seyitler-bg4 text-seyitler-txt hover:bg-gray-50" href="<?= url('/about-us/mission-vision') ?>"><span class="text-left">Misyon ve Vizyon</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li><li><a class="w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg4 border-seyitler-bg4 text-seyitler-txt hover:bg-gray-50" href="<?= url('/about-us/values') ?>"><span class="text-left">Değerler</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li><li><a class="w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg4 border-seyitler-bg4 text-seyitler-txt hover:bg-gray-50" href="<?= url('/about-us/organization') ?>"><span class="text-left">Organizasyon Yapısı</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li><li><a class="w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg4 border-seyitler-bg4 text-seyitler-txt hover:bg-gray-50" href="<?= url('/about-us/sustainability') ?>"><span class="text-left">Sürdürülebilirlik</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li><li><a class="w-full flex items-center justify-between gap-3 px-4 py-3 border transition-colors bg-seyitler-bg4 border-seyitler-bg4 text-seyitler-txt hover:bg-gray-50" href="<?= url('/about-us/human-resources') ?>"><span class="text-left">İnsan Kaynakları</span><svg class="lucide lucide-chevron-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m9 18 6-6-6-6"></path></svg></a></li></ul></aside><div class="md:col-span-8 lg:col-span-9 min-h-64"><div class="prose max-w-none"><div class="px-5 mx-auto xl:px-0 max-w-7xl"><div class="grid grid-cols-1 gap-4 sm:grid-cols-2"><div class="aspect-[16/9]"><img alt="" src="<?= asset('assets/images/hakkimizda_01.webp') ?>"/></div><div class="aspect-[16/9]"><img alt="" src="<?= asset('assets/images/hakkimizda_02.webp') ?>"/></div></div><div class="pt-8"><h3 class="font-semibold text-3xl relative mb-4 pb-2 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-16 after:bg-seyitler-primary">Sağlıkta Güvenin Global Adı</h3><div class="pt-3 space-y-4 text-seyitler-txt"><p>1991 yılından bu yana sağlık sektöründe üretim gücümüzü kalite anlayışımızla birleştirerek Türkiye’nin en köklü ve en güçlü medikal üretim tesislerinden biri olmanın gururunu yaşıyoruz. Seyitler Kimya Sanayi A.Ş. olarak, Manisa’daki merkez üretim kampüsümüzde, 17.257 m² kapalı alanda faaliyet gösteriyor; alanında uzman çalışanımız ile yüksek hacimli siparişleri karşılayabilecek altyapımız sayesinde üretimde sürekliliği, verimliliği ve güvenilirliği bir arada sunuyoruz. Bünyemizde; Ar-Ge uzmanlarından proje ekiplerine, distribütör destek birimlerinden ihracat departmanına kadar uzanan güçlü bir organizasyon yapısı bulunuyor.</p><p>Ürün portföyümüzde plasterler, yara örtüleri, ilk yardım bantları, katı tıbbi yara ürünleri ve plaster-yakı grubu yer alıyor; bu alanlarda Türkiye’de sektör lideri konumunda bulunuyoruz. Toplamda 30 farklı ürün üretirken bunların 17’sini, kendi markalarımız altında pazara sunuyoruz. Aynı anda hem kendi markamız hem de iş ortaklarımız için üretim gerçekleştirebilen bir altyapıya sahibiz.</p><p>Üretim hattımız, son teknolojiyle donatılmış modern makine parkurundan oluşuyor. Bu altyapı, birçok uluslararası firmanın da ulaşamadığı ölçekte yüksek kapasite ve teknik donanım sunuyor. Üretim süreçlerimiz; ISO 13485, GMP ve ülke bazlı kalite sertifikaları ile destekleniyor. Bu durum, farklı coğrafyalarda aynı kalite standardını güvenle sunmamıza imkân sağlıyor. Her siparişin kalite standartlarını, teslimat öncesinde, ülke gerekliliklerine göre özelleştirebiliyoruz.</p><p>Seyitler Kimya olarak, borsada işlem gören kurumsal yapımızla yatırımcılar için güvenilir bir marka konumundayız. Yurt içinde DMO ihaleleri ve yetkili distribütörler aracılığıyla yurt dışında ise bayiler, brokerlar, traderlar ve medikal distribütörler üzerinden satış faaliyetlerimizi yürütüyoruz. Ürünlerimiz, sadece iş ortaklarımız aracılığıyla son kullanıcıya ve ihtiyaç duyulan yerlere ulaşıyor.</p></div></div></div></div></div></div></div></section></div>
+<?php
+/** @var array $page */
+use App\Models\Page;
+use App\Core\I18n;
+
+$hero = Page::getHero($page);
+$images = Page::getImages($page);
+$paragraphs = Page::getParagraphs($page);
+$buttons = Page::getButtons($page);
+$locale = I18n::getLocale();
+?>
+<div>
+    <!-- Hero Banner / Breadcrumb -->
+    <section class="relative bg-center bg-cover py-12">
+        <div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl">
+            <nav class="flex items-center gap-2 mb-6 text-sm border-b py-4">
+                <span class="text-seyitler-primary text-2xl uppercase font-semibold"><?= e(Page::getTitle($page)) ?></span>
+                <span class="text-seyitler-txt/50">
+                    <svg class="size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="m12 19-7-7 7-7"></path>
+                        <path d="M19 12H5"></path>
+                    </svg>
+                </span>
+                <a class="text-seyitler-txt/50 uppercase text-xs hover:text-seyitler-primary transition-colors" href="<?= url('/about-us') ?>">
+                    <?= __('Kurumsal', 'Corporate') ?>
+                </a>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Content Body Section -->
+    <section class="relative py-8">
+        <div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                
+                <!-- Reusable Corporate Sidebar -->
+                <?php require __DIR__ . '/_sidebar.php'; ?>
+
+                <!-- Dynamic Page Content -->
+                <div class="md:col-span-8 lg:col-span-9 min-h-64">
+                    <div class="prose max-w-none">
+                        
+                        <!-- Images Grid -->
+                        <?php if (!empty($images)): ?>
+                            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 mb-8">
+                                <?php foreach ($images as $img): ?>
+                                    <div class="aspect-[16/9] overflow-hidden rounded-xl border border-slate-100 shadow-sm bg-slate-50">
+                                        <img alt="<?= e($img['alt'] ?? Page::getTitle($page)) ?>" src="<?= asset($img['url']) ?>" class="w-full h-full object-cover"/>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <!-- Title and Text Content -->
+                        <div class="pt-2">
+                            <h3 class="font-semibold text-2xl sm:text-3xl relative mb-4 pb-2 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-16 after:bg-seyitler-primary text-slate-900">
+                                <?= e($hero['title'] ?? Page::getTitle($page)) ?>
+                            </h3>
+
+                            <?php if (!empty($hero['subtitle'])): ?>
+                                <p class="text-emerald-800 font-semibold text-sm mb-4 leading-relaxed">
+                                    <?= e($hero['subtitle']) ?>
+                                </p>
+                            <?php endif; ?>
+
+                            <div class="pt-2 space-y-4 text-seyitler-txt leading-relaxed text-sm sm:text-base">
+                                <?php if (!empty($paragraphs)): ?>
+                                    <?php foreach ($paragraphs as $p): ?>
+                                        <p><?= nl2br(e($p)) ?></p>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <p><?= nl2br(e(Page::getContent($page))) ?></p>
+                                <?php endif; ?>
+                            </div>
+
+                            <!-- Dynamic Action Buttons -->
+                            <?php if (!empty($buttons)): ?>
+                                <div class="mt-8 pt-6 border-t border-slate-100 flex flex-wrap items-center gap-3">
+                                    <?php foreach ($buttons as $btn): ?>
+                                        <?php 
+                                        $btnText = $btn["text_{$locale}"] ?? $btn['text_tr'] ?? '';
+                                        if (empty($btnText)) continue;
+                                        $isPrimary = ($btn['style'] ?? 'primary') === 'primary';
+                                        ?>
+                                        <a href="<?= url($btn['url'] ?? '#') ?>" target="<?= e($btn['target'] ?? '_self') ?>" class="px-5 py-3 rounded-xl text-xs font-bold transition-all shadow-sm <?= $isPrimary ? 'bg-seyitler-primary hover:bg-emerald-700 text-white shadow-emerald-700/20' : 'bg-slate-100 hover:bg-slate-200 text-slate-800' ?>">
+                                            <?= e($btnText) ?>
+                                        </a>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>

@@ -47,6 +47,7 @@ class Page
             'subtitle_tr', 'subtitle_en', 'subtitle_ar',
             'content_tr', 'content_en', 'content_ar',
             'header_image',
+            'sections_data',
             'meta_title_tr', 'meta_title_en', 'meta_title_ar',
             'meta_desc_tr', 'meta_desc_en', 'meta_desc_ar',
             'is_active'
@@ -66,6 +67,71 @@ class Page
         $sql = "UPDATE `pages` SET " . implode(', ', $fields) . " WHERE `id` = :id";
         $stmt = $db->prepare($sql);
         return $stmt->execute($params);
+    }
+
+    public static function getSectionsData(array $page): array
+    {
+        $raw = $page['sections_data'] ?? null;
+        if (empty($raw)) {
+            return [];
+        }
+        if (is_array($raw)) {
+            return $raw;
+        }
+        $decoded = json_decode((string)$raw, true);
+        return is_array($decoded) ? $decoded : [];
+    }
+
+    public static function getHero(array $page): array
+    {
+        $sec = self::getSectionsData($page);
+        return $sec['hero'] ?? [
+            'badge' => self::getTitle($page),
+            'title' => self::getTitle($page),
+            'subtitle' => self::getSubtitle($page)
+        ];
+    }
+
+    public static function getImages(array $page): array
+    {
+        $sec = self::getSectionsData($page);
+        return $sec['images'] ?? [];
+    }
+
+    public static function getButtons(array $page): array
+    {
+        $sec = self::getSectionsData($page);
+        return $sec['buttons'] ?? [];
+    }
+
+    public static function getParagraphs(array $page): array
+    {
+        $locale = I18n::getLocale();
+        $sec = self::getSectionsData($page);
+        $key = "paragraphs_{$locale}";
+        if (!empty($sec[$key]) && is_array($sec[$key])) {
+            return $sec[$key];
+        }
+        if (!empty($sec['paragraphs_tr']) && is_array($sec['paragraphs_tr'])) {
+            return $sec['paragraphs_tr'];
+        }
+        $content = self::getContent($page);
+        if (!empty($content)) {
+            return array_filter(array_map('trim', explode("\n\n", str_replace("\r", "", $content))));
+        }
+        return [];
+    }
+
+    public static function getTimeline(array $page): array
+    {
+        $sec = self::getSectionsData($page);
+        return $sec['timeline'] ?? [];
+    }
+
+    public static function getValues(array $page): array
+    {
+        $sec = self::getSectionsData($page);
+        return $sec['values'] ?? [];
     }
 
     public static function getTitle(array $page): string
