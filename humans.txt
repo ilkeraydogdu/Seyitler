@@ -1,12 +1,20 @@
-/* TEAM */
+/* TEAM & DEVELOPER */
+Developer & Architect: İlker Aydoğdu
+Agency: Pofuduk Dijital
+Website: https://pofudukdijital.com
+Contact: info@pofudukdijital.com
+Location: Türkiye
+
+/* CLIENT */
 Organization: Seyitler Kimya Sanayi A.Ş.
 Location: Turgutlu, Manisa, Türkiye
 Foundation: 1991
 Website: https://www.seyitler.com
 Sector: Tıbbi Plaster, Yara Bakımı, Medikal Sağlık Ürünleri
 
-/* SITE */
+/* SITE STANDARDS */
 Standards: HTML5, CSS3, Vanilla JS, MVC PHP Architecture, MySQL
-Security: OWASP Top 10 Hardened, RFC 9116 Compliant, Zero-Leak Error Shield
+Security: OWASP Hardened, RFC 9116 Compliant, Zero-Leak Error Shield
 Last update: 2026/09/03
 Language: Turkish / English / Arabic
+Copyright: 2026 Pofuduk Dijital & Seyitler Kimya Sanayi A.Ş.

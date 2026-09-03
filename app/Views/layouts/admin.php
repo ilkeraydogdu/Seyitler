@@ -273,6 +273,12 @@ $siteFavicon = SiteSetting::get('site_favicon', 'assets/images/favicon.png');
             <main class="p-6 sm:p-8 flex-1">
                 <?= $content ?>
             </main>
+
+            <!-- Admin Portal Footer -->
+            <footer class="px-6 sm:px-8 py-3.5 border-t border-slate-200/80 bg-white/50 text-slate-400 text-xs flex flex-col sm:flex-row items-center justify-between gap-2">
+                <div>© <?= date('Y') ?> Seyitler Kimya Sanayi A.Ş. Yönetim Portalı</div>
+                <div>Geliştirici: <a href="https://pofudukdijital.com" target="_blank" rel="noopener noreferrer" class="text-[#0AA64D] font-semibold hover:underline">Pofuduk Dijital</a> <span class="text-slate-500">(İlker Aydoğdu)</span></div>
+            </footer>
         </div>
 
     </div>

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Seyitler Kimya Sanayi A.Ş. - Enterprise Web Application Entrypoint
- * Fast, Clean, Centralized Fullstack PHP Architecture
+ * Seyitler Kimya Sanayi A.Ş.
+ * Mimari & Geliştirme: Pofuduk Dijital (İlker Aydoğdu) - https://pofudukdijital.com
  */
 
 declare(strict_types=1);

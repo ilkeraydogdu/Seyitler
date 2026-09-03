@@ -44,5 +44,7 @@ Allow: /
 Disallow: /podmin/
 Disallow: /admin/
 
-# Sitemap Location
+# Sitemap & Team Location
 Sitemap: http://localhost/seyitler.com/sitemap.xml
+# Humans: http://localhost/seyitler.com/humans.txt
+

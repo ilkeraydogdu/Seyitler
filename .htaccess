@@ -1,6 +1,6 @@
-# ==============================================================
-# SENIOR SECURITY & SHIELD CONFIGURATION (.htaccess)
-# ==============================================================
+# Seyitler Kimya Sanayi A.Ş. - Server Configuration & Security
+# Developer: Pofuduk Dijital (İlker Aydoğdu) - https://pofudukdijital.com
+
 
 # 1. Dizin listelemeyi ve sunucu tarafı CGI çalıştırmayı tamamen kapat
 Options -Indexes -ExecCGI

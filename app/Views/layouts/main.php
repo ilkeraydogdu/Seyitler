@@ -6,6 +6,9 @@
     <title><?= e($pageTitle ?? \App\Models\SiteSetting::get('site_title', 'Seyitler Kimya - Sağlık Üretiyoruz')) ?></title>
     <meta content="<?= e($pageDescription ?? \App\Models\SiteSetting::get('site_description', 'Seyitler Kimya Sanayi A.Ş. - 1991 yılından bu yana sağlık sektöründe güvenilir medikal plaster ve yara bakım ürünleri üreticisi.')) ?>" name="description"/>
     <meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+    <meta name="author" content="İlker Aydoğdu, Pofuduk Dijital"/>
+    <meta name="designer" content="Pofuduk Dijital - https://pofudukdijital.com"/>
+    <link rel="author" href="https://pofudukdijital.com"/>
     
     <!-- Canonical & Hreflang SEO -->
     <link rel="canonical" href="<?= \App\Core\Seo::canonicalUrl() ?>"/>
