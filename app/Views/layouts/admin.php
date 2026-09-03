@@ -194,23 +194,10 @@ $siteFavicon = SiteSetting::get('site_favicon', 'assets/images/favicon.png');
                 </nav>
             </div>
 
-            <!-- Bottom Actions (nb-global aesthetic) -->
-            <div class="p-3.5 border-t border-slate-100 bg-slate-50/60 space-y-2">
-                <a href="<?= url('/') ?>" target="_blank" class="flex items-center justify-between w-full px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 hover:text-[#0AA64D] transition-colors border border-slate-200 shadow-xs">
-                    <div class="flex items-center space-x-2.5">
-                        <svg class="text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-                        <span>Web Sitesini Aç</span>
-                    </div>
-                    <svg class="text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
-                </a>
-
-                <div class="pt-2 pb-1 flex flex-col items-center justify-center gap-1.5 border-t border-slate-200/60">
-                    <img src="<?= asset('assets/images/adminfooter.png') ?>" alt="Kasaba Works" class="h-8 w-auto object-contain opacity-75 hover:opacity-100 transition-opacity drop-shadow-2xs"/>
-                    <span class="text-[10px] text-slate-400 font-medium">Powered by Kasaba Works</span>
-                </div>
-
-                <a href="<?= url('/podmin/logout') ?>" class="flex items-center space-x-2.5 w-full px-3.5 py-2 rounded-xl text-xs font-semibold text-rose-600 hover:bg-rose-50 transition-colors">
-                    <svg class="shrink-0 text-rose-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"/></svg>
+            <!-- Bottom Actions -->
+            <div class="p-3.5 border-t border-slate-100 bg-slate-50/60">
+                <a href="<?= url('/podmin/logout') ?>" class="flex items-center justify-center space-x-2 w-full px-3.5 py-2.5 rounded-xl text-xs font-semibold text-rose-600 bg-white hover:bg-rose-50 hover:border-rose-200 border border-slate-200 shadow-xs transition-colors">
+                    <svg class="size-4 shrink-0 text-rose-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"/></svg>
                     <span>Çıkış Yap</span>
                 </a>
             </div>

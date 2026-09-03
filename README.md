@@ -134,10 +134,10 @@ return [
 ### 4. Yönetim Paneline Giriş Yapın
 Tarayıcınızdan aşağıdaki adresi açın:
 * **Giriş URL:** `http://localhost/seyitler.com/podmin/login`
-* **Kullanıcı Adı veya E-posta:** `admin` veya `admin@seyitler.com`
-* **Güvenlik Şifresi:** `Seyitler2026!`
+* **Varsayılan Kullanıcı Adı / E-posta:** `admin` (veya `admin@domain.com`)
+* **Varsayılan Şifre:** `admin123` *(İlk kurulum sonrası panel üzerinden değiştiriniz)*
 
-*(Giriş yaptıktan sonra şifrenizi ve bilgilerinizi `/podmin/settings` üzerinden değiştirebilirsiniz).*
+*(Giriş yaptıktan sonra şifrenizi ve kullanıcı bilgilerinizi `/podmin/settings` üzerinden güvenle güncelleyebilirsiniz).*
 
 ---
 
