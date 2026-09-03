@@ -94,7 +94,7 @@ CREATE TABLE `contact_messages` (
   `is_read` tinyint(1) DEFAULT '0',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,7 +103,6 @@ CREATE TABLE `contact_messages` (
 
 LOCK TABLES `contact_messages` WRITE;
 /*!40000 ALTER TABLE `contact_messages` DISABLE KEYS */;
-INSERT INTO `contact_messages` VALUES (5,'Murat Kaya','murat.kaya@eczane.com','+90 533 222 33 44','Flaster Urun Bilgisi','Urunlerinizin eczane kanali dagitim kosullari hakkinda detayli bilgi rica ediyoruz.',1,'2026-09-03 18:00:21');
 /*!40000 ALTER TABLE `contact_messages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -433,4 +432,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-09-04  0:13:06
+-- Dump completed on 2026-09-04  0:26:16

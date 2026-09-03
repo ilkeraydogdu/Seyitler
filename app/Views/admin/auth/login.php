@@ -7,7 +7,7 @@ $siteLogo = \App\Models\SiteSetting::get('site_logo', 'assets/images/seyitler_ya
 $siteFavicon = \App\Models\SiteSetting::get('site_favicon', 'assets/images/favicon.png');
 ?>
 <!DOCTYPE html>
-<html lang="tr" class="h-full bg-slate-50">
+<html lang="tr" class="h-full bg-slate-950">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -52,12 +52,16 @@ $siteFavicon = \App\Models\SiteSetting::get('site_favicon', 'assets/images/favic
         .font-display { font-family: 'Outfit', sans-serif; }
     </style>
 </head>
-<body class="min-h-full flex flex-col items-center justify-center p-4 sm:p-6 antialiased bg-slate-50 font-sans selection:bg-brand-600 selection:text-white">
+<body class="min-h-full flex flex-col items-center justify-center p-4 sm:p-6 antialiased bg-[#090d16] font-sans selection:bg-brand-600 selection:text-white relative overflow-x-hidden">
     
-    <div class="w-full max-w-[440px] my-auto">
+    <!-- Ambient Lighting Glows for Dark Depth -->
+    <div class="fixed top-0 left-1/4 -translate-x-1/2 -translate-y-1/2 size-96 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="fixed bottom-0 right-1/4 translate-x-1/2 translate-y-1/2 size-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="w-full max-w-[440px] my-auto relative z-10">
         
         <!-- Central Card -->
-        <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/60 p-7 sm:p-10 border border-slate-200/90 relative">
+        <div class="bg-white rounded-3xl shadow-2xl shadow-black/60 p-7 sm:p-10 border border-slate-200/90 relative">
             
             <!-- Brand Header -->
             <div class="text-center mb-8">
@@ -184,11 +188,11 @@ $siteFavicon = \App\Models\SiteSetting::get('site_favicon', 'assets/images/favic
                 <img 
                     src="<?= asset('assets/images/adminfooter.png') ?>" 
                     alt="Kasaba Works" 
-                    class="h-12 sm:h-14 w-auto object-contain drop-shadow-xs"
+                    class="h-12 sm:h-14 w-auto object-contain drop-shadow-md"
                 />
             </a>
-            <div class="text-[11px] text-slate-400 font-medium tracking-wide">
-                Powered by <span class="text-slate-600 font-semibold">Kasaba Works</span>
+            <div class="text-xs text-slate-400 font-medium tracking-wide">
+                Powered by <a href="https://kasabaworks.com" target="_blank" rel="noopener noreferrer" class="text-white hover:text-emerald-400 font-semibold transition-colors">Kasaba Works</a>
             </div>
         </div>
 
