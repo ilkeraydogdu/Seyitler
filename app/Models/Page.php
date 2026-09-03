@@ -96,7 +96,10 @@ class Page
     public static function getImages(array $page): array
     {
         $sec = self::getSectionsData($page);
-        return $sec['images'] ?? [];
+        if (!empty($sec['images']) && is_array($sec['images'])) {
+            return $sec['images'];
+        }
+        return self::getDefaultImagesForSlug($page['slug'] ?? '');
     }
 
     public static function getButtons(array $page): array
@@ -108,11 +111,185 @@ class Page
     public static function getVideo(array $page): array
     {
         $sec = self::getSectionsData($page);
-        return $sec['video'] ?? [
-            'url'    => '',
-            'poster' => '',
-            'title'  => ''
-        ];
+        if (!empty($sec['video']['url'])) {
+            return $sec['video'];
+        }
+        return self::getDefaultVideoForSlug($page['slug'] ?? '');
+    }
+
+    public static function getDocuments(array $page): array
+    {
+        $sec = self::getSectionsData($page);
+        if (!empty($sec['documents']) && is_array($sec['documents'])) {
+            return $sec['documents'];
+        }
+        return self::getDefaultDocumentsForSlug($page['slug'] ?? '');
+    }
+
+    public static function getDefaultImagesForSlug(string $slug): array
+    {
+        switch ($slug) {
+            case 'about-us':
+                return [
+                    ['url' => 'assets/images/hakkimizda_01.webp', 'alt' => 'Tesis ve Üretim Alanı'],
+                    ['url' => 'assets/images/hakkimizda_02.webp', 'alt' => 'Modern Makine Parkuru']
+                ];
+            case 'mission-vision':
+                return [
+                    ['url' => 'assets/images/misyonumuz-min.webp', 'alt' => 'Misyonumuz'],
+                    ['url' => 'assets/images/vizyonumuz-min.webp', 'alt' => 'Vizyonumuz']
+                ];
+            case 'organization':
+                return [
+                    ['url' => 'assets/images/mehmet_faysal_gokalp.jpeg', 'alt' => 'Prof. Dr. Mehmet Faysal GÖKALP'],
+                    ['url' => 'assets/images/plant-picture-clean-room-equipment-stainless-steel-machines-min.webp', 'alt' => 'Yönetim ve Tesis Şeması']
+                ];
+            case 'sustainability':
+                return [
+                    ['url' => 'assets/images/surdurulebilirlik-min.webp', 'alt' => 'Sürdürülebilirlik Banner'],
+                    ['url' => 'assets/images/plant-picture-clean-room-equipment-stainless-steel-machines-min.webp', 'alt' => 'Çevreye Duyarlı Üretim']
+                ];
+            case 'human-resources':
+                return [
+                    ['url' => 'assets/images/insan_kaynaklari-min.webp', 'alt' => 'İnsan Kaynakları Politikası'],
+                    ['url' => 'assets/images/Seyitker_Anasayfa_03-min.webp', 'alt' => 'Ekibimiz ve Çalışma Ortamı']
+                ];
+            case 'rd':
+                return [
+                    ['url' => 'assets/images/arge_1-min.webp', 'alt' => 'Ar-Ge Laboratuvarı'],
+                    ['url' => 'assets/images/arge_2-min.webp', 'alt' => 'İnovasyon ve Test Merkezi'],
+                    ['url' => 'assets/images/ArGe_01.jpg', 'alt' => 'Ar-Ge Cihaz Parkuru 1'],
+                    ['url' => 'assets/images/ArGe_02.jpg', 'alt' => 'Ar-Ge Cihaz Parkuru 2'],
+                    ['url' => 'assets/images/ArGe_03.jpg', 'alt' => 'Ar-Ge Cihaz Parkuru 3'],
+                    ['url' => 'assets/images/ArGe_04.jpg', 'alt' => 'Ar-Ge Cihaz Parkuru 4'],
+                ];
+            case 'areas':
+                return [
+                    ['url' => 'assets/images/plant-picture-clean-room-equipment-stainless-steel-machines-min.webp', 'alt' => 'Tesis ve Üretim Temiz Oda'],
+                    ['url' => 'assets/images/uretimde_guc_kalitede_istikrar.webp', 'alt' => 'Üretimde Güç ve Kalite']
+                ];
+            case 'home':
+                return [
+                    ['url' => 'assets/images/Seyitker_Anasayfa_02-min.webp', 'alt' => 'Seyitler Kimya Anasayfa Tanıtım'],
+                    ['url' => 'assets/images/Seyitker_Anasayfa_03-min.webp', 'alt' => 'Yüksek Teknoloji Üretim']
+                ];
+            case 'products':
+                return [
+                    ['url' => 'assets/images/piyasaya_sunum.webp', 'alt' => 'Ürün Kataloğu ve Piyasaya Sunum'],
+                    ['url' => 'assets/images/Seyitker_Anasayfa_02-min.webp', 'alt' => 'Medikal Plasterler ve Yara Örtüleri']
+                ];
+            case 'investors':
+                return [
+                    ['url' => 'assets/images/Seyitler_Anasayfa_Hakkimizda_v2.webp', 'alt' => 'Borsa İstanbul Yatırımcı İlişkileri'],
+                    ['url' => 'assets/images/plant-picture-clean-room-equipment-stainless-steel-machines-min.webp', 'alt' => 'Şeffaf Kurumsal Yönetim']
+                ];
+            case 'contact':
+                return [
+                    ['url' => 'assets/images/Seyitler_Anasayfa_Hakkimizda_v2.webp', 'alt' => 'Manisa Turgutlu Üretim Kampüsü'],
+                    ['url' => 'assets/images/plant-picture-clean-room-equipment-stainless-steel-machines-min.webp', 'alt' => 'Genel Merkez ve Fabrika']
+                ];
+            default:
+                return [
+                    ['url' => 'assets/images/hakkimizda_01.webp', 'alt' => 'Seyitler Kimya'],
+                    ['url' => 'assets/images/hakkimizda_02.webp', 'alt' => 'Üretim Tesisleri']
+                ];
+        }
+    }
+
+    public static function getDefaultVideoForSlug(string $slug): array
+    {
+        switch ($slug) {
+            case 'rd':
+                return [
+                    'url'    => 'https://r2-content-api.okesici.workers.dev/files/photos/ArGe.mp4',
+                    'poster' => 'assets/images/arge_1-min.webp',
+                    'title'  => 'Seyitler Kimya Ar-Ge Laboratuvarı Tanıtım Videosu'
+                ];
+            case 'areas':
+                return [
+                    'url'    => 'https://r2-content-api.okesici.workers.dev/files/photos/FaaliyetAlanlari.mp4',
+                    'poster' => 'assets/images/plant-picture-clean-room-equipment-stainless-steel-machines-min.webp',
+                    'title'  => 'Faaliyet Alanları ve Üretim Tesisimiz'
+                ];
+            case 'home':
+            case 'about-us':
+                return [
+                    'url'    => 'https://r2-content-api.okesici.workers.dev/files/photos/FaaliyetAlanlari.mp4',
+                    'poster' => 'assets/images/plant-picture-clean-room-equipment-stainless-steel-machines-min.webp',
+                    'title'  => 'Seyitler Kimya Kurumsal Tanıtım Filmi'
+                ];
+            default:
+                return [
+                    'url'    => '',
+                    'poster' => '',
+                    'title'  => ''
+                ];
+        }
+    }
+
+    public static function getDefaultDocumentsForSlug(string $slug): array
+    {
+        switch ($slug) {
+            case 'products':
+            case 'home':
+            case 'about-us':
+                return [
+                    [
+                        'title' => 'Seyitler Kimya Medikal Ürün Kataloğu (PDF)',
+                        'url'   => 'assets/docs/catalog_en.pdf',
+                        'size'  => '2.1 MB'
+                    ]
+                ];
+            case 'investors':
+                return [
+                    [
+                        'title' => '2025 Yılı 12 Aylık Faaliyet Raporu (PDF)',
+                        'url'   => 'assets/documents/2025 12 Faaliyet Raporu.pdf',
+                        'size'  => '1.5 MB'
+                    ]
+                ];
+            case 'sustainability':
+                return [
+                    [
+                        'title' => 'Sürdürülebilirlik ve Kurumsal Uyum Raporu (PDF)',
+                        'url'   => 'assets/documents/2025 12 Faaliyet Raporu.pdf',
+                        'size'  => '1.5 MB'
+                    ]
+                ];
+            case 'organization':
+                return [
+                    [
+                        'title' => 'Şirket Ana Sözleşmesi ve Yönetim Esasları (PDF)',
+                        'url'   => 'assets/documents/anasozlesme2022.pdf',
+                        'size'  => '655 KB'
+                    ]
+                ];
+            case 'kvkk':
+            case 'cookie-policy':
+                return [
+                    [
+                        'title' => 'KVKK Bilgilendirme ve İlgili Kişi Başvuru Formu (PDF)',
+                        'url'   => 'assets/documents/anasozlesme2022.pdf',
+                        'size'  => '655 KB'
+                    ]
+                ];
+            case 'human-resources':
+                return [
+                    [
+                        'title' => 'İnsan Kaynakları Politikası ve Kariyer Rehberi (PDF)',
+                        'url'   => 'assets/docs/catalog_en.pdf',
+                        'size'  => '2.1 MB'
+                    ]
+                ];
+            default:
+                return [
+                    [
+                        'title' => 'Kurumsal Tanıtım Dokümanı (PDF)',
+                        'url'   => 'assets/docs/catalog_en.pdf',
+                        'size'  => '2.1 MB'
+                    ]
+                ];
+        }
     }
 
     public static function getParagraphs(array $page): array

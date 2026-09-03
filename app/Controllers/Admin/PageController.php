@@ -120,6 +120,32 @@ class PageController
             'title'  => trim((string)$request->post('video_title')) ?: $page['title_tr']
         ];
 
+        // 4. PDF Documents Handling
+        $docUrl = trim((string)$request->post('document_url'));
+        $docTitle = trim((string)$request->post('document_title'));
+
+        if (isset($_FILES['document_file']) && $_FILES['document_file']['error'] === UPLOAD_ERR_OK) {
+            $uploadedDoc = $this->handleFileUpload($_FILES['document_file'], 'assets/documents/');
+            if ($uploadedDoc) {
+                $docUrl = $uploadedDoc;
+                if (empty($docTitle)) {
+                    $docTitle = pathinfo($_FILES['document_file']['name'], PATHINFO_FILENAME) . ' (PDF)';
+                }
+            }
+        }
+
+        if ($docUrl !== '') {
+            $fileFullPath = BASE_PATH . '/' . trim($docUrl, '/');
+            $fileSize = file_exists($fileFullPath) ? (round(filesize($fileFullPath) / 1048576, 1) > 0.1 ? round(filesize($fileFullPath) / 1048576, 1) . ' MB' : round(filesize($fileFullPath) / 1024, 0) . ' KB') : 'PDF';
+            $sectionsData['documents'] = [
+                [
+                    'title' => $docTitle ?: ($page['title_tr'] . ' Dokümanı (PDF)'),
+                    'url'   => $docUrl,
+                    'size'  => $fileSize
+                ]
+            ];
+        }
+
         // 3. Action Buttons
         $btnTextTr = trim((string)$request->post('btn_primary_text_tr'));
         $btnUrl = trim((string)$request->post('btn_primary_url'));
@@ -228,7 +254,7 @@ class PageController
 
     private function handleFileUpload(array $file, string $targetDir): ?string
     {
-        $allowedExts = ['jpg', 'jpeg', 'png', 'webp', 'svg', 'mp4', 'webm', 'ogg', 'mov'];
+        $allowedExts = ['jpg', 'jpeg', 'png', 'webp', 'svg', 'mp4', 'webm', 'ogg', 'mov', 'pdf'];
         $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
 
         if (!in_array($ext, $allowedExts, true)) {

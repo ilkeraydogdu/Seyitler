@@ -4,7 +4,7 @@ use App\Models\Page;
 
 $sections = Page::getSectionsData($page);
 $hero = $sections['hero'] ?? [];
-$images = $sections['images'] ?? [];
+$images = Page::getImages($page);
 $img1 = $images[0] ?? ['url' => '', 'alt' => ''];
 $img2 = $images[1] ?? ['url' => '', 'alt' => ''];
 $buttons = $sections['buttons'] ?? [];
@@ -12,6 +12,8 @@ $btn1 = $buttons[0] ?? ['text_tr' => '', 'text_en' => '', 'text_ar' => '', 'url'
 $btn2 = $buttons[1] ?? ['text_tr' => '', 'text_en' => '', 'text_ar' => '', 'url' => '', 'target' => '_self'];
 $timeline = $sections['timeline'] ?? [];
 $video = Page::getVideo($page);
+$documents = Page::getDocuments($page);
+$doc1 = $documents[0] ?? ['title' => '', 'url' => '', 'size' => ''];
 
 // Akıllı Medya Etiketleri
 $img1Label = '1. Tanıtım Görseli';
@@ -76,6 +78,67 @@ $publicUrl = $page['slug'] === 'home'
                 <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
                 <span>Değişiklikleri Kaydet</span>
             </button>
+        </div>
+    </div>
+
+    <!-- Quick Media Inventory Bar: Shows Exactly What Is Currently Assigned to This Page -->
+    <div class="p-4 sm:p-5 rounded-3xl bg-white border border-slate-200/80 shadow-subtle flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+            <div class="size-10 rounded-2xl bg-indigo-50 text-indigo-700 flex items-center justify-center shrink-0">
+                <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/></svg>
+            </div>
+            <div>
+                <h3 class="text-xs font-bold text-slate-900">Sayfaya Tanımlı Mevcut Medya & Dosya Envanteri</h3>
+                <p class="text-[11px] text-slate-400">Bu sayfada şu anda canlı olarak yayında olan görseller, tanıtım videosu ve resmi PDF dokümanları</p>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+            <!-- Image 1 Preview -->
+            <?php if (!empty($img1['url'])): ?>
+                <a href="<?= asset($img1['url']) ?>" target="_blank" title="<?= e($img1Label) ?>: <?= e($img1['url']) ?>" class="group flex items-center gap-2 p-1.5 pr-3 rounded-2xl bg-slate-50 border border-slate-200 hover:border-emerald-300 hover:bg-emerald-50/50 transition-all">
+                    <img src="<?= asset($img1['url']) ?>" class="size-8 rounded-xl object-cover border border-slate-200 shadow-2xs group-hover:scale-105 transition-transform"/>
+                    <div class="text-left">
+                        <span class="block text-[10px] font-bold text-slate-700 leading-tight"><?= e(mb_substr($img1Label, 0, 18)) ?></span>
+                        <span class="block text-[9px] text-emerald-700 font-semibold">Mevcut Görsel ↗</span>
+                    </div>
+                </a>
+            <?php endif; ?>
+
+            <!-- Image 2 Preview -->
+            <?php if (!empty($img2['url'])): ?>
+                <a href="<?= asset($img2['url']) ?>" target="_blank" title="<?= e($img2Label) ?>: <?= e($img2['url']) ?>" class="group flex items-center gap-2 p-1.5 pr-3 rounded-2xl bg-slate-50 border border-slate-200 hover:border-emerald-300 hover:bg-emerald-50/50 transition-all">
+                    <img src="<?= asset($img2['url']) ?>" class="size-8 rounded-xl object-cover border border-slate-200 shadow-2xs group-hover:scale-105 transition-transform"/>
+                    <div class="text-left">
+                        <span class="block text-[10px] font-bold text-slate-700 leading-tight"><?= e(mb_substr($img2Label, 0, 18)) ?></span>
+                        <span class="block text-[9px] text-emerald-700 font-semibold">Mevcut Görsel ↗</span>
+                    </div>
+                </a>
+            <?php endif; ?>
+
+            <!-- Video Preview Badge -->
+            <?php if (!empty($video['url'])): ?>
+                <a href="<?= str_starts_with($video['url'], 'http') ? $video['url'] : asset($video['url']) ?>" target="_blank" class="flex items-center gap-2 p-2 px-3 rounded-2xl bg-slate-900 text-white hover:bg-slate-800 transition-colors shadow-2xs">
+                    <div class="size-5 rounded-lg bg-red-600 flex items-center justify-center text-white">
+                        <svg class="size-3" fill="currentColor" viewBox="0 0 24 24"><path d="m9.5 7.5 7 4.5-7 4.5z"/></svg>
+                    </div>
+                    <div class="text-left">
+                        <span class="block text-[10px] font-bold text-white leading-tight">Tanıtım Videosu</span>
+                        <span class="block text-[9px] text-red-300 font-medium">MP4 Canlıda ↗</span>
+                    </div>
+                </a>
+            <?php endif; ?>
+
+            <!-- PDF Document Preview Badge -->
+            <?php if (!empty($doc1['url'])): ?>
+                <a href="<?= str_starts_with($doc1['url'], 'http') ? $doc1['url'] : asset($doc1['url']) ?>" target="_blank" class="flex items-center gap-2 p-2 px-3 rounded-2xl bg-red-50 border border-red-200 text-red-950 hover:bg-red-100 transition-colors shadow-2xs">
+                    <svg class="size-4 text-red-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+                    <div class="text-left">
+                        <span class="block text-[10px] font-bold text-red-950 leading-tight">PDF Dokümanı</span>
+                        <span class="block text-[9px] text-red-700 font-medium"><?= e($doc1['size'] ?? 'PDF İndir') ?> ↗</span>
+                    </div>
+                </a>
+            <?php endif; ?>
         </div>
     </div>
 
@@ -319,6 +382,51 @@ $publicUrl = $page['slug'] === 'home'
                             </div>
                         <?php endforeach; ?>
                     <?php endif; ?>
+                </div>
+            </div>
+
+            <!-- 2.D: SAYFA PDF DOKÜMANI (KATALOG, RAPOR VEYA RESMİ BELGE) -->
+            <div class="pt-5 border-t border-slate-100">
+                <div class="p-4 rounded-2xl bg-amber-50/50 border border-amber-200/70 space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-amber-200/50">
+                        <div class="flex items-center gap-2.5">
+                            <div class="size-8 rounded-xl bg-red-100 text-red-700 flex items-center justify-center font-bold text-xs shrink-0">
+                                <svg class="size-4.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-amber-950 flex items-center gap-2">
+                                    <span>Sayfa PDF Dokümanı (Katalog / Faaliyet Raporu / Sözleşme)</span>
+                                    <span class="text-[10px] px-2 py-0.5 rounded bg-amber-200/60 text-amber-900 font-normal">PDF Modülü</span>
+                                </h4>
+                                <p class="text-[11px] text-amber-800/80">Kullanıcıların sayfadan indirebileceği veya inceleyebileceği resmi PDF dokümanını buradan yönetebilirsiniz.</p>
+                            </div>
+                        </div>
+
+                        <?php if (!empty($doc1['url'])): ?>
+                            <a href="<?= str_starts_with($doc1['url'], 'http') ? $doc1['url'] : asset($doc1['url']) ?>" target="_blank" class="px-3 py-1.5 rounded-xl bg-white border border-amber-300 text-amber-900 hover:bg-amber-100 font-bold text-xs transition-colors flex items-center gap-1.5 shrink-0 shadow-2xs">
+                                <svg class="size-3.5 text-red-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
+                                <span>Mevcut PDF'i Aç (<?= e($doc1['size'] ?? 'PDF') ?>)</span>
+                            </a>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+                        <div class="md:col-span-4">
+                            <label class="block text-[11px] font-semibold text-slate-700 mb-1">Doküman Başlığı</label>
+                            <input type="text" name="document_title" value="<?= e($doc1['title'] ?? '') ?>" placeholder="2026 Ürün Kataloğu (PDF)" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white text-slate-900 font-semibold outline-none focus:border-amber-500"/>
+                        </div>
+
+                        <div class="md:col-span-4">
+                            <label class="block text-[11px] font-semibold text-slate-700 mb-1">PDF Dosya Yolu veya URL</label>
+                            <input type="text" name="document_url" value="<?= e($doc1['url'] ?? '') ?>" placeholder="assets/docs/catalog_en.pdf" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white font-mono text-slate-700 outline-none focus:border-amber-500"/>
+                        </div>
+
+                        <div class="md:col-span-4">
+                            <label class="block text-[11px] font-semibold text-slate-700 mb-1">Yeni PDF Dosyası Yükle</label>
+                            <input type="file" name="document_file" accept=".pdf,application/pdf" class="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-amber-100 file:text-amber-900 hover:file:bg-amber-200"/>
+                            <span class="text-[10px] text-slate-400 mt-0.5 block">Format: Sadece .pdf dosyaları</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
