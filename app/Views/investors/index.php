@@ -1,200 +1,249 @@
 <?php
-use App\Models\InvestorCategory;
-use App\Models\InvestorDocument;
-
-/** @var array $tree */
-/** @var array $documentsGrouped */
+$investorsJsonData = [];
+foreach ($tree as $cat) {
+    $catItem = [
+        "id" => "cat_" . $cat["id"],
+        "name" => \App\Models\InvestorCategory::getName($cat),
+        "children" => [],
+        "pdfs" => [],
+        "is_iframe" => false,
+        "iframe_url" => null,
+    ];
+    if (!empty($documentsGrouped[$cat["id"]])) {
+        foreach ($documentsGrouped[$cat["id"]] as $d) {
+            $catItem["pdfs"][] = [
+                "label" => $d["label"],
+                "url" => $d["url"],
+            ];
+        }
+    }
+    if (!empty($cat["children"])) {
+        foreach ($cat["children"] as $sub) {
+            $subItem = [
+                "id" => "sub_" . $sub["id"],
+                "name" => \App\Models\InvestorCategory::getName($sub),
+                "pdfs" => [],
+            ];
+            if (!empty($documentsGrouped[$sub["id"]])) {
+                foreach ($documentsGrouped[$sub["id"]] as $d) {
+                    $subItem["pdfs"][] = [
+                        "label" => $d["label"],
+                        "url" => $d["url"],
+                    ];
+                }
+            }
+            $catItem["children"][] = $subItem;
+        }
+    }
+    $investorsJsonData[] = $catItem;
+}
 ?>
 
-<!-- Breadcrumb Header -->
-<section class="relative bg-center bg-cover py-10 bg-gray-50 border-b border-gray-100">
-    <div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl">
-        <nav class="flex items-center gap-2 text-sm">
-            <a class="text-gray-400 uppercase text-xs hover:text-seyitler-primary transition-colors" href="<?= url('/') ?>"><?= __('ANASAYFA', 'Anasayfa') ?></a>
-            <span class="text-gray-400">/</span>
-            <span class="text-seyitler-primary text-base font-semibold uppercase"><?= __('Yatırımcı İlişkileri', 'Yatırımcı İlişkileri') ?></span>
-        </nav>
-        <h1 class="text-3xl font-bold text-gray-900 mt-2"><?= __('Yatırımcı İlişkileri Portalı', 'Yatırımcı İlişkileri Portalı') ?></h1>
-    </div>
-</section>
+    <div>
+        <!-- Breadcrumb Header -->
+        <section class="relative bg-center bg-cover py-12">
+            <div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl">
+                <nav class="flex items-center gap-2 mb-6 text-sm border-b py-4">
+                    <span class="text-seyitler-primary text-2xl uppercase font-semibold"><?= __('menu_investors', 'Yatırımcı İlişkileri') ?></span>
+                    <span class="text-seyitler-txt/50">
+                        <svg class="lucide lucide-arrow-left-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+                    </span>
+                    <a class="text-seyitler-txt/50 uppercase text-xs hover:text-seyitler-primary transition-colors" href="<?= url('/') ?>"><?= __('menu_home', 'Anasayfa') ?></a>
+                </nav>
+            </div>
+        </section>
 
-<div class="py-12 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
-        
-        <!-- Left Categories Sidebar -->
-        <aside class="md:col-span-4 lg:col-span-3">
-            <div id="investors-sidebar" class="sticky top-24 flex flex-col border border-gray-200 rounded-xl overflow-hidden shadow-sm bg-white">
-                <?php foreach ($tree as $cIdx => $cat): ?>
-                    <?php 
-                    $catName = InvestorCategory::getName($cat); 
-                    $hasChildren = !empty($cat['children']);
-                    ?>
-                    <div class="category-block border-b border-gray-100 last:border-0">
-                        <div class="cat-header flex items-center justify-between px-4 py-3.5 cursor-pointer hover:bg-gray-50 transition-colors <?= $cIdx === 0 && !$hasChildren ? 'bg-emerald-50 text-seyitler-primary font-bold border-l-4 border-l-seyitler-primary' : 'text-gray-800' ?>" data-cat-id="<?= $cat['id'] ?>">
-                            <div class="flex items-center gap-2.5 overflow-hidden">
-                                <?php if ($hasChildren): ?>
-                                    <svg class="chevron-icon size-3.5 text-gray-400 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
-                                <?php else: ?>
-                                    <span class="size-3.5"></span>
-                                <?php endif; ?>
-                                <span class="text-sm font-semibold truncate"><?= e($catName) ?></span>
-                            </div>
-                        </div>
-
-                        <?php if ($hasChildren): ?>
-                            <div class="sub-list flex flex-col bg-gray-50/70 <?= $cIdx === 0 ? '' : 'hidden' ?>" id="sub-list-<?= $cat['id'] ?>">
-                                <?php foreach ($cat['children'] as $sIdx => $sub): ?>
-                                    <?php $subName = InvestorCategory::getName($sub); ?>
-                                    <div class="sub-item flex items-center gap-2.5 py-2.5 pl-9 pr-4 cursor-pointer text-xs font-medium text-gray-600 hover:text-seyitler-primary hover:bg-gray-100/70 transition-colors border-l-4 <?= ($cIdx === 0 && $sIdx === 0) ? 'border-l-seyitler-primary bg-emerald-50/80 text-seyitler-primary font-bold' : 'border-l-transparent' ?>" data-sub-id="<?= $sub['id'] ?>" data-sub-name="<?= e($subName) ?>" data-iframe="<?= $sub['is_iframe'] ? '1' : '0' ?>" data-iframe-url="<?= e($sub['iframe_url'] ?? '') ?>">
-                                        <span class="size-1.5 rounded-full bg-gray-400"></span>
-                                        <span class="truncate"><?= e($subName) ?></span>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
-                        <?php endif; ?>
+        <!-- Investors Layout with generous bottom spacing before footer -->
+        <div class="mx-auto px-4 max-w-7xl pt-4 pb-20 xl:px-0" style="padding-bottom: 8rem; margin-bottom: 3rem;">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8" style="margin-bottom: 2rem;">
+                
+                <!-- Left Accordion Sidebar -->
+                <aside class="md:col-span-4 lg:col-span-3">
+                    <div id="investors-sidebar" class="flex flex-col border border-gray-100 rounded-xl overflow-hidden shadow-sm bg-white" style="margin-bottom: 2rem;">
+                        <!-- Sidebar injected via JS -->
                     </div>
-                <?php endforeach; ?>
-            </div>
-        </aside>
+                </aside>
 
-        <!-- Right Content Area -->
-        <div class="md:col-span-8 lg:col-span-9 flex flex-col gap-6 min-h-[60vh]">
-            <div class="border-b border-gray-200 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                    <h2 id="active-panel-title" class="text-2xl font-bold text-gray-900"><?= __('Şirket Bilgileri', 'Şirket Bilgileri') ?></h2>
-                    <div class="h-1 w-16 bg-seyitler-primary rounded-full mt-2"></div>
+                <!-- Right Dynamic Content Area -->
+                <div class="md:col-span-8 lg:col-span-9 flex flex-col gap-6 min-h-[60vh]">
+                    <div class="mb-2">
+                        <h2 id="active-panel-title" class="text-2xl font-bold text-gray-800 mb-1">Yatırımcı İlişkileri</h2>
+                        <div class="h-1 w-20 bg-seyitler-primary rounded-full"></div>
+                    </div>
+
+                    <!-- Filter / Search (Optional for large document sets) -->
+                    <div id="doc-search-wrapper" class="relative hidden">
+                        <input id="doc-search-input" type="text" placeholder="Dökümanlarda ara..." class="w-full px-4 py-2.5 text-sm rounded-lg border border-gray-200 focus:outline-none focus:border-seyitler-primary transition-colors"/>
+                    </div>
+
+                    <!-- Documents Container -->
+                    <div id="active-panel-content" class="grid grid-cols-1 gap-4" style="margin-bottom: 3rem;">
+                        <!-- Documents list / iframe injected via JS -->
+                    </div>
                 </div>
 
-                <!-- Document Search -->
-                <div class="relative w-full sm:w-64">
-                    <input id="doc-search-input" type="text" placeholder="<?= __('Dökümanlarda ara...', 'Dökümanlarda ara...') ?>" class="w-full px-3.5 py-2 text-xs rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-seyitler-primary/40 focus:border-seyitler-primary transition-all"/>
-                    <svg class="size-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
-                </div>
-            </div>
-
-            <!-- Documents List Container -->
-            <div id="active-panel-content" class="grid grid-cols-1 gap-3">
-                <!-- Javascript will populate documents based on selected category -->
             </div>
         </div>
-
     </div>
-</div>
 
 <script>
-const DOCUMENTS_MAP = <?= json_encode($documentsGrouped, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?>;
+
+const INVESTORS_DATA = <?= json_encode($investorsJsonData, JSON_UNESCAPED_UNICODE) ?>;
 
 document.addEventListener('DOMContentLoaded', () => {
-    const sidebar = document.getElementById('investors-sidebar');
+    const sidebarEl = document.getElementById('investors-sidebar');
     const titleEl = document.getElementById('active-panel-title');
     const contentEl = document.getElementById('active-panel-content');
-    const searchInput = document.getElementById('doc-search-input');
+    
+    if (!sidebarEl || !INVESTORS_DATA) return;
 
-    if (!sidebar || !contentEl) return;
+    let activeCatIndex = 0;
+    let activeSubIndex = 0;
 
-    let currentDocs = [];
-
-    function renderDocs(docs) {
-        if (!docs || docs.length === 0) {
-            contentEl.innerHTML = `
-                <div class="text-center py-16 bg-gray-50 rounded-xl border border-gray-200">
-                    <svg class="size-10 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
-                    <p class="text-sm font-medium text-gray-500">Bu kategori altında döküman bulunmuyor.</p>
-                </div>
-            `;
-            return;
-        }
-
+    // Render Sidebar
+    function renderSidebar() {
         let html = '';
-        docs.forEach(doc => {
-            const url = '<?= asset('') ?>' + doc.url.replace(/^\/+/, '');
+        INVESTORS_DATA.forEach((cat, cIdx) => {
+            const hasChildren = cat.children && cat.children.length > 0;
+            const isCatActive = (activeCatIndex === cIdx);
+            
             html += `
-                <div class="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-xl hover:border-seyitler-primary/40 hover:shadow-md transition-all group">
-                    <div class="flex items-center gap-3.5 overflow-hidden">
-                        <div class="size-10 rounded-lg bg-red-50 text-red-600 flex items-center justify-center shrink-0">
-                            <svg class="size-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9.5 8.5h-1v-2h1c.55 0 1 .45 1 1s-.45 1-1 1zm5.5 0h-1v-2h1c.55 0 1 .45 1 1s-.45 1-1 1zm-4-4.5h-2.5v7H10V11h1c1.1 0 2-.9 2-2s-.9-2-2-2zm5 0h-2.5v7H15V11h1c1.1 0 2-.9 2-2s-.9-2-2-2z"/></svg>
+                <div class="category-block border-b border-gray-50 last:border-0">
+                    <div class="cat-header group flex items-center justify-between px-4 py-3.5 cursor-pointer transition-all duration-200 hover:bg-gray-50 ${isCatActive && !hasChildren ? 'bg-seyitler-primary/5 text-seyitler-primary font-semibold border-l-4 border-l-seyitler-primary' : 'text-gray-700'}" data-cat-idx="${cIdx}">
+                        <div class="flex items-center gap-3 overflow-hidden">
+                            ${hasChildren ? `
+                                <svg class="chevron-icon w-3.5 h-3.5 transition-transform duration-200 ${isCatActive ? 'rotate-90 text-seyitler-primary' : 'text-gray-400'}" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6"></path></svg>
+                            ` : `
+                                <span class="w-3.5 h-3.5"></span>
+                            `}
+                            <span class="text-[15px] font-medium leading-tight truncate">${cat.name}</span>
                         </div>
-                        <span class="text-sm font-semibold text-gray-800 group-hover:text-seyitler-primary transition-colors truncate">
-                            ${doc.label}
-                        </span>
                     </div>
-                    <a href="${url}" target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-gray-50 hover:bg-seyitler-primary hover:text-white text-gray-700 text-xs font-semibold rounded-lg transition-all flex items-center gap-1.5 shrink-0 border border-gray-200 hover:border-transparent">
-                        <span>Görüntüle</span>
-                        <svg class="size-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"/></svg>
-                    </a>
+                    ${hasChildren ? `
+                        <div class="sub-list flex flex-col bg-gray-50/50 ${isCatActive ? '' : 'hidden'}" id="sub-list-${cIdx}">
+                            ${cat.children.map((sub, sIdx) => {
+                                const isSubActive = (isCatActive && activeSubIndex === sIdx);
+                                return `
+                                    <div class="sub-item group flex items-center gap-3 py-2.5 pr-4 cursor-pointer transition-all duration-200 border-l-4 ${isSubActive ? 'bg-seyitler-primary/10 text-seyitler-primary font-semibold border-l-seyitler-primary' : 'border-l-transparent text-gray-600 hover:text-seyitler-primary hover:bg-gray-100/60'}" style="padding-left: 2.25rem;" data-cat-idx="${cIdx}" data-sub-idx="${sIdx}">
+                                        <div class="w-1.5 h-1.5 rounded-full ${isSubActive ? 'bg-seyitler-primary' : 'bg-gray-300 group-hover:bg-seyitler-primary'}"></div>
+                                        <span class="text-sm leading-tight">${sub.name}</span>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    ` : ''}
                 </div>
             `;
         });
-        contentEl.innerHTML = html;
-    }
+        sidebarEl.innerHTML = html;
 
-    function selectCategory(catId, catName) {
-        if (titleEl) titleEl.textContent = catName;
-        currentDocs = DOCUMENTS_MAP[catId] || [];
-        renderDocs(currentDocs);
-        if (searchInput) searchInput.value = '';
-    }
-
-    // Event Delegation for Sidebar clicks
-    sidebar.addEventListener('click', (e) => {
-        const subItem = e.target.closest('.sub-item');
-        if (subItem) {
-            document.querySelectorAll('.sub-item').forEach(el => {
-                el.classList.remove('border-l-seyitler-primary', 'bg-emerald-50/80', 'text-seyitler-primary', 'font-bold');
-                el.classList.add('border-l-transparent');
-            });
-            subItem.classList.add('border-l-seyitler-primary', 'bg-emerald-50/80', 'text-seyitler-primary', 'font-bold');
-            subItem.classList.remove('border-l-transparent');
-
-            const subId = subItem.getAttribute('data-sub-id');
-            const subName = subItem.getAttribute('data-sub-name');
-            selectCategory(subId, subName);
-            return;
-        }
-
-        const catHeader = e.target.closest('.cat-header');
-        if (catHeader) {
-            const catId = catHeader.getAttribute('data-cat-id');
-            const subList = document.getElementById('sub-list-' + catId);
-            const chevron = catHeader.querySelector('.chevron-icon');
-
-            if (subList) {
-                const isHidden = subList.classList.contains('hidden');
-                document.querySelectorAll('.sub-list').forEach(sl => sl.classList.add('hidden'));
-                document.querySelectorAll('.chevron-icon').forEach(ch => ch.classList.remove('rotate-90'));
-
-                if (isHidden) {
-                    subList.classList.remove('hidden');
-                    if (chevron) chevron.classList.add('rotate-90');
-                    // İlk alt elemanı seç
-                    const firstSub = subList.querySelector('.sub-item');
-                    if (firstSub) firstSub.click();
+        // Attach event listeners
+        sidebarEl.querySelectorAll('.cat-header').forEach(el => {
+            el.addEventListener('click', () => {
+                const cIdx = parseInt(el.getAttribute('data-cat-idx'));
+                const cat = INVESTORS_DATA[cIdx];
+                if (cat.children && cat.children.length > 0) {
+                    // Toggle expand
+                    if (activeCatIndex === cIdx) {
+                        const subList = document.getElementById(`sub-list-${cIdx}`);
+                        const chevron = el.querySelector('.chevron-icon');
+                        if (subList) {
+                            subList.classList.toggle('hidden');
+                            if (chevron) chevron.classList.toggle('rotate-90');
+                        }
+                    } else {
+                        activeCatIndex = cIdx;
+                        activeSubIndex = 0;
+                        renderSidebar();
+                        renderContent();
+                    }
+                } else {
+                    activeCatIndex = cIdx;
+                    activeSubIndex = 0;
+                    renderSidebar();
+                    renderContent();
                 }
-            } else {
-                // Alt kategorisi olmayan ana kategori
-                const catName = catHeader.querySelector('span.text-sm').textContent;
-                selectCategory(catId, catName);
-            }
-        }
-    });
+            });
+        });
 
-    // Search filtering
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase().trim();
-            if (!term) {
-                renderDocs(currentDocs);
-                return;
-            }
-            const filtered = currentDocs.filter(d => d.label.toLowerCase().includes(term));
-            renderDocs(filtered);
+        sidebarEl.querySelectorAll('.sub-item').forEach(el => {
+            el.addEventListener('click', (e) => {
+                e.stopPropagation();
+                activeCatIndex = parseInt(el.getAttribute('data-cat-idx'));
+                activeSubIndex = parseInt(el.getAttribute('data-sub-idx'));
+                renderSidebar();
+                renderContent();
+            });
         });
     }
 
-    // Sayfa açıldığında ilk alt kategoriyi yükle
-    const firstSubItem = sidebar.querySelector('.sub-item');
-    if (firstSubItem) {
-        firstSubItem.click();
+    // Render Right Panel Content
+    function renderContent() {
+        const cat = INVESTORS_DATA[activeCatIndex];
+        if (!cat) return;
+
+        let title = cat.name;
+        let pdfs = cat.pdfs || [];
+        let isIframe = cat.is_iframe;
+
+        if (cat.children && cat.children.length > 0) {
+            const sub = cat.children[activeSubIndex] || cat.children[0];
+            title = sub.name;
+            pdfs = sub.pdfs || [];
+        }
+
+        titleEl.textContent = title;
+
+        if (isIframe && cat.iframe_url) {
+            contentEl.innerHTML = `
+                <div class="w-full bg-white border border-gray-100 rounded-xl overflow-hidden shadow-sm">
+                    <iframe src="${cat.iframe_url}" class="w-full h-[800px] border-0" title="${title}"></iframe>
+                </div>
+            `;
+            return;
+        }
+
+        if (!pdfs || pdfs.length === 0) {
+            contentEl.innerHTML = `
+                <div class="p-12 text-center bg-gray-50 border border-gray-100 rounded-xl">
+                    <svg class="mx-auto h-12 w-12 text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    <p class="text-gray-500 font-medium"><?= __('no_documents_in_category', 'Bu kategori altında döküman bulunmamaktadır.') ?></p>
+                </div>
+            `;
+            return;
+        }
+
+        let docsHtml = '';
+        pdfs.forEach(doc => {
+            docsHtml += `
+                <a class="group flex items-center justify-between p-4 bg-white border border-gray-100 rounded-xl hover:border-seyitler-primary/30 hover:shadow-md transition-all duration-300" href="${doc.url}" target="_blank" rel="noopener noreferrer">
+                    <div class="flex items-center gap-4 overflow-hidden">
+                        <div class="flex-shrink-0 w-12 h-12 bg-red-50 text-red-500 rounded-lg flex items-center justify-center group-hover:bg-red-500 group-hover:text-white transition-colors duration-300">
+                            <svg class="lucide lucide-file-text-icon w-6 h-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-gray-800 font-medium truncate pr-4 group-hover:text-seyitler-primary transition-colors">${doc.label}</span>
+                            <span class="text-gray-400 text-xs uppercase tracking-wider">PDF Dokümanı</span>
+                        </div>
+                    </div>
+                    <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 text-gray-400 group-hover:bg-seyitler-primary group-hover:text-white transition-all duration-300 shadow-sm" title="İndir">
+                        <svg class="lucide lucide-download-icon w-5 h-5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
+                    </div>
+                </a>
+            `;
+        });
+        contentEl.innerHTML = docsHtml;
+        if (typeof translateDom === 'function' && typeof getCurrentLanguage === 'function') {
+            translateDom(getCurrentLanguage());
+        }
+    }
+
+    // Initial render
+    renderSidebar();
+    renderContent();
+    if (typeof translateDom === 'function' && typeof getCurrentLanguage === 'function') {
+        translateDom(getCurrentLanguage());
     }
 });
+
 </script>

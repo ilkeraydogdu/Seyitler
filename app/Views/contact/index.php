@@ -1,149 +1,57 @@
-<?php
-$address   = site_setting('address', 'SELVİLİTEPE OSB MAH. OSB 2007. CAD. SEYITLER KIMYA SAN.A.Ş NO: 7 İÇ KAPI NO: 2 TURGUTLU / MANİSA');
-$phone     = site_setting('phone', '+90 236 314 83 83');
-$email     = site_setting('email', 'seyitler@seyitler.com');
-$cleanPhone = preg_replace('/[^0-9+]/', '', $phone);
-$presetSubject = $_GET['subject'] ?? '';
-?>
+<div><section class="relative bg-center bg-cover py-12"><div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl"><nav class="flex items-center gap-2 mb-6 text-sm border-b py-4"><span class="text-seyitler-primary text-2xl uppercase">Bizimle İletişime Geçin</span><span class="text-seyitler-txt/50"><svg class="lucide lucide-arrow-left-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg></span><a class="text-seyitler-txt/50 uppercase text-xs" href="<?= url('/') ?>">Anasayfa</a></nav></div></section><section class="px-4 py-12 mx-auto sm:py-16 lg:py-20 max-w-7xl sm:px-6 lg:px-8"><div class="space-y-4 text-center sm:space-y-5"><h2 class="text-2xl font-semibold text-seyitler-primary sm:text-3xl">Sadece bir mesaj uzağınızdayız</h2><p class="text-base text-seyitler-txt sm:text-lg">Müşteri başarı, ihracat ve Ar-Ge ekiplerimiz her zaman diliminde aynı özenle yanınızdadır.</p></div><div class="grid grid-cols-1 gap-5 mt-10 sm:grid-cols-2 lg:grid-cols-3"><article class="flex flex-col h-full p-6 space-y-4 transition-all duration-300 border border-gray-100 rounded-xl shadow-lg/20 shadow-gray-200/40 bg-white/80 backdrop-blur-md hover:-translate-y-1 hover:shadow-2xl"><div class="flex items-center justify-center w-12 h-12 rounded-full bg-seyitler-primary/10 text-seyitler-primary"><svg class="lucide lucide-phone-call-icon size-5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path><path d="M14.05 2a9 9 0 0 1 8 7.94"></path><path d="M14.05 6A5 5 0 0 1 18 10"></path></svg></div><div class="space-y-2"><p class="text-sm font-semibold tracking-[0.3em] uppercase text-seyitler-primary/70">Telefon</p><p class="text-2xl font-light text-seyitler-primary"><a class="hover:underline decoration-1" href="tel:+902363148383">+90 236 314 83 83</a></p><p class="text-sm text-seyitler-txt">Hafta içi 09:00 – 18:00 (GMT+3) arasında bize ulaşabilirsiniz.</p></div></article><article class="flex flex-col h-full p-6 space-y-4 transition-all duration-300 border border-gray-100 rounded-xl shadow-lg/20 shadow-gray-200/40 bg-white/80 backdrop-blur-md hover:-translate-y-1 hover:shadow-2xl"><div class="flex items-center justify-center w-12 h-12 rounded-full bg-seyitler-primary/10 text-seyitler-primary"><svg class="lucide lucide-circle-slash-icon size-5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="9" x2="15" y1="15" y2="9"></line></svg></div><div class="space-y-2"><p class="text-sm font-semibold tracking-[0.3em] uppercase text-seyitler-primary/70">E-posta</p><p class="text-2xl font-light text-seyitler-primary"><a class="hover:underline decoration-1" href="mailto:seyitler@seyitler.com">seyitler@seyitler.com</a></p><p class="text-sm text-seyitler-txt">İş ortaklığı, tedarikçi veya medya taleplerinizi paylaşın.</p></div></article><article class="flex flex-col h-full p-6 space-y-4 transition-all duration-300 border border-gray-100 rounded-xl shadow-lg/20 shadow-gray-200/40 bg-white/80 backdrop-blur-md hover:-translate-y-1 hover:shadow-2xl"><div class="flex items-center justify-center w-12 h-12 rounded-full bg-seyitler-primary/10 text-seyitler-primary"><svg class="lucide lucide-map-pin-icon size-5" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg></div><div class="space-y-2"><p class="text-sm font-semibold tracking-[0.3em] uppercase text-seyitler-primary/70">Adres</p><p class="text-2xl font-light text-seyitler-primary"><a class="hover:underline decoration-1" href="https://maps.google.com/?q=Manisa+OSB+4.K%C4%B1s%C4%B1m+415.Sk.+No:3">SELVİLİTEPE OSB MAH. OSB 2007. CAD. SEYITLER KIMYA SAN.A.Ş NO: 7 İÇ KAPI NO: 2 TURGUTLU / MANİSA</a></p><p class="text-sm text-seyitler-txt">Ana üretim kampüsü ve genel merkezimiz.</p></div></article></div></section><section class="bg-[#F7F8F9] py-12 sm:py-16"><div class="flex flex-col w-full gap-10 px-4 mx-auto max-w-7xl sm:px-6"><div class="flex flex-col w-full space-y-5"><p class="text-sm font-semibold tracking-[0.4em] uppercase text-seyitler-primary/70">Bize Yazın</p><h3 class="text-3xl font-light text-seyitler-primary sm:text-4xl">İhtiyaçlarınızı anlatın</h3><p class="text-base text-seyitler-txt sm:text-lg">Kısa bir özet paylaşın, sizi doğru ekibe yönlendirelim.</p><ul class="space-y-3 text-seyitler-txt"><li class="flex items-center gap-3"><svg class="lucide lucide-shield-check-icon size-4 text-seyitler-primary" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg><span>Tüm bilgiler KVKK ve GDPR standartlarında saklanır.</span></li><li class="flex items-center gap-3"><svg class="lucide lucide-clock-icon size-4 text-seyitler-primary" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg><span>En geç bir iş günü içinde dönüş yapıyoruz.</span></li></ul></div><form class="p-6 space-y-4 bg-white shadow-xl rounded-2xl" method="POST" action="<?= url('/contact') ?>">
+    <?= csrf_field() ?>
 
-<!-- Breadcrumb Header -->
-<section class="relative bg-center bg-cover py-10 bg-gray-50 border-b border-gray-100">
-    <div class="relative z-10 px-5 mx-auto xl:px-0 max-w-7xl">
-        <nav class="flex items-center gap-2 text-sm">
-            <a class="text-gray-400 uppercase text-xs hover:text-seyitler-primary transition-colors" href="<?= url('/') ?>"><?= __('ANASAYFA', 'Anasayfa') ?></a>
-            <span class="text-gray-400">/</span>
-            <span class="text-seyitler-primary text-base font-semibold uppercase"><?= __('İLETİŞİM', 'İletişim') ?></span>
-        </nav>
-        <h1 class="text-3xl font-bold text-gray-900 mt-2"><?= __('Bizimle İletişime Geçin', 'Bizimle İletişime Geçin') ?></h1>
-    </div>
-</section>
-
-<!-- Contact Cards Section -->
-<section class="px-4 py-12 mx-auto sm:py-16 max-w-7xl sm:px-6 lg:px-8">
-    <div class="space-y-3 text-center mb-12">
-        <h2 class="text-2xl font-bold text-gray-900 sm:text-3xl"><?= __('Sadece bir mesaj uzağınızdayız', 'Sadece bir mesaj uzağınızdayız') ?></h2>
-        <p class="text-sm sm:text-base text-gray-500 max-w-2xl mx-auto"><?= __('Müşteri başarı, ihracat ve Ar-Ge ekiplerimiz her zaman diliminde aynı özenle yanınızdadır.', 'Müşteri başarı, ihracat ve Ar-Ge ekiplerimiz her zaman diliminde aynı özenle yanınızdadır.') ?></p>
-    </div>
-
-    <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
-        <!-- Phone Card -->
-        <div class="flex flex-col h-full p-6 space-y-4 border border-gray-200 rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600">
-                <svg class="size-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25z"/></svg>
+    <?php if ($successMsg = \App\Core\Session::getFlash('success')): ?>
+        <div id="contact-success-alert" class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-start gap-3 shadow-sm animate-fade-in">
+            <div class="p-1 bg-emerald-100 text-emerald-600 rounded-lg shrink-0 mt-0.5">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
             </div>
-            <div class="space-y-1">
-                <p class="text-xs font-bold tracking-wider uppercase text-emerald-700"><?= __('Telefon', 'Telefon') ?></p>
-                <p class="text-xl font-semibold text-gray-900"><a class="hover:text-seyitler-primary transition-colors" href="tel:<?= $cleanPhone ?>"><?= e($phone) ?></a></p>
-                <p class="text-xs text-gray-500 pt-1"><?= __('Hafta içi 09:00 – 18:00 (GMT+3) arasında bize ulaşabilirsiniz.', 'Hafta içi 09:00 – 18:00 (GMT+3) arasında bize ulaşabilirsiniz.') ?></p>
+            <div>
+                <h4 class="font-bold text-sm text-emerald-900">Mesajınız Başarıyla İletildi!</h4>
+                <p class="text-xs text-emerald-700 mt-0.5"><?= e($successMsg) ?></p>
             </div>
         </div>
+    <?php endif; ?>
 
-        <!-- Email Card -->
-        <div class="flex flex-col h-full p-6 space-y-4 border border-gray-200 rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600">
-                <svg class="size-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+    <?php if ($errorMsg = \App\Core\Session::getFlash('error')): ?>
+        <div class="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 flex items-start gap-3 shadow-sm">
+            <div class="p-1 bg-rose-100 text-rose-600 rounded-lg shrink-0 mt-0.5">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
             </div>
-            <div class="space-y-1">
-                <p class="text-xs font-bold tracking-wider uppercase text-emerald-700"><?= __('E-posta', 'E-posta') ?></p>
-                <p class="text-xl font-semibold text-gray-900"><a class="hover:text-seyitler-primary transition-colors" href="mailto:<?= e($email) ?>"><?= e($email) ?></a></p>
-                <p class="text-xs text-gray-500 pt-1"><?= __('İş ortaklığı, tedarikçi veya ihracat taleplerinizi iletebilirsiniz.', 'İş ortaklığı, tedarikçi veya ihracat taleplerinizi iletebilirsiniz.') ?></p>
+            <div>
+                <h4 class="font-bold text-sm text-rose-900">Uyarı</h4>
+                <p class="text-xs text-rose-700 mt-0.5"><?= e($errorMsg) ?></p>
             </div>
         </div>
+    <?php endif; ?>
 
-        <!-- Address Card -->
-        <div class="flex flex-col h-full p-6 space-y-4 border border-gray-200 rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-center justify-center w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600">
-                <svg class="size-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/></svg>
-            </div>
-            <div class="space-y-1">
-                <p class="text-xs font-bold tracking-wider uppercase text-emerald-700"><?= __('Merkez & Fabrika', 'Merkez & Fabrika') ?></p>
-                <p class="text-sm font-semibold text-gray-900 leading-snug"><?= e($address) ?></p>
-                <p class="text-xs text-gray-500 pt-1"><?= __('Ana üretim kampüsü ve genel merkezimiz.', 'Ana üretim kampüsü ve genel merkezimiz.') ?></p>
-            </div>
-        </div>
+    <div class="grid gap-4 sm:grid-cols-2">
+        <label class="space-y-2 text-sm font-medium text-gray-700">
+            Ad Soyad *
+            <input name="name" required class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-seyitler-primary/60 focus:outline-none" placeholder="Ahmet Yılmaz" type="text"/>
+        </label>
+        <label class="space-y-2 text-sm font-medium text-gray-700">
+            Kurumsal E-posta *
+            <input name="email" required class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-seyitler-primary/60 focus:outline-none" placeholder="isim@firma.com" type="email"/>
+        </label>
     </div>
-</section>
-
-<!-- Live Form & Map Section -->
-<section class="bg-gray-50 py-16 border-y border-gray-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-            
-            <!-- Left: Description and Info -->
-            <div class="space-y-6">
-                <div>
-                    <span class="text-xs font-bold tracking-widest text-seyitler-primary uppercase"><?= __('Bize Yazın', 'Bize Yazın') ?></span>
-                    <h3 class="text-3xl font-bold text-gray-900 mt-1"><?= __('İhtiyaçlarınızı Anlatın', 'İhtiyaçlarınızı Anlatın') ?></h3>
-                    <p class="text-sm text-gray-600 mt-2 leading-relaxed"><?= __('Distribütörlük, ürün numuneleri, kurumsal teklifler veya diğer sorularınız için formu doldurun, sizi yetkili ekibimize yönlendirelim.', 'Distribütörlük, ürün numuneleri, kurumsal teklifler veya diğer sorularınız için formu doldurun, sizi yetkili ekibimize yönlendirelim.') ?></p>
-                </div>
-
-                <div class="space-y-4 pt-2">
-                    <div class="flex items-center gap-3 text-sm text-gray-700">
-                        <div class="size-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
-                            <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
-                        </div>
-                        <span><?= __('Tüm bilgiler KVKK ve gizlilik standartlarında güvenle saklanır.', 'Tüm bilgiler KVKK ve gizlilik standartlarında güvenle saklanır.') ?></span>
-                    </div>
-                    <div class="flex items-center gap-3 text-sm text-gray-700">
-                        <div class="size-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
-                            <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
-                        </div>
-                        <span><?= __('Talebiniz en geç 1 iş günü içerisinde yanıtlanmaktadır.', 'Talebiniz en geç 1 iş günü içerisinde yanıtlanmaktadır.') ?></span>
-                    </div>
-                </div>
-
-                <!-- Google Maps Embed or Image Link -->
-                <div class="mt-8 rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
-                    <img alt="Seyitler Kimya Fabrika" class="w-full h-64 object-cover" src="<?= asset('assets/images/seyit-1024x640.webp') ?>"/>
-                    <div class="p-4 bg-white flex items-center justify-between">
-                        <span class="text-xs font-medium text-gray-600"><?= e($address) ?></span>
-                        <a href="https://maps.app.goo.gl/tZXvQhxH2FLzGbah7" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-seyitler-primary hover:underline flex items-center gap-1 shrink-0">
-                            <span>Haritada Aç</span>
-                            <svg class="size-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"/></svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right: Live Contact Form -->
-            <div class="bg-white border border-gray-200 shadow-lg rounded-2xl p-8">
-                <form action="<?= url('/contact/send') ?>" method="POST" class="space-y-4">
-                    <?= csrf_field() ?>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5"><?= __('Ad Soyad', 'Ad Soyad') ?> *</label>
-                            <input type="text" name="name" required placeholder="Ahmet Yılmaz" class="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-seyitler-primary/40 focus:border-seyitler-primary outline-none transition-all"/>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5"><?= __('E-posta', 'E-posta') ?> *</label>
-                            <input type="email" name="email" required placeholder="isim@firma.com" class="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-seyitler-primary/40 focus:border-seyitler-primary outline-none transition-all"/>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5"><?= __('Telefon', 'Telefon') ?></label>
-                            <input type="tel" name="phone" placeholder="+90 5XX XXX XX XX" class="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-seyitler-primary/40 focus:border-seyitler-primary outline-none transition-all"/>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5"><?= __('Konu', 'Konu') ?></label>
-                            <input type="text" name="subject" value="<?= e($presetSubject) ?>" placeholder="<?= __('Distribütörlük / Numune talebi', 'Distribütörlük / Numune talebi') ?>" class="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-seyitler-primary/40 focus:border-seyitler-primary outline-none transition-all"/>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1.5"><?= __('Mesajınız', 'Mesajınız') ?> *</label>
-                        <textarea name="message" required rows="5" placeholder="<?= __('Talebinizin detaylarını bu alanda belirtebilirsiniz...', 'Talebinizin detaylarını bu alanda belirtebilirsiniz...') ?>" class="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-seyitler-primary/40 focus:border-seyitler-primary outline-none transition-all"></textarea>
-                    </div>
-
-                    <button type="submit" class="w-full py-3.5 px-6 bg-seyitler-primary hover:bg-seyitler-primary/90 text-white font-semibold text-sm uppercase tracking-wider rounded-lg shadow-sm transition-all flex items-center justify-center gap-2 cursor-pointer">
-                        <span><?= __('Mesajı Gönder', 'Mesajı Gönder') ?></span>
-                        <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"/></svg>
-                    </button>
-                </form>
-            </div>
-
-        </div>
+    <div class="grid gap-4 sm:grid-cols-2">
+        <label class="space-y-2 text-sm font-medium text-gray-700">
+            Telefon Numarası
+            <input name="phone" class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-seyitler-primary/60 focus:outline-none" placeholder="+90 5XX XXX XX XX" type="tel"/>
+        </label>
+        <label class="space-y-2 text-sm font-medium text-gray-700">
+            Konu
+            <input name="subject" class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-seyitler-primary/60 focus:outline-none" placeholder="Distribütörlük talebi" type="text"/>
+        </label>
     </div>
-</section>
+    <label class="space-y-2 text-sm font-medium text-gray-700">
+        Mesaj *
+        <textarea name="message" required class="w-full px-4 py-3 text-sm border border-gray-200 focus:ring-2 focus:ring-seyitler-primary/60 focus:outline-none" placeholder="Talebinizin detaylarını paylaşın..." rows="5"></textarea>
+    </label>
+    <button class="flex items-center justify-center w-full gap-2 px-6 py-3.5 text-sm font-bold tracking-widest text-white uppercase transition-all duration-200 bg-seyitler-primary hover:bg-seyitler-primary/90 rounded-lg shadow-md hover:shadow-lg" type="submit">
+        Mesajı Gönder 
+        <svg class="lucide lucide-arrow-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+    </button>
+    <p class="text-xs text-center text-gray-500">Mesajınız doğrudan kurumsal müşteri ilişkileri departmanımıza iletilecektir.</p>
+</form></div></section><section class="py-12 sm:py-16 lg:py-24"><div class="grid items-center gap-8 px-4 mx-auto max-w-7xl md:grid-cols-2"><div class="space-y-4"><p class="text-sm font-semibold tracking-[0.4em] uppercase text-seyitler-primary/70">Bizi Ziyaret Edin</p><h3 class="text-3xl font-light text-seyitler-primary sm:text-4xl">Fabrika ve Genel Merkez</h3><p class="text-base text-seyitler-txt sm:text-lg">Manisa Organize Sanayi Bölgesi kampüsümüzde üretim, Ar-Ge ve lojistik ekiplerimiz bulunur.</p><div class="p-4 border border-gray-100 rounded-xl bg-gray-50/60"><p class="text-sm font-semibold text-gray-500 uppercase tracking-[0.3em]">Adres</p><p class="mt-2 text-lg text-seyitler-primary"> SELVİLİTEPE OSB MAH. OSB 2007. CAD. SEYITLER KIMYA SAN.A.Ş NO: 7 İÇ KAPI NO: 2 TURGUTLU / MANİSA </p></div><a class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold tracking-widest text-white uppercase transition-colors bg-seyitler-primary hover:bg-seyitler-primary/90" href="https://maps.app.goo.gl/tZXvQhxH2FLzGbah7" rel="noreferrer" target="_blank">Google Haritalar'da Aç <svg class="lucide lucide-arrow-up-right-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg></a></div><div class="relative overflow-hidden shadow-2xl h-80"><div class="absolute inset-0 z-10 bg-gradient-to-tr from-seyitler-primary/20 via-transparent to-transparent"></div><img alt="Seyitler Kimya Map" class="object-cover w-full h-full" src="<?= asset('assets/images/seyit-1024x640.webp') ?>"/></div></div></section></div>

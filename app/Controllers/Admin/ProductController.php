@@ -42,7 +42,7 @@ class ProductController
     {
         if (!Csrf::validate($request->post('_csrf_token'))) {
             Session::flash('error', 'Güvenlik doğrulaması başarısız oldu.');
-            Response::redirect(url('/admin/products/create'));
+            Response::redirect(url('/podmin/products/create'));
             return;
         }
 
@@ -88,7 +88,7 @@ class ProductController
 
         $newId = Product::create($data);
         Session::flash('success', 'Ürün başarıyla oluşturuldu.');
-        Response::redirect(url('/admin/products/edit/' . $newId));
+        Response::redirect(url('/podmin/products/edit/' . $newId));
     }
 
     public function edit(Request $request, int $id): void
@@ -96,7 +96,7 @@ class ProductController
         $product = Product::findById($id);
         if (!$product) {
             Session::flash('error', 'Ürün bulunamadı.');
-            Response::redirect(url('/admin/products'));
+            Response::redirect(url('/podmin/products'));
             return;
         }
 
@@ -115,14 +115,14 @@ class ProductController
     {
         if (!Csrf::validate($request->post('_csrf_token'))) {
             Session::flash('error', 'Güvenlik doğrulaması başarısız oldu.');
-            Response::redirect(url('/admin/products/edit/' . $id));
+            Response::redirect(url('/podmin/products/edit/' . $id));
             return;
         }
 
         $product = Product::findById($id);
         if (!$product) {
             Session::flash('error', 'Ürün bulunamadı.');
-            Response::redirect(url('/admin/products'));
+            Response::redirect(url('/podmin/products'));
             return;
         }
 
@@ -160,14 +160,14 @@ class ProductController
 
         Product::update($id, $data);
         Session::flash('success', 'Ürün bilgileri başarıyla güncellendi.');
-        Response::redirect(url('/admin/products/edit/' . $id));
+        Response::redirect(url('/podmin/products/edit/' . $id));
     }
 
     public function delete(Request $request, int $id): void
     {
         if (!Csrf::validate($request->post('_csrf_token'))) {
             Session::flash('error', 'Güvenlik doğrulaması başarısız oldu.');
-            Response::redirect(url('/admin/products'));
+            Response::redirect(url('/podmin/products'));
             return;
         }
 
@@ -175,21 +175,21 @@ class ProductController
         Product::delete($id);
 
         Session::flash('success', 'Ürün ve bağlı teknik tabloları silindi.');
-        Response::redirect(url('/admin/products'));
+        Response::redirect(url('/podmin/products'));
     }
 
     public function addVariant(Request $request, int $productId): void
     {
         if (!Csrf::validate($request->post('_csrf_token'))) {
             Session::flash('error', 'Güvenlik doğrulaması başarısız oldu.');
-            Response::redirect(url('/admin/products/edit/' . $productId));
+            Response::redirect(url('/podmin/products/edit/' . $productId));
             return;
         }
 
         $size = trim((string)$request->post('size'));
         if (empty($size)) {
             Session::flash('error', 'Lütfen ölçü alanını doldurunuz.');
-            Response::redirect(url('/admin/products/edit/' . $productId));
+            Response::redirect(url('/podmin/products/edit/' . $productId));
             return;
         }
 
@@ -205,14 +205,14 @@ class ProductController
         ]);
 
         Session::flash('success', 'Teknik ölçü başarıyla eklendi.');
-        Response::redirect(url('/admin/products/edit/' . $productId));
+        Response::redirect(url('/podmin/products/edit/' . $productId));
     }
 
     public function deleteVariant(Request $request, int $variantId): void
     {
         if (!Csrf::validate($request->post('_csrf_token'))) {
             Session::flash('error', 'Güvenlik doğrulaması başarısız oldu.');
-            Response::redirect(url('/admin/products'));
+            Response::redirect(url('/podmin/products'));
             return;
         }
 
@@ -221,20 +221,20 @@ class ProductController
 
         ProductTable::delete($variantId);
         Session::flash('success', 'Teknik ölçü satırı silindi.');
-        Response::redirect(url('/admin/products/edit/' . $productId));
+        Response::redirect(url('/podmin/products/edit/' . $productId));
     }
 
     public function addGalleryImage(Request $request, int $productId): void
     {
         if (!Csrf::validate($request->post('_csrf_token'))) {
             Session::flash('error', 'Güvenlik doğrulaması başarısız.');
-            Response::redirect(url('/admin/products/edit/' . $productId));
+            Response::redirect(url('/podmin/products/edit/' . $productId));
             return;
         }
 
         $product = Product::findById($productId);
         if (!$product) {
-            Response::redirect(url('/admin/products'));
+            Response::redirect(url('/podmin/products'));
             return;
         }
 
@@ -256,20 +256,20 @@ class ProductController
             Session::flash('success', 'Galeriye yeni görsel eklendi.');
         }
 
-        Response::redirect(url('/admin/products/edit/' . $productId));
+        Response::redirect(url('/podmin/products/edit/' . $productId));
     }
 
     public function deleteGalleryImage(Request $request, int $productId): void
     {
         if (!Csrf::validate($request->post('_csrf_token'))) {
             Session::flash('error', 'Güvenlik doğrulaması başarısız.');
-            Response::redirect(url('/admin/products/edit/' . $productId));
+            Response::redirect(url('/podmin/products/edit/' . $productId));
             return;
         }
 
         $product = Product::findById($productId);
         if (!$product) {
-            Response::redirect(url('/admin/products'));
+            Response::redirect(url('/podmin/products'));
             return;
         }
 
@@ -284,7 +284,7 @@ class ProductController
             Session::flash('success', 'Görsel galeriden kaldırıldı.');
         }
 
-        Response::redirect(url('/admin/products/edit/' . $productId));
+        Response::redirect(url('/podmin/products/edit/' . $productId));
     }
 
     private function handleFileUpload(array $file, string $targetDir): ?string

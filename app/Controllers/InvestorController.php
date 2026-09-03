@@ -19,10 +19,11 @@ class InvestorController
         foreach ($allDocs as $doc) {
             $catId = (int)$doc['category_id'];
             $documentsGrouped[$catId][] = [
-                'id'        => $doc['id'],
-                'label'     => InvestorDocument::getLabel($doc),
-                'url'       => $doc['url'],
-                'file_size' => $doc['file_size'],
+                'id'           => $doc['id'],
+                'label'        => InvestorDocument::getLabel($doc),
+                'url'          => url('/documents/' . $doc['id']),
+                'download_url' => url('/documents/download/' . $doc['id']),
+                'file_size'    => $doc['file_size'],
             ];
         }
 

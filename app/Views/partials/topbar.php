@@ -1,115 +1,21 @@
-<?php
-$currentLang = current_locale();
-$langLabels = [
-    'tr' => 'Türkçe',
-    'en' => 'English',
-    'ar' => 'عربي',
-];
-$address   = site_setting('address', 'SELVİLİTEPE OSB MAH. OSB 2007. CAD. SEYITLER KIMYA SAN.A.Ş NO: 7 İÇ KAPI NO: 2 TURGUTLU / MANİSA');
-$phone     = site_setting('phone', '+90 236 314 83 83');
-$email     = site_setting('email', 'seyitler@seyitler.com');
-$linkedin  = site_setting('linkedin_url', 'https://www.linkedin.com/company/seyitler-kimya');
-$instagram = site_setting('instagram_url', 'https://www.instagram.com/seyitlerkimya/');
-
-// Mevcut URL'i koruyup sadece lang parametresini değiştirme
-$currentQuery = $_GET;
-function lang_url(string $lang): string {
-    global $currentQuery;
-    $q = $currentQuery;
-    $q['lang'] = $lang;
-    return '?' . http_build_query($q);
-}
-?>
-<div class="bg-[#F8F8F8] w-full top-bar-container border-b border-gray-100">
-    <div class="max-w-7xl mx-auto py-2 px-4 sm:px-6 lg:px-8 text-xs font-light items-center text-[#888] hidden sm:flex justify-between">
-        <div class="flex gap-6 grow overflow-hidden">
-            <div class="flex items-center gap-1.5 truncate">
-                <svg class="lucide size-3.5 text-[#0AA64D] shrink-0" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
-                </svg>
-                <span class="truncate"><?= e($address) ?></span>
-            </div>
-            <div class="flex items-center gap-1.5 shrink-0">
-                <svg class="lucide size-3.5 text-[#0AA64D] shrink-0" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                    <rect height="20" rx="2" ry="2" width="14" x="5" y="2"></rect>
-                    <path d="M12 18h.01"></path>
-                </svg>
-                <a href="tel:<?= preg_replace('/[^0-9+]/', '', $phone) ?>" class="hover:text-[#0AA64D] transition-colors"><?= e($phone) ?></a>
-            </div>
-            <div class="flex items-center gap-1.5 shrink-0">
-                <svg class="lucide size-3.5 text-[#0AA64D] shrink-0" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                    <rect height="16" rx="2" width="20" x="2" y="4"></rect>
-                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-                </svg>
-                <a href="mailto:<?= e($email) ?>" class="hover:text-[#0AA64D] transition-colors"><?= e($email) ?></a>
-            </div>
-        </div>
-
-        <div class="flex gap-4 items-center shrink-0">
-            <div class="flex gap-2.5 items-center">
-                <?php if (!empty($linkedin)): ?>
-                    <a href="<?= e($linkedin) ?>" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-[#0AA64D] transition-colors" title="LinkedIn">
-                        <svg class="size-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-                    </a>
-                <?php endif; ?>
-                <?php if (!empty($instagram)): ?>
-                    <a href="<?= e($instagram) ?>" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-[#0AA64D] transition-colors" title="Instagram">
-                        <svg class="size-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                    </a>
-                <?php endif; ?>
-            </div>
-
-            <!-- Language Switcher Dropdown -->
-            <div class="relative inline-block text-left" id="lang-dropdown-wrapper">
-                <button type="button" class="flex items-center gap-1.5 text-xs text-gray-600 hover:text-[#0AA64D] transition-colors py-1 cursor-pointer select-none font-medium" id="lang-switch-btn">
-                    <svg class="size-4 text-gray-500" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
-                        <path d="M2 12h20"></path>
-                    </svg>
-                    <span><?= $langLabels[$currentLang] ?? 'Türkçe' ?></span>
-                    <svg class="size-3 text-gray-400 transition-transform duration-200" id="lang-chevron" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"><path d="m6 9 6 6 6-6"></path></svg>
-                </button>
-                <div id="lang-dropdown-menu" class="absolute right-0 top-full pt-1.5 z-[9999] hidden">
-                    <div class="w-32 bg-white rounded-xl shadow-xl border border-gray-100 py-1 divide-y divide-gray-50 text-center">
-                        <?php foreach ($langLabels as $code => $label): ?>
-                            <?php if ($code !== $currentLang): ?>
-                                <a href="<?= lang_url($code) ?>" class="block w-full py-2 px-3 text-xs font-medium text-gray-700 hover:text-[#0AA64D] hover:bg-gray-50 transition-colors">
-                                    <?= $label ?>
-                                </a>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-            </div>
+<div class="bg-[#F8F8F8] w-full top-bar-container"><div class="max-w-7xl mx-auto py-4 text-xs font-light items-center text-[#aaa] hidden sm:flex"><div class="flex gap-6 grow"><div class="flex gap-2"><svg class="lucide lucide-map-pin-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg> <?= e(\App\Models\SiteSetting::get('address_tr', 'SELVİLİTEPE OSB MAH. OSB 2007. CAD. SEYITLER KIMYA SAN.A.Ş NO: 7 İÇ KAPI NO: 2 TURGUTLU / MANİSA')) ?></div><div class="flex gap-2"><svg class="lucide lucide-smartphone-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect height="20" rx="2" ry="2" width="14" x="5" y="2"></rect><path d="M12 18h.01"></path></svg> <?= e(\App\Models\SiteSetting::get('phone', '+90 236 314 83 83')) ?></div><div class="flex gap-2"><svg class="lucide lucide-mail-icon size-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><rect height="16" rx="2" width="20" x="2" y="4"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg> <?= e(\App\Models\SiteSetting::get('email', 'seyitler@seyitler.com')) ?></div></div><div class="flex gap-2 items-center"><a href="<?= e(\App\Models\SiteSetting::get('linkedin_url', 'https://www.linkedin.com/company/seyitler-kimya')) ?>" target="_blank" rel="noopener noreferrer"><svg class="size-5" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path class="fill-seyitler-txt/70" clip-rule="evenodd" d="M0 24C0 10.7452 10.7452 0 24 0C37.2548 0 48 10.7452 48 24C48 37.2548 37.2548 48 24 48C10.7452 48 0 37.2548 0 24ZM16.9605 19.8778H11.5216V36.2196H16.9605V19.8778ZM17.3188 14.8227C17.2835 13.2204 16.1377 12 14.277 12C12.4164 12 11.2 13.2204 11.2 14.8227C11.2 16.3918 12.3805 17.6473 14.2064 17.6473H14.2412C16.1377 17.6473 17.3188 16.3918 17.3188 14.8227ZM36.5754 26.8497C36.5754 21.8303 33.8922 19.4941 30.3131 19.4941C27.4254 19.4941 26.1326 21.0802 25.4107 22.1929V19.8783H19.9711C20.0428 21.4117 19.9711 36.22 19.9711 36.22H25.4107V27.0934C25.4107 26.605 25.446 26.1178 25.5898 25.7681C25.9829 24.7924 26.8779 23.7822 28.3805 23.7822C30.3494 23.7822 31.1365 25.2807 31.1365 27.4767V36.2196H36.5752L36.5754 26.8497Z" fill-rule="evenodd"></path></svg></a><a href="<?= e(\App\Models\SiteSetting::get('facebook_url', 'https://facebook.com/seyitlerkimya')) ?>" target="_blank" rel="noopener noreferrer"><svg class="size-5" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path class="fill-seyitler-txt/70" clip-rule="evenodd" d="M0 24C0 10.7452 10.7452 0 24 0C37.2548 0 48 10.7452 48 24C48 37.2548 37.2548 48 24 48C10.7452 48 0 37.2548 0 24ZM26.5016 38.1115V25.0542H30.1059L30.5836 20.5546H26.5016L26.5077 18.3025C26.5077 17.1289 26.6192 16.5001 28.3048 16.5001H30.5581V12H26.9532C22.6231 12 21.0991 14.1828 21.0991 17.8536V20.5551H18.4V25.0547H21.0991V38.1115H26.5016Z" fill-rule="evenodd"></path></svg></a><a href="<?= e(\App\Models\SiteSetting::get('instagram_url', 'https://www.instagram.com/seyitlerkimya/')) ?>" target="_blank" rel="noopener noreferrer"><svg class="size-5" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path class="fill-seyitler-txt/70" clip-rule="evenodd" d="M0 24C0 10.7452 10.7452 0 24 0C37.2548 0 48 10.7452 48 24C48 37.2548 37.2548 48 24 48C10.7452 48 0 37.2548 0 24ZM24.0012 11.2C20.5249 11.2 20.0886 11.2152 18.7233 11.2773C17.3606 11.3397 16.4305 11.5555 15.6166 11.872C14.7747 12.1989 14.0606 12.6363 13.3491 13.348C12.6371 14.0595 12.1997 14.7736 11.8717 15.6152C11.5544 16.4294 11.3384 17.3598 11.2771 18.7219C11.216 20.0873 11.2 20.5238 11.2 24.0001C11.2 27.4764 11.2155 27.9114 11.2773 29.2767C11.34 30.6394 11.5557 31.5695 11.872 32.3834C12.1992 33.2253 12.6365 33.9394 13.3483 34.6509C14.0595 35.3629 14.7736 35.8013 15.615 36.1283C16.4294 36.4448 17.3598 36.6605 18.7222 36.7229C20.0876 36.7851 20.5236 36.8003 23.9996 36.8003C27.4762 36.8003 27.9111 36.7851 29.2765 36.7229C30.6391 36.6605 31.5703 36.4448 32.3848 36.1283C33.2264 35.8013 33.9394 35.3629 34.6506 34.6509C35.3626 33.9394 35.8 33.2253 36.128 32.3837C36.4427 31.5695 36.6587 30.6391 36.7227 29.277C36.784 27.9116 36.8 27.4764 36.8 24.0001C36.8 20.5238 36.784 20.0876 36.7227 18.7222C36.6587 17.3595 36.4427 16.4294 36.128 15.6155C35.8 14.7736 35.3626 14.0595 34.6506 13.348C33.9386 12.636 33.2266 12.1987 32.384 11.872C31.5679 11.5555 30.6373 11.3397 29.2746 11.2773C27.9092 11.2152 27.4746 11.2 23.9972 11.2H24.0012Z" fill-rule="evenodd"></path><path class="fill-seyitler-txt/70" clip-rule="evenodd" d="M22.8529 13.5067C23.1937 13.5062 23.574 13.5067 24.0012 13.5067C27.4188 13.5067 27.8239 13.519 29.1735 13.5803C30.4215 13.6374 31.0989 13.8459 31.5501 14.0211C32.1474 14.2531 32.5733 14.5304 33.021 14.9784C33.469 15.4264 33.7464 15.8531 33.9789 16.4505C34.1541 16.9011 34.3629 17.5785 34.4197 18.8265C34.481 20.1758 34.4944 20.5812 34.4944 23.9972C34.4944 27.4132 34.481 27.8186 34.4197 29.1679C34.3626 30.4159 34.1541 31.0933 33.9789 31.5439C33.7469 32.1413 33.469 32.5666 33.021 33.0144C32.573 33.4624 32.1477 33.7397 31.5501 33.9717C31.0994 34.1477 30.4215 34.3557 29.1735 34.4128C27.8242 34.4741 27.4188 34.4874 24.0012 34.4874C20.5833 34.4874 20.1782 34.4741 18.8289 34.4128C17.5809 34.3552 16.9035 34.1466 16.4521 33.9714C15.8547 33.7394 15.428 33.4621 14.98 33.0141C14.532 32.5661 14.2547 32.1405 14.0222 31.5429C13.847 31.0922 13.6382 30.4149 13.5814 29.1669C13.52 27.8175 13.5078 27.4122 13.5078 23.994C13.5078 20.5758 13.52 20.1726 13.5814 18.8233C13.6384 17.5753 13.847 16.8979 14.0222 16.4467C14.2542 15.8494 14.532 15.4227 14.98 14.9747C15.428 14.5267 15.8547 14.2494 16.4521 14.0168C16.9033 13.8408 17.5809 13.6328 18.8289 13.5755C20.0097 13.5222 20.4673 13.5062 22.8529 13.5035V13.5067ZM30.8338 15.632C29.9858 15.632 29.2978 16.3193 29.2978 17.1675C29.2978 18.0155 29.9858 18.7035 30.8338 18.7035C31.6818 18.7035 32.3698 18.0155 32.3698 17.1675C32.3698 16.3195 31.6818 15.632 30.8338 15.632ZM24.0012 17.4267C20.371 17.4267 17.4278 20.37 17.4278 24.0001C17.4278 27.6303 20.371 30.5722 24.0012 30.5722C27.6314 30.5722 30.5735 27.6303 30.5735 24.0001C30.5735 20.37 27.6314 17.4267 24.0012 17.4267Z" fill-rule="evenodd"></path><path class="fill-seyitler-txt/70" clip-rule="evenodd" d="M24.0012 19.7334C26.3575 19.7334 28.2679 21.6436 28.2679 24.0001C28.2679 26.3564 26.3575 28.2668 24.0012 28.2668C21.6446 28.2668 19.7345 26.3564 19.7345 24.0001C19.7345 21.6436 21.6446 19.7334 24.0012 19.7334Z" fill-rule="evenodd"></path></svg></a><div class="relative inline-block text-left" id="lang-dropdown-wrapper">
+    <button class="flex items-center gap-1.5 text-xs text-[#888] hover:text-[#0AA64D] transition-colors cursor-pointer py-1 select-none" id="lang-switch-btn" type="button" aria-haspopup="true" aria-expanded="false">
+        <svg class="size-5 text-[#888] hover:text-[#0AA64D] transition-colors" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+        <span class="font-normal text-xs" id="current-lang-text"><?= current_locale() === 'en' ? 'English' : (current_locale() === 'ar' ? 'عربي' : 'Türkçe') ?></span>
+        <svg class="size-3.5 text-[#aaa] transition-transform duration-200" id="lang-chevron" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m6 9 6 6 6-6"></path></svg>
+    </button>
+    <!-- Floating Dropdown Card with hover bridge -->
+    <div id="lang-dropdown-menu" class="absolute right-0 top-full pt-1.5 z-[99999] hidden transition-all duration-200">
+        <div id="lang-dropdown-items" class="w-32 bg-white rounded-xl shadow-2xl border border-gray-100/90 py-1.5 divide-y divide-gray-50">
+            <a href="<?= url('/lang/tr') ?>" onclick="if(typeof setLanguage === 'function'){setLanguage('tr');}" class="block w-full text-center py-2.5 px-4 text-sm font-medium text-[#2c3e50] hover:text-[#0AA64D] hover:bg-gray-50/80 transition-colors">
+                Türkçe
+            </a>
+            <a href="<?= url('/lang/en') ?>" onclick="if(typeof setLanguage === 'function'){setLanguage('en');}" class="block w-full text-center py-2.5 px-4 text-sm font-medium text-[#2c3e50] hover:text-[#0AA64D] hover:bg-gray-50/80 transition-colors">
+                English
+            </a>
+            <a href="<?= url('/lang/ar') ?>" onclick="if(typeof setLanguage === 'function'){setLanguage('ar');}" class="block w-full text-center py-2.5 px-4 text-base font-medium text-[#2c3e50] hover:text-[#0AA64D] hover:bg-gray-50/80 transition-colors">
+                عربي
+            </a>
         </div>
     </div>
-</div>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const btn = document.getElementById('lang-switch-btn');
-    const menu = document.getElementById('lang-dropdown-menu');
-    const chevron = document.getElementById('lang-chevron');
-    if (!btn || !menu) return;
-
-    btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isHidden = menu.classList.contains('hidden');
-        if (isHidden) {
-            menu.classList.remove('hidden');
-            if (chevron) chevron.classList.add('rotate-180');
-        } else {
-            menu.classList.add('hidden');
-            if (chevron) chevron.classList.remove('rotate-180');
-        }
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!menu.contains(e.target) && !btn.contains(e.target)) {
-            menu.classList.add('hidden');
-            if (chevron) chevron.classList.remove('rotate-180');
-        }
-    });
-});
-</script>
+</div></div></div>

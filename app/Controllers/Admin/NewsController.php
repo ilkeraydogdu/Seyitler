@@ -30,14 +30,14 @@ class NewsController
     {
         if (!Csrf::validate($request->post('_csrf_token'))) {
             Session::flash('error', 'Güvenlik doğrulaması başarısız.');
-            Response::redirect(url('/admin/news'));
+            Response::redirect(url('/podmin/news'));
             return;
         }
 
         $titleTr = trim((string)$request->post('title_tr'));
         if (empty($titleTr)) {
             Session::flash('error', 'Lütfen haber başlığını giriniz.');
-            Response::redirect(url('/admin/news'));
+            Response::redirect(url('/podmin/news'));
             return;
         }
 
@@ -51,19 +51,19 @@ class NewsController
         ]);
 
         Session::flash('success', 'Haber başarıyla kaydedildi.');
-        Response::redirect(url('/admin/news'));
+        Response::redirect(url('/podmin/news'));
     }
 
     public function delete(Request $request, int $id): void
     {
         if (!Csrf::validate($request->post('_csrf_token'))) {
             Session::flash('error', 'Güvenlik doğrulaması başarısız.');
-            Response::redirect(url('/admin/news'));
+            Response::redirect(url('/podmin/news'));
             return;
         }
 
         News::delete($id);
         Session::flash('success', 'Haber silindi.');
-        Response::redirect(url('/admin/news'));
+        Response::redirect(url('/podmin/news'));
     }
 }

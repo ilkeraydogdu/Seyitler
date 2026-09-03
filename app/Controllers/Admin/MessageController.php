@@ -31,7 +31,7 @@ class MessageController
         $message = ContactMessage::findById($id);
         if (!$message) {
             Session::flash('error', 'Mesaj bulunamadı.');
-            Response::redirect(url('/admin/messages'));
+            Response::redirect(url('/podmin/messages'));
             return;
         }
 
@@ -50,12 +50,12 @@ class MessageController
     {
         if (!Csrf::validate($request->post('_csrf_token'))) {
             Session::flash('error', 'Güvenlik doğrulaması başarısız.');
-            Response::redirect(url('/admin/messages'));
+            Response::redirect(url('/podmin/messages'));
             return;
         }
 
         ContactMessage::delete($id);
         Session::flash('success', 'Mesaj silindi.');
-        Response::redirect(url('/admin/messages'));
+        Response::redirect(url('/podmin/messages'));
     }
 }

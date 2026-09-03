@@ -24,6 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 7. Sticky Header Scroll Effects
     initStickyHeader();
+
+    // 8. Homepage Category Filter Tabs
+    initHomepageCategoryTabs();
+
+    // 9. Topbar Language Dropdown Toggle
+    initLanguageDropdown();
 });
 
 function initMobileMenu() {
@@ -165,8 +171,24 @@ function initSwipers() {
         });
     });
 
-    // 3. Products & News Multi-slide Swipers (.swiper.w-full)
-    const otherSwipers = document.querySelectorAll('.swiper.w-full:not(.gallery-swiper)');
+    // 3. Products Swiper (#home-products-swiper)
+    const homeProdEl = document.querySelector('#home-products-swiper, .home-products-swiper');
+    if (homeProdEl) {
+        new Swiper(homeProdEl, {
+            slidesPerView: 'auto',
+            spaceBetween: 24,
+            grabCursor: true,
+            speed: 600,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true
+            }
+        });
+    }
+
+    // 4. News & Other Multi-slide Swipers
+    const otherSwipers = document.querySelectorAll('.swiper.w-full:not(.gallery-swiper):not(#home-products-swiper):not(.home-products-swiper)');
     otherSwipers.forEach((el, index) => {
         new Swiper(el, {
             slidesPerView: 'auto',
@@ -177,20 +199,6 @@ function initSwipers() {
             autoplay: {
                 delay: 3500 + index * 500,
                 disableOnInteraction: false,
-            },
-            breakpoints: {
-                320: {
-                    slidesPerView: 1.2,
-                    spaceBetween: 16
-                },
-                640: {
-                    slidesPerView: 2.2,
-                    spaceBetween: 20
-                },
-                1024: {
-                    slidesPerView: 4,
-                    spaceBetween: 24
-                }
             }
         });
     });
@@ -403,4 +411,82 @@ function initStickyHeader() {
             header.classList.add('shadow-sm');
         }
     }, { passive: true });
+}
+
+/**
+ * 8. Homepage Category Filter Tabs & Swiper Filter
+ */
+function initHomepageCategoryTabs() {
+    const filterButtons = document.querySelectorAll('.cat-filter-btn');
+    const productSwiperEl = document.querySelector('#home-products-swiper, .home-products-swiper');
+    if (!filterButtons.length || !productSwiperEl) return;
+
+    function filterSlides(catId) {
+        const slides = productSwiperEl.querySelectorAll('.swiper-slide');
+        slides.forEach(slide => {
+            const itemCat = slide.getAttribute('data-category');
+            if (!catId || catId === 'all' || itemCat === catId) {
+                slide.style.display = '';
+            } else {
+                slide.style.display = 'none';
+            }
+        });
+
+        if (productSwiperEl.swiper) {
+            productSwiperEl.swiper.update();
+            productSwiperEl.swiper.slideTo(0);
+        }
+    }
+
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const catId = this.getAttribute('data-category');
+
+            // Toggle active visual states
+            filterButtons.forEach(b => {
+                b.setAttribute('aria-pressed', 'false');
+                b.className = 'cat-filter-btn px-5 py-3 text-sm font-semibold border transition-colors text-gray-700 border-gray-300 hover:border-seyitler-primary hover:text-seyitler-primary hover:bg-seyitler-primary/5 cursor-pointer';
+            });
+            this.setAttribute('aria-pressed', 'true');
+            this.className = 'cat-filter-btn px-5 py-3 text-sm font-semibold border transition-colors bg-seyitler-primary text-white border-seyitler-primary cursor-pointer';
+
+            filterSlides(catId);
+        });
+    });
+
+    // Run initial filter on page load for the active button
+    const activeBtn = document.querySelector('.cat-filter-btn[aria-pressed="true"]');
+    if (activeBtn) {
+        filterSlides(activeBtn.getAttribute('data-category'));
+    }
+}
+
+/**
+ * 9. Topbar Language Dropdown Toggle
+ */
+function initLanguageDropdown() {
+    const btn = document.getElementById('lang-switch-btn');
+    const menu = document.getElementById('lang-dropdown-menu');
+    const chevron = document.getElementById('lang-chevron');
+    if (!btn || !menu) return;
+
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isHidden = menu.classList.contains('hidden');
+        if (isHidden) {
+            menu.classList.remove('hidden');
+            if (chevron) chevron.classList.add('rotate-180');
+        } else {
+            menu.classList.add('hidden');
+            if (chevron) chevron.classList.remove('rotate-180');
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!menu.contains(e.target) && !btn.contains(e.target)) {
+            menu.classList.add('hidden');
+            if (chevron) chevron.classList.remove('rotate-180');
+        }
+    });
 }

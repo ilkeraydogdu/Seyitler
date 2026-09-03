@@ -31,14 +31,14 @@ class CategoryController
     {
         if (!Csrf::validate($request->post('_csrf_token'))) {
             Session::flash('error', 'Güvenlik doğrulaması başarısız oldu.');
-            Response::redirect(url('/admin/categories'));
+            Response::redirect(url('/podmin/categories'));
             return;
         }
 
         $nameTr = trim((string)$request->post('name_tr'));
         if (empty($nameTr)) {
             Session::flash('error', 'Lütfen kategori adını giriniz.');
-            Response::redirect(url('/admin/categories'));
+            Response::redirect(url('/podmin/categories'));
             return;
         }
 
@@ -54,19 +54,19 @@ class CategoryController
         ]);
 
         Session::flash('success', 'Kategori başarıyla eklendi.');
-        Response::redirect(url('/admin/categories'));
+        Response::redirect(url('/podmin/categories'));
     }
 
     public function delete(Request $request, int $id): void
     {
         if (!Csrf::validate($request->post('_csrf_token'))) {
             Session::flash('error', 'Güvenlik doğrulaması başarısız.');
-            Response::redirect(url('/admin/categories'));
+            Response::redirect(url('/podmin/categories'));
             return;
         }
 
         Category::delete($id);
         Session::flash('success', 'Kategori silindi.');
-        Response::redirect(url('/admin/categories'));
+        Response::redirect(url('/podmin/categories'));
     }
 }

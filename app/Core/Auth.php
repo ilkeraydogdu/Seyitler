@@ -60,7 +60,7 @@ class Auth
         Session::regenerate();
     }
 
-    public static function guard(string $redirectTo = '/admin/login'): void
+    public static function guard(string $redirectTo = '/podmin/login'): void
     {
         if (!self::check()) {
             Session::flash('error', 'Lütfen devam etmek için giriş yapınız.');
@@ -69,7 +69,7 @@ class Auth
         }
     }
 
-    public static function requireAuth(string $redirectTo = '/admin/login'): void
+    public static function requireAuth(string $redirectTo = '/podmin/login'): void
     {
         self::guard($redirectTo);
     }

@@ -73,6 +73,16 @@ class Request
         return $this->path;
     }
 
+    public function uri(): string
+    {
+        return $this->path;
+    }
+
+    public function path(): string
+    {
+        return $this->path;
+    }
+
     public function getBasePath(): string
     {
         return $this->basePath;

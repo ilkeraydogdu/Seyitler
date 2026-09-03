@@ -14,9 +14,11 @@ class ProductController
     public function index(Request $request): void
     {
         $categoryId = $request->get('category') !== null ? (int)$request->get('category') : null;
-        $search = $request->get('search');
+        $search = $request->get('search') ? trim((string)$request->get('search')) : null;
+        $page = max(1, (int)$request->get('page', 1));
 
-        $products = Product::allActive($categoryId, $search);
+        // 12 products per page for optimal grid layout
+        $pagination = Product::paginateActive($page, 12, $categoryId, $search);
         $categories = Category::all();
 
         $pageTitle = __('Ürünlerimiz - Seyitler Kimya', 'Ürünlerimiz - Seyitler Kimya');
@@ -27,11 +29,27 @@ class ProductController
             }
         }
 
+        // Search engine optimization: append page number to prevent duplicate titles
+        if ($pagination['page'] > 1) {
+            $pageTitle .= ' (' . __('Sayfa', 'Sayfa') . ' ' . $pagination['page'] . ')';
+        }
+
+        // Active query parameters to retain during pagination navigation
+        $queryParams = [];
+        if ($categoryId !== null) {
+            $queryParams['category'] = $categoryId;
+        }
+        if ($search !== null) {
+            $queryParams['search'] = $search;
+        }
+
         View::render('products/index', [
-            'products'         => $products,
+            'products'         => $pagination['items'],
+            'pagination'       => $pagination,
             'categories'       => $categories,
             'activeCategoryId' => $categoryId,
             'search'           => $search,
+            'queryParams'      => $queryParams,
             'pageTitle'        => $pageTitle,
             'pageDescription'  => __('Tıbbi plasterler, yara bakım örtüleri, enjeksiyon bantları ve medikal ürünler portföyümüz.', 'Tıbbi plasterler, yara bakım örtüleri, enjeksiyon bantları ve medikal ürünler portföyümüz.'),
         ]);
@@ -68,6 +86,14 @@ class ProductController
             'categories'      => $categories,
             'pageTitle'       => Product::getTitle($product) . ' - Seyitler Kimya',
             'pageDescription' => Product::getDescription($product),
+            'seoMeta'         => [
+                'product' => $product,
+                'breadcrumbs' => [
+                    ['name' => 'Anasayfa', 'url' => url('/')],
+                    ['name' => 'Ürünlerimiz', 'url' => url('/products')],
+                    ['name' => Product::getTitle($product), 'url' => url('/products/' . $product['slug'])],
+                ],
+            ],
         ]);
     }
 }

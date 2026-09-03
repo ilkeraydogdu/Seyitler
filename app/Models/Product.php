@@ -30,6 +30,61 @@ class Product
         return Database::fetchAll($sql, $params);
     }
 
+    public static function paginateActive(int $page = 1, int $perPage = 12, ?int $categoryId = null, ?string $search = null): array
+    {
+        $page = max(1, $page);
+        $perPage = max(1, $perPage);
+        $offset = ($page - 1) * $perPage;
+
+        // Count total matching
+        $countSql = "SELECT COUNT(*) FROM products p WHERE p.is_active = 1";
+        $params = [];
+
+        if ($categoryId !== null) {
+            $countSql .= " AND p.category_id = :cat_id";
+            $params['cat_id'] = $categoryId;
+        }
+
+        if ($search !== null && trim($search) !== '') {
+            $countSql .= " AND (p.title_tr LIKE :s OR p.title_en LIKE :s OR p.desc_tr LIKE :s)";
+            $params['s'] = '%' . trim($search) . '%';
+        }
+
+        $total = (int) Database::fetchValue($countSql, $params);
+        $totalPages = max(1, (int) ceil($total / $perPage));
+
+        // Adjust page if out of range
+        if ($page > $totalPages && $total > 0) {
+            $page = $totalPages;
+            $offset = ($page - 1) * $perPage;
+        }
+
+        // Fetch paginated items
+        $dataSql = "SELECT p.*, c.name_tr as category_name_tr, c.name_en as category_name_en, c.name_ar as category_name_ar 
+                    FROM products p 
+                    LEFT JOIN categories c ON p.category_id = c.id 
+                    WHERE p.is_active = 1";
+
+        if ($categoryId !== null) {
+            $dataSql .= " AND p.category_id = :cat_id";
+        }
+
+        if ($search !== null && trim($search) !== '') {
+            $dataSql .= " AND (p.title_tr LIKE :s OR p.title_en LIKE :s OR p.desc_tr LIKE :s)";
+        }
+
+        $dataSql .= " ORDER BY p.sort_order ASC, p.id ASC LIMIT {$perPage} OFFSET {$offset}";
+        $items = Database::fetchAll($dataSql, $params);
+
+        return [
+            'items'       => $items,
+            'total'       => $total,
+            'page'        => $page,
+            'perPage'     => $perPage,
+            'totalPages'  => $totalPages,
+        ];
+    }
+
     public static function all(): array
     {
         $sql = "SELECT p.*, c.name_tr as category_name_tr 
@@ -71,6 +126,15 @@ class Product
         return $product[$col] ?? $product['desc_tr'] ?? '';
     }
 
+    public static function getImage(array $product): string
+    {
+        $img = $product['main_image'] ?? $product['image_url'] ?? '';
+        if (!empty($img)) {
+            return asset($img);
+        }
+        return asset('assets/images/TibbiPlasterler/Derma_fix/Derma_fix.webp');
+    }
+
     public static function getFeatures(array $product): array
     {
         $lang = I18n::getLocale();
@@ -93,6 +157,11 @@ class Product
         }
         $decoded = json_decode((string)$raw, true);
         return is_array($decoded) ? $decoded : [];
+    }
+
+    public static function getGalleryImages(array $product): array
+    {
+        return self::getGallery($product);
     }
 
     public static function getRelated(int $categoryId, int $excludeId, int $limit = 4): array

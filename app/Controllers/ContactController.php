@@ -21,6 +21,13 @@ class ContactController
 
     public function send(Request $request): void
     {
+        // 0. Spam / Flood Protection (Rate Limiter: max 5 messages per 10 minutes)
+        if (!\App\Core\RateLimiter::attempt('contact_form', null, 5, 600)) {
+            Session::flash('error', __('Çok fazla mesaj gönderimi yapıldı. Lütfen birkaç dakika sonra tekrar deneyiniz.', 'Çok fazla mesaj gönderimi yapıldı. Lütfen birkaç dakika sonra tekrar deneyiniz.'));
+            Response::redirect(url('/contact'));
+            return;
+        }
+
         // 1. CSRF Doğrulaması
         $token = $request->post('_csrf_token');
         if (!Csrf::validate($token)) {

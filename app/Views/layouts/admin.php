@@ -1,22 +1,30 @@
 <?php
 use App\Core\Auth;
 use App\Models\ContactMessage;
+use App\Models\SiteSetting;
 
 $unreadCount = ContactMessage::unreadCount();
 $user = Auth::user();
+$siteLogo = SiteSetting::get('site_logo', 'assets/images/seyitler_yatay_logo.png');
+$siteFavicon = SiteSetting::get('site_favicon', 'assets/images/favicon.png');
 ?>
 <!DOCTYPE html>
-<html lang="tr" class="h-full bg-slate-50">
+<html lang="tr" class="h-full bg-[#F8FAFC]">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title><?= e($pageTitle ?? 'Yönetim Paneli - Seyitler Kimya') ?></title>
-    <link href="<?= asset('favicon.png') ?>" rel="icon"/>
+    
+    <!-- STRICT ROBOTS META: NEVER ALLOW SEARCH ENGINES TO INDEX OR SNIPPET PODMIN -->
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate"/>
+    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex"/>
 
-    <!-- Google Fonts -->
+    <title><?= e($pageTitle ?? 'Executive CMS - Seyitler Kimya Sanayi A.Ş.') ?></title>
+    <link href="<?= asset($siteFavicon) ?>" rel="icon"/>
+
+    <!-- Google Fonts: Plus Jakarta Sans & Outfit for World-Class Enterprise SaaS Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Tailwind CDN for Admin UI -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -28,14 +36,29 @@ $user = Auth::user();
                         brand: {
                             50: '#ecfdf5',
                             100: '#d1fae5',
+                            200: '#a7f3d0',
+                            400: '#34d399',
                             500: '#10b981',
                             600: '#0AA64D',
                             700: '#047857',
+                            800: '#065f46',
                             900: '#064e3b',
+                            950: '#022c22'
+                        },
+                        obsidian: {
+                            800: '#111827',
+                            900: '#0B0F19',
+                            950: '#050811',
                         }
                     },
                     fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'subtle': '0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04)',
+                        'card': '0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -2px rgba(0, 0, 0, 0.03)',
+                        'glow': '0 0 20px -5px rgba(10, 166, 77, 0.25)',
                     }
                 }
             }
@@ -43,134 +66,216 @@ $user = Auth::user();
     </script>
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-display { font-family: 'Outfit', sans-serif; }
+        
+        /* Smooth Scrollbars */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .nav-item-active {
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.03) 100%);
+            color: #34d399;
+            border-left: 3px solid #10b981;
+            font-weight: 700;
+        }
     </style>
 </head>
-<body class="h-full flex flex-col antialiased text-slate-800">
+<body class="h-full flex flex-col antialiased text-slate-800 bg-[#F8FAFC] selection:bg-brand-600 selection:text-white">
     <div class="flex h-full min-h-screen overflow-hidden">
         
-        <!-- Sidebar Navigation -->
-        <aside id="admin-sidebar" class="w-64 bg-slate-900 text-slate-300 flex flex-col shrink-0 transition-transform duration-200 z-50 fixed inset-y-0 left-0 lg:static lg:translate-x-0 -translate-x-full">
-            <!-- Brand Logo -->
-            <div class="h-20 flex items-center justify-between px-6 border-b border-slate-800">
-                <a href="<?= url('/admin') ?>" class="flex items-center gap-3">
-                    <img src="<?= asset('assets/images/logo.png') ?>" alt="Logo" class="size-8 object-contain brightness-0 invert"/>
+        <!-- ============================================================== -->
+        <!-- EXECUTIVE ENTERPRISE SIDEBAR -->
+        <!-- ============================================================== -->
+        <aside id="admin-sidebar" class="w-72 bg-[#0B0F19] text-slate-300 flex flex-col shrink-0 transition-transform duration-300 z-50 fixed inset-y-0 left-0 lg:static lg:translate-x-0 -translate-x-full border-r border-white/5 shadow-2xl">
+            
+            <!-- Brand Portal Header -->
+            <div class="h-20 flex items-center justify-between px-6 border-b border-white/5 bg-[#070A12]/80 backdrop-blur-md">
+                <a href="<?= url('/podmin') ?>" class="flex items-center gap-3.5 group">
+                    <div class="size-11 rounded-2xl bg-gradient-to-tr from-brand-600 via-emerald-500 to-teal-400 p-0.5 shadow-lg shadow-brand-600/20 group-hover:scale-105 transition-all flex items-center justify-center">
+                        <div class="size-full bg-[#070A12] rounded-[14px] flex items-center justify-center p-2">
+                            <img src="<?= asset($siteLogo) ?>" alt="Seyitler Logo" class="size-full object-contain brightness-0 invert"/>
+                        </div>
+                    </div>
                     <div class="flex flex-col">
-                        <span class="text-white font-bold text-base tracking-wide leading-none">SEYİTLER</span>
-                        <span class="text-[10px] font-semibold text-brand-500 uppercase tracking-widest mt-1">Yönetim Paneli</span>
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-white font-display font-extrabold text-base tracking-wider leading-none">SEYİTLER</span>
+                            <span class="text-[9px] font-bold px-1.5 py-0.5 rounded bg-brand-600/20 text-brand-400 border border-brand-500/30 uppercase tracking-widest">KİMYA</span>
+                        </div>
+                        <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-1 flex items-center gap-1.5">
+                            <span class="size-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                            Executive Portal
+                        </span>
                     </div>
                 </a>
-                <button id="sidebar-close-btn" class="lg:hidden text-slate-400 hover:text-white" type="button">
+                <button id="sidebar-close-btn" class="lg:hidden text-slate-400 hover:text-white p-2 rounded-xl hover:bg-white/5 transition-colors" type="button" aria-label="Menüyü Kapat">
                     <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
             </div>
 
             <!-- Navigation Links -->
-            <nav class="flex-1 overflow-y-auto px-4 py-6 space-y-1.5 text-xs font-semibold">
-                <a href="<?= url('/admin') ?>" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all <?= is_active_route('/admin') ? 'bg-brand-600 text-white shadow-lg shadow-brand-600/30' : 'hover:bg-slate-800 hover:text-white text-slate-400' ?>">
+            <nav class="flex-1 overflow-y-auto px-4 py-5 space-y-1 text-xs font-semibold">
+                
+                <!-- Main Overview -->
+                <a href="<?= url('/podmin') ?>" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all <?= is_active_route('/podmin') ? 'nav-item-active' : 'hover:bg-white/5 hover:text-white text-slate-400' ?>">
                     <svg class="size-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>
-                    <span>Genel Bakış</span>
+                    <span>Genel Bakış (Dashboard)</span>
                 </a>
 
-                <div class="pt-4 pb-1 px-3 text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Katalog Yönetimi</div>
+                <!-- SECTION: KATALOG -->
+                <div class="pt-5 pb-1.5 px-3 text-[10px] font-extrabold uppercase tracking-widest text-slate-500 flex items-center justify-between">
+                    <span>Ürün & Katalog Portalı</span>
+                    <span class="size-1 rounded-full bg-slate-600"></span>
+                </div>
 
-                <a href="<?= url('/admin/products') ?>" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all <?= is_active_route('/admin/products') ? 'bg-brand-600 text-white shadow-lg shadow-brand-600/30' : 'hover:bg-slate-800 hover:text-white text-slate-400' ?>">
-                    <svg class="size-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg>
-                    <span>Ürünler</span>
+                <a href="<?= url('/podmin/products') ?>" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all <?= is_active_route('/podmin/products') ? 'nav-item-active' : 'hover:bg-white/5 hover:text-white text-slate-400' ?>">
+                    <div class="flex items-center gap-3">
+                        <svg class="size-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg>
+                        <span>Ürünler & Tablolar</span>
+                    </div>
+                    <span class="text-[10px] px-2 py-0.5 rounded-md bg-white/5 text-slate-400 group-hover:text-white">Katalog</span>
                 </a>
 
-                <a href="<?= url('/admin/categories') ?>" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all <?= is_active_route('/admin/categories') ? 'bg-brand-600 text-white shadow-lg shadow-brand-600/30' : 'hover:bg-slate-800 hover:text-white text-slate-400' ?>">
+                <a href="<?= url('/podmin/categories') ?>" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all <?= is_active_route('/podmin/categories') ? 'nav-item-active' : 'hover:bg-white/5 hover:text-white text-slate-400' ?>">
                     <svg class="size-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"/></svg>
                     <span>Kategoriler</span>
                 </a>
 
-                <div class="pt-4 pb-1 px-3 text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Kurumsal & İçerik</div>
+                <!-- SECTION: KURUMSAL CMS -->
+                <div class="pt-5 pb-1.5 px-3 text-[10px] font-extrabold uppercase tracking-widest text-slate-500 flex items-center justify-between">
+                    <span>Kurumsal & CMS</span>
+                    <span class="size-1 rounded-full bg-slate-600"></span>
+                </div>
 
-                <a href="<?= url('/admin/investors') ?>" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all <?= is_active_route('/admin/investors') ? 'bg-brand-600 text-white shadow-lg shadow-brand-600/30' : 'hover:bg-slate-800 hover:text-white text-slate-400' ?>">
-                    <svg class="size-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
-                    <span>Yatırımcı İlişkileri</span>
+                <a href="<?= url('/podmin/pages') ?>" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all <?= is_active_route('/podmin/pages') ? 'nav-item-active' : 'hover:bg-white/5 hover:text-white text-slate-400' ?>">
+                    <svg class="size-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+                    <span>Sayfa ve İçerik Yönetimi</span>
                 </a>
 
-                <a href="<?= url('/admin/news') ?>" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all <?= is_active_route('/admin/news') ? 'bg-brand-600 text-white shadow-lg shadow-brand-600/30' : 'hover:bg-slate-800 hover:text-white text-slate-400' ?>">
+                <a href="<?= url('/podmin/investors') ?>" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all <?= is_active_route('/podmin/investors') ? 'nav-item-active' : 'hover:bg-white/5 hover:text-white text-slate-400' ?>">
+                    <svg class="size-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+                    <span>Yatırımcı Belgeleri (SPK/KAP)</span>
+                </a>
+
+                <a href="<?= url('/podmin/news') ?>" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all <?= is_active_route('/podmin/news') ? 'nav-item-active' : 'hover:bg-white/5 hover:text-white text-slate-400' ?>">
                     <svg class="size-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z"/></svg>
                     <span>Haberler & Fuarlar</span>
                 </a>
 
-                <a href="<?= url('/admin/messages') ?>" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all <?= is_active_route('/admin/messages') ? 'bg-brand-600 text-white shadow-lg shadow-brand-600/30' : 'hover:bg-slate-800 hover:text-white text-slate-400' ?>">
+                <a href="<?= url('/podmin/messages') ?>" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl transition-all <?= is_active_route('/podmin/messages') ? 'nav-item-active' : 'hover:bg-white/5 hover:text-white text-slate-400' ?>">
                     <div class="flex items-center gap-3">
                         <svg class="size-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
                         <span>Gelen Mesajlar</span>
                     </div>
                     <?php if ($unreadCount > 0): ?>
-                        <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-rose-500 text-white shrink-0"><?= $unreadCount ?></span>
+                        <span class="px-2 py-0.5 text-[10px] font-extrabold rounded-full bg-rose-500 text-white shrink-0 shadow-sm shadow-rose-500/30 animate-pulse"><?= $unreadCount ?> yeni</span>
                     <?php endif; ?>
                 </a>
 
-                <div class="pt-4 pb-1 px-3 text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Sistem</div>
+                <!-- SECTION: SİSTEM & GÜVENLİK -->
+                <div class="pt-5 pb-1.5 px-3 text-[10px] font-extrabold uppercase tracking-widest text-slate-500 flex items-center justify-between">
+                    <span>Sistem, Marka & Diller</span>
+                    <span class="size-1 rounded-full bg-slate-600"></span>
+                </div>
 
-                <a href="<?= url('/admin/translations') ?>" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all <?= is_active_route('/admin/translations') ? 'bg-brand-600 text-white shadow-lg shadow-brand-600/30' : 'hover:bg-slate-800 hover:text-white text-slate-400' ?>">
+                <a href="<?= url('/podmin/translations') ?>" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all <?= is_active_route('/podmin/translations') ? 'nav-item-active' : 'hover:bg-white/5 hover:text-white text-slate-400' ?>">
                     <svg class="size-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802"/></svg>
-                    <span>Çeviriler & Diller</span>
+                    <span>Çeviriler & Diller (TR/EN/AR)</span>
                 </a>
 
-                <a href="<?= url('/admin/settings') ?>" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all <?= is_active_route('/admin/settings') ? 'bg-brand-600 text-white shadow-lg shadow-brand-600/30' : 'hover:bg-slate-800 hover:text-white text-slate-400' ?>">
+                <a href="<?= url('/podmin/settings') ?>" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl transition-all <?= is_active_route('/podmin/settings') ? 'nav-item-active' : 'hover:bg-white/5 hover:text-white text-slate-400' ?>">
                     <svg class="size-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 0 1 0 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 0 1 0-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>
-                    <span>Site Ayarları</span>
+                    <span>Marka, Şifre & Güvenlik</span>
                 </a>
             </nav>
 
-            <!-- User Footer -->
-            <div class="p-4 border-t border-slate-800 flex items-center justify-between">
-                <div class="flex items-center gap-3 overflow-hidden">
-                    <div class="size-9 rounded-full bg-brand-600 text-white font-bold flex items-center justify-center shrink-0">
+            <!-- User Session Footer -->
+            <div class="p-4 border-t border-white/5 bg-[#070A12]/80 backdrop-blur-md flex items-center justify-between">
+                <a href="<?= url('/podmin/settings') ?>" class="flex items-center gap-3 overflow-hidden group">
+                    <div class="size-10 rounded-xl bg-gradient-to-tr from-brand-600 to-emerald-400 text-white font-bold flex items-center justify-center shrink-0 shadow-md group-hover:scale-105 transition-transform">
                         <?= strtoupper(substr($user['username'] ?? 'A', 0, 1)) ?>
                     </div>
                     <div class="truncate">
-                        <div class="text-xs font-bold text-white truncate"><?= e($user['username'] ?? 'Admin') ?></div>
-                        <div class="text-[10px] text-slate-500 truncate"><?= e($user['email'] ?? 'admin@seyitler.com') ?></div>
+                        <div class="text-xs font-bold text-white group-hover:text-emerald-400 transition-colors truncate"><?= e($user['username'] ?? 'Admin') ?></div>
+                        <div class="text-[10px] text-slate-400 flex items-center gap-1">
+                            <span class="size-1.5 rounded-full bg-emerald-400"></span>
+                            <span>Yönetici Oturumu</span>
+                        </div>
                     </div>
-                </div>
-                <a href="<?= url('/admin/logout') ?>" class="p-2 text-slate-400 hover:text-rose-400 transition-colors" title="Çıkış Yap">
+                </a>
+                <a href="<?= url('/podmin/logout') ?>" class="p-2 text-slate-400 hover:text-rose-400 hover:bg-white/5 rounded-xl transition-all" title="Güvenli Çıkış Yap">
                     <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"/></svg>
                 </a>
             </div>
         </aside>
 
-        <!-- Main Content Wrapper -->
+        <!-- ============================================================== -->
+        <!-- MAIN EXECUTIVE VIEWPORT -->
+        <!-- ============================================================== -->
         <div class="flex-1 flex flex-col min-w-0 overflow-y-auto">
-            <!-- Top Navbar -->
-            <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-6 shrink-0 sticky top-0 z-40">
+            
+            <!-- Sticky Enterprise Top Navbar -->
+            <header class="h-20 bg-white/85 backdrop-blur-xl border-b border-slate-200/80 flex items-center justify-between px-6 lg:px-8 shrink-0 sticky top-0 z-40 shadow-xs">
                 <div class="flex items-center gap-4">
-                    <button id="sidebar-open-btn" class="lg:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100" type="button">
+                    <button id="sidebar-open-btn" class="lg:hidden p-2 rounded-xl text-slate-600 hover:bg-slate-100 transition-colors" type="button" aria-label="Menüyü Aç">
                         <svg class="size-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
                     </button>
-                    <h1 class="text-lg font-bold text-slate-900"><?= e($pageTitle ?? 'Yönetim Paneli') ?></h1>
+                    <div>
+                        <h1 class="text-xl font-bold font-display text-slate-900 leading-tight flex items-center gap-2.5">
+                            <?= e($pageTitle ?? 'Executive Yönetim Paneli') ?>
+                        </h1>
+                        <div class="text-[11px] text-slate-400 font-medium flex items-center gap-2 mt-0.5">
+                            <span>Seyitler Kimya Sanayi A.Ş.</span>
+                            <span>&bull;</span>
+                            <span class="text-emerald-700 font-semibold flex items-center gap-1.5 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
+                                <span class="size-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                SSL 256-Bit İstemci Oturumu
+                            </span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="flex items-center gap-4">
-                    <a href="<?= url('/') ?>" target="_blank" class="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors">
-                        <svg class="size-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-                        <span>Siteyi Görüntüle</span>
+                <div class="flex items-center gap-3">
+                    <!-- Brand Settings Shortcut -->
+                    <a href="<?= url('/podmin/settings') ?>" class="p-2.5 text-slate-500 hover:text-slate-900 hover:bg-slate-100/80 rounded-xl transition-all" title="Marka & Sistem Ayarları">
+                        <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 0 1 0 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 0 1 0-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>
+                    </a>
+
+                    <!-- Live Website Button with Pulse -->
+                    <a href="<?= url('/') ?>" target="_blank" class="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100/80 border border-emerald-200/80 rounded-xl shadow-xs transition-all hover:scale-[1.02]">
+                        <span class="size-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <svg class="size-4 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                        <span class="hidden sm:inline">Canlı Siteyi Aç</span>
                     </a>
                 </div>
             </header>
 
-            <!-- Flash Messages -->
+            <!-- Alerts Notification Center -->
             <?php if (has_flash('success')): ?>
-                <div class="p-4 mx-6 mt-6 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center gap-3">
-                    <svg class="size-5 text-emerald-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
-                    <span><?= e(flash('success')) ?></span>
+                <div class="mx-6 lg:mx-8 mt-6 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-900 text-xs font-semibold flex items-center justify-between shadow-xs">
+                    <div class="flex items-center gap-3">
+                        <div class="size-8 rounded-xl bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-sm shadow-emerald-500/30">
+                            <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                        </div>
+                        <span class="leading-relaxed"><?= e(flash('success')) ?></span>
+                    </div>
                 </div>
             <?php endif; ?>
 
             <?php if (has_flash('error')): ?>
-                <div class="p-4 mx-6 mt-6 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold flex items-center gap-3">
-                    <svg class="size-5 text-rose-600 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 7.5h.008v.008H12v-.008Z"/></svg>
-                    <span><?= e(flash('error')) ?></span>
+                <div class="mx-6 lg:mx-8 mt-6 p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-900 text-xs font-semibold flex items-center justify-between shadow-xs">
+                    <div class="flex items-center gap-3">
+                        <div class="size-8 rounded-xl bg-rose-500 text-white flex items-center justify-center shrink-0 shadow-sm shadow-rose-500/30">
+                            <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 7.5h.008v.008H12v-.008Z"/></svg>
+                        </div>
+                        <span class="leading-relaxed"><?= e(flash('error')) ?></span>
+                    </div>
                 </div>
             <?php endif; ?>
 
-            <!-- Page Body -->
-            <main class="p-6 flex-1">
+            <!-- Page Body Content Viewport -->
+            <main class="p-6 sm:p-8 lg:p-10 flex-1">
                 <?= $content ?>
             </main>
         </div>

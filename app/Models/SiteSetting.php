@@ -53,17 +53,25 @@ class SiteSetting
         return self::$cache[$key] ?? null;
     }
 
-    public static function set(string $key, array $values): void
+    public static function set(string $key, string|array $values): void
     {
         self::loadCache();
 
         $existing = Database::fetchOne("SELECT id FROM site_settings WHERE setting_key = :k LIMIT 1", ['k' => $key]);
 
-        $data = [
-            'setting_value_tr' => $values['setting_value_tr'] ?? '',
-            'setting_value_en' => $values['setting_value_en'] ?? '',
-            'setting_value_ar' => $values['setting_value_ar'] ?? '',
-        ];
+        if (is_string($values)) {
+            $data = [
+                'setting_value_tr' => $values,
+                'setting_value_en' => $values,
+                'setting_value_ar' => $values,
+            ];
+        } else {
+            $data = [
+                'setting_value_tr' => $values['setting_value_tr'] ?? $values['tr'] ?? '',
+                'setting_value_en' => $values['setting_value_en'] ?? $values['en'] ?? '',
+                'setting_value_ar' => $values['setting_value_ar'] ?? $values['ar'] ?? '',
+            ];
+        }
 
         if ($existing) {
             Database::update('site_settings', $data, 'id = :id', ['id' => $existing['id']]);

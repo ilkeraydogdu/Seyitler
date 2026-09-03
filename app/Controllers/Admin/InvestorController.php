@@ -34,7 +34,7 @@ class InvestorController
     {
         if (!Csrf::validate($request->post('_csrf_token'))) {
             Session::flash('error', 'Güvenlik doğrulaması başarısız.');
-            Response::redirect(url('/admin/investors'));
+            Response::redirect(url('/podmin/investors'));
             return;
         }
 
@@ -43,7 +43,7 @@ class InvestorController
 
         if (empty($titleTr) || empty($categoryId)) {
             Session::flash('error', 'Lütfen doküman başlığını ve kategorisini seçiniz.');
-            Response::redirect(url('/admin/investors'));
+            Response::redirect(url('/podmin/investors'));
             return;
         }
 
@@ -69,7 +69,7 @@ class InvestorController
 
         if (empty($url)) {
             Session::flash('error', 'Lütfen bir PDF dosyası yükleyin veya dosya yolu belirtin.');
-            Response::redirect(url('/admin/investors'));
+            Response::redirect(url('/podmin/investors'));
             return;
         }
 
@@ -84,19 +84,19 @@ class InvestorController
         ]);
 
         Session::flash('success', 'Doküman başarıyla yüklendi.');
-        Response::redirect(url('/admin/investors'));
+        Response::redirect(url('/podmin/investors'));
     }
 
     public function delete(Request $request, int $id): void
     {
         if (!Csrf::validate($request->post('_csrf_token'))) {
             Session::flash('error', 'Güvenlik doğrulaması başarısız.');
-            Response::redirect(url('/admin/investors'));
+            Response::redirect(url('/podmin/investors'));
             return;
         }
 
         InvestorDocument::delete($id);
         Session::flash('success', 'Doküman silindi.');
-        Response::redirect(url('/admin/investors'));
+        Response::redirect(url('/podmin/investors'));
     }
 }
