@@ -191,8 +191,8 @@ function initSwipers() {
     const newsEl = document.querySelector('#home-news-swiper, .home-news-swiper');
     if (newsEl) {
         new Swiper(newsEl, {
-            slidesPerView: 'auto',
-            spaceBetween: 24,
+            slidesPerView: 1,
+            spaceBetween: 20,
             loop: true,
             grabCursor: true,
             speed: 600,
@@ -204,6 +204,16 @@ function initSwipers() {
                 delay: 4500,
                 disableOnInteraction: false,
                 pauseOnMouseEnter: true
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 24
+                },
+                1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 28
+                }
             }
         });
     }
