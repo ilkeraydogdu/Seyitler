@@ -12,16 +12,54 @@ class I18n
 
     public static function init(): void
     {
-        // 1. URL parametresinden dil al
+        // 1. Explicit URL parameter (?lang=tr|en|ar) - Highest priority
         $reqLang = $_GET['lang'] ?? null;
         if ($reqLang && in_array($reqLang, self::$availableLocales, true)) {
-            self::$locale = $reqLang;
-            Session::set('app_locale', $reqLang);
-        } elseif (Session::has('app_locale') && in_array(Session::get('app_locale'), self::$availableLocales, true)) {
-            self::$locale = Session::get('app_locale');
-        } else {
-            self::$locale = 'tr';
+            self::setLocale($reqLang);
+            return;
         }
+
+        // 2. Active Session preference
+        if (Session::has('app_locale') && in_array(Session::get('app_locale'), self::$availableLocales, true)) {
+            self::$locale = Session::get('app_locale');
+            return;
+        }
+
+        // 3. Persistent Cookie preference (Remembers user across browser restarts)
+        if (isset($_COOKIE['site_locale']) && in_array($_COOKIE['site_locale'], self::$availableLocales, true)) {
+            self::$locale = $_COOKIE['site_locale'];
+            Session::set('app_locale', self::$locale);
+            return;
+        }
+
+        // 4. Autonomous Browser & Location Language Detection via HTTP_ACCEPT_LANGUAGE
+        $detectedLocale = self::detectBrowserLocale();
+        self::setLocale($detectedLocale);
+    }
+
+    /**
+     * Parse browser Accept-Language header to automatically detect foreign or domestic visitors
+     */
+    protected static function detectBrowserLocale(): string
+    {
+        if (empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+            return 'tr';
+        }
+
+        $header = strtolower($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+
+        // Check for Arabic language family (Middle East, Gulf, North Africa)
+        if (preg_match('/(^|,)(ar|ar-[a-z]{2})(;|,|$)/', $header)) {
+            return 'ar';
+        }
+
+        // Check for Turkish
+        if (preg_match('/(^|,)(tr|tr-[a-z]{2})(;|,|$)/', $header)) {
+            return 'tr';
+        }
+
+        // Any international visitor (en, de, fr, es, ru, etc.) defaults to English for global trade
+        return 'en';
     }
 
     public static function getLocale(): string
@@ -34,6 +72,18 @@ class I18n
         if (in_array($locale, self::$availableLocales, true)) {
             self::$locale = $locale;
             Session::set('app_locale', $locale);
+
+            // Set secure persistent cookie for 1 year (SameSite=Lax, HttpOnly)
+            if (!headers_sent()) {
+                setcookie('site_locale', $locale, [
+                    'expires'  => time() + 31536000,
+                    'path'     => '/',
+                    'domain'   => '',
+                    'secure'   => (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'),
+                    'httponly' => true,
+                    'samesite' => 'Lax'
+                ]);
+            }
         }
     }
 
