@@ -11,3 +11,6 @@ scratch/
 # WampServer / Cache
 tmp/
 cache/
+
+# Legacy HTML Backup Folder (Kept locally, excluded from git repository)
+_legacy_html_backup/
