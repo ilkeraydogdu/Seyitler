@@ -32,7 +32,7 @@ class Page
         if ($activeOnly) {
             $sql .= " WHERE `is_active` = 1";
         }
-        $sql .= " ORDER BY `id` ASC";
+        $sql .= " ORDER BY `sort_order` ASC, `id` ASC";
         return $db->query($sql)->fetchAll();
     }
 
@@ -50,7 +50,8 @@ class Page
             'sections_data',
             'meta_title_tr', 'meta_title_en', 'meta_title_ar',
             'meta_desc_tr', 'meta_desc_en', 'meta_desc_ar',
-            'is_active'
+            'is_active',
+            'sort_order'
         ];
 
         foreach ($allowed as $f) {

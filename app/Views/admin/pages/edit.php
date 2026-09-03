@@ -12,7 +12,11 @@ $btn1 = $buttons[0] ?? ['text_tr' => '', 'text_en' => '', 'text_ar' => '', 'url'
 $btn2 = $buttons[1] ?? ['text_tr' => '', 'text_en' => '', 'text_ar' => '', 'url' => '', 'target' => '_self'];
 $timeline = $sections['timeline'] ?? [];
 
-$publicUrl = url('/' . ($page['slug'] === 'history' || $page['slug'] === 'mission-vision' || $page['slug'] === 'values' || $page['slug'] === 'organization' || $page['slug'] === 'sustainability' || $page['slug'] === 'human-resources' ? 'about-us/' . $page['slug'] : $page['slug']));
+$publicUrl = $page['slug'] === 'home' 
+    ? url('/') 
+    : (in_array($page['slug'], ['history', 'mission-vision', 'values', 'organization', 'sustainability', 'human-resources'], true) 
+        ? url('/about-us/' . $page['slug']) 
+        : ($page['slug'] === 'cookie-policy' ? url('/cerez-politikasi') : url('/' . $page['slug'])));
 ?>
 
 <div class="space-y-6 max-w-6xl mx-auto pb-16">
@@ -354,14 +358,21 @@ $publicUrl = url('/' . ($page['slug'] === 'history' || $page['slug'] === 'missio
                 </div>
             </div>
 
-            <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
-                <label class="inline-flex items-center gap-3 cursor-pointer">
-                    <input type="checkbox" name="is_active" value="1" <?= !empty($page['is_active']) ? 'checked' : '' ?> class="size-5 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300"/>
-                    <div>
-                        <span class="text-xs font-bold text-slate-900 block">Sayfa Yayında Olsun</span>
-                        <span class="text-[11px] text-slate-400">İşareti kaldırırsanız sayfa ziyaretçilere gizlenir.</span>
+            <div class="pt-3 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div class="flex items-center gap-6">
+                    <label class="inline-flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" name="is_active" value="1" <?= !empty($page['is_active']) ? 'checked' : '' ?> class="size-5 rounded text-emerald-600 focus:ring-emerald-500 border-slate-300"/>
+                        <div>
+                            <span class="text-xs font-bold text-slate-900 block">Sayfa Yayında Olsun</span>
+                            <span class="text-[11px] text-slate-400">İşareti kaldırırsanız sayfa ziyaretçilere gizlenir.</span>
+                        </div>
+                    </label>
+
+                    <div class="flex items-center gap-2 pl-4 border-l border-slate-200">
+                        <label class="text-xs font-bold text-slate-700 whitespace-nowrap">Menü Sırası:</label>
+                        <input type="number" name="sort_order" value="<?= (int)($page['sort_order'] ?? 0) ?>" class="w-16 px-2.5 py-1.5 text-xs rounded-xl border border-slate-200 bg-slate-50 text-slate-900 font-bold text-center outline-none focus:bg-white focus:border-emerald-500"/>
                     </div>
-                </label>
+                </div>
 
                 <button type="submit" class="px-6 py-2.5 bg-[#0AA64D] hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-md shadow-emerald-600/20 transition-all flex items-center gap-1.5 cursor-pointer">
                     <svg class="size-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>

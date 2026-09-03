@@ -183,6 +183,7 @@ class PageController
             'meta_desc_en'   => trim((string)$request->post('meta_desc_en')),
             'meta_desc_ar'   => trim((string)$request->post('meta_desc_ar')),
             'is_active'      => $request->post('is_active') ? 1 : 0,
+            'sort_order'     => (int)($request->post('sort_order') ?? ($page['sort_order'] ?? 0)),
         ];
 
         Page::update((int)$id, $data);
