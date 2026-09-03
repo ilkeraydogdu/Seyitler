@@ -75,9 +75,9 @@ class InvestorController
 
         InvestorDocument::create([
             'category_id' => $categoryId,
-            'title_tr'    => $titleTr,
-            'title_en'    => trim((string)$request->post('title_en')) ?: $titleTr,
-            'title_ar'    => trim((string)$request->post('title_ar')) ?: $titleTr,
+            'label_tr'    => $titleTr,
+            'label_en'    => trim((string)$request->post('title_en')) ?: $titleTr,
+            'label_ar'    => trim((string)$request->post('title_ar')) ?: $titleTr,
             'url'         => $url,
             'file_size'   => $fileSize,
             'sort_order'  => 0,

@@ -37,8 +37,8 @@ class RateLimiter
         if ($record) {
             // If previous lockout expired or decay window passed, reset counter
             if (($now - $record['first_attempt']) > $decaySeconds && $record['locked_until'] <= $now) {
-                $uStmt = $db->prepare("UPDATE `rate_limits` SET `hits` = 1, `first_attempt` = :now, `last_attempt` = :now, `locked_until` = 0 WHERE `id` = :id");
-                $uStmt->execute([':now' => $now, ':id' => $record['id']]);
+                $uStmt = $db->prepare("UPDATE `rate_limits` SET `hits` = 1, `first_attempt` = :fa, `last_attempt` = :la, `locked_until` = 0 WHERE `id` = :id");
+                $uStmt->execute([':fa' => $now, ':la' => $now, ':id' => $record['id']]);
                 return max(0, $maxAttempts - 1);
             }
 

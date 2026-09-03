@@ -42,9 +42,12 @@ $request = new Request();
 // Centralized Protection for Admin Routes: Search Engine Isolation & Session Timeout
 if (str_starts_with($request->uri(), '/podmin')) {
     \App\Core\Security::applyAdminHeaders();
-    if (!\App\Core\Security::checkSessionInactivity(120)) {
-        Session::flash('error', 'Oturumunuz işlem yapılmadığı için güvenlik gerekçesiyle sonlandırıldı.');
-        Response::redirect(url('/podmin/login'));
+    if (!str_starts_with($request->uri(), '/podmin/login') && \App\Core\Auth::check()) {
+        if (!\App\Core\Security::checkSessionInactivity(120)) {
+            Session::flash('error', 'Oturumunuz işlem yapılmadığı için güvenlik gerekçesiyle sonlandırıldı.');
+            Response::redirect(url('/podmin/login'));
+            exit;
+        }
     }
 }
 

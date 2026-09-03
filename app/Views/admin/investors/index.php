@@ -57,7 +57,7 @@ use App\Models\InvestorDocument;
                                     <svg class="size-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9.5 8.5h-1v-2h1c.55 0 1 .45 1 1s-.45 1-1 1zm5.5 0h-1v-2h1c.55 0 1 .45 1 1s-.45 1-1 1zm-4-4.5h-2.5v7H10V11h1c1.1 0 2-.9 2-2s-.9-2-2-2zm5 0h-2.5v7H15V11h1c1.1 0 2-.9 2-2s-.9-2-2-2z"/></svg>
                                 </div>
                                 <div class="truncate">
-                                    <div class="font-bold text-slate-900 text-xs truncate doc-title group-hover:text-emerald-700 transition-colors"><?= e($doc['title_tr']) ?></div>
+                                    <div class="font-bold text-slate-900 text-xs truncate doc-title group-hover:text-emerald-700 transition-colors"><?= e($doc['label_tr'] ?? $doc['title_tr'] ?? '') ?></div>
                                     <div class="text-[11px] text-slate-400 truncate mt-0.5 flex items-center gap-2">
                                         <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-semibold text-[10px]"><?= e($cat ? $cat['name_tr'] : 'Genel') ?></span>
                                         <span class="font-mono text-[10px] text-slate-400 truncate"><?= e($doc['url']) ?></span>
