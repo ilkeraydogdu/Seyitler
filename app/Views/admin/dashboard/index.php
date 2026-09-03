@@ -107,40 +107,40 @@ use App\Models\Category;
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
         
         <!-- Left: Recent Products (7 Cols) -->
-        <div class="lg:col-span-7 bg-white rounded-xl border border-slate-200/80 shadow-xs overflow-hidden">
-            <div class="px-4 py-2.5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+        <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
+            <div class="px-5 py-3 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
                 <div class="flex items-center gap-2">
-                    <span class="size-1.5 rounded-full bg-emerald-500"></span>
+                    <span class="size-2 rounded-full bg-emerald-500"></span>
                     <h3 class="font-bold text-xs uppercase tracking-wider text-slate-700">Son Eklenen Ürünler</h3>
                 </div>
-                <a href="<?= url('/podmin/products') ?>" class="text-[11px] font-semibold text-emerald-700 hover:text-emerald-800 transition-colors flex items-center gap-1">
+                <a href="<?= url('/podmin/products') ?>" class="text-xs font-semibold text-emerald-700 hover:text-emerald-800 transition-colors flex items-center gap-1">
                     <span>Tüm Liste (<?= $productCount ?>)</span>
-                    <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
                 </a>
             </div>
 
             <div class="divide-y divide-slate-100">
                 <?php if (empty($recentProducts)): ?>
-                    <div class="p-6 text-center text-xs text-slate-400 font-medium">Kayıtlı ürün bulunmuyor.</div>
+                    <div class="p-8 text-center text-sm text-slate-400 font-medium">Kayıtlı ürün bulunmuyor.</div>
                 <?php else: ?>
                     <?php foreach ($recentProducts as $prod): ?>
-                        <div class="px-3.5 py-2 flex items-center justify-between hover:bg-slate-50/70 transition-colors">
-                            <div class="flex items-center gap-2.5 overflow-hidden pr-2">
-                                <div class="size-8 rounded-lg bg-slate-50 border border-slate-200/80 p-0.5 flex items-center justify-center shrink-0">
-                                    <img src="<?= asset($prod['main_image']) ?>" alt="<?= e($prod['title_tr']) ?>" class="size-7 object-contain"/>
+                        <div class="px-5 py-3 flex items-center justify-between hover:bg-slate-50/70 transition-colors">
+                            <div class="flex items-center gap-3 overflow-hidden pr-2">
+                                <div class="size-10 rounded-xl bg-slate-50 border border-slate-200/80 p-1 flex items-center justify-center shrink-0">
+                                    <img src="<?= asset($prod['main_image']) ?>" alt="<?= e($prod['title_tr']) ?>" class="size-8 object-contain"/>
                                 </div>
                                 <div class="overflow-hidden">
-                                    <div class="text-xs font-bold text-slate-800 truncate"><?= e($prod['title_tr']) ?></div>
-                                    <div class="text-[10px] text-slate-400 truncate flex items-center gap-1.5 mt-0.5">
-                                        <span class="px-1.5 py-0.2 rounded bg-slate-100 text-slate-600 font-medium text-[9px]">
+                                    <div class="text-sm font-bold text-slate-800 truncate"><?= e($prod['title_tr']) ?></div>
+                                    <div class="text-xs text-slate-500 truncate flex items-center gap-2 mt-0.5">
+                                        <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-medium text-xs">
                                             <?= e($prod['category_name_tr'] ?? 'Genel') ?>
                                         </span>
-                                        <span class="font-mono text-[9px] text-slate-400">/<?= e($prod['slug']) ?></span>
+                                        <span class="font-mono text-xs text-slate-400">/<?= e($prod['slug']) ?></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-1.5 shrink-0">
-                                <a href="<?= url('/podmin/products/edit/' . $prod['id']) ?>" class="px-2.5 py-1 rounded-md text-[11px] font-semibold text-slate-600 hover:text-emerald-700 bg-slate-50 hover:bg-emerald-50 border border-slate-200 transition-all">
+                            <div class="flex items-center gap-2 shrink-0">
+                                <a href="<?= url('/podmin/products/edit/' . $prod['id']) ?>" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 hover:text-emerald-700 bg-slate-50 hover:bg-emerald-50 border border-slate-200 transition-all">
                                     Düzenle
                                 </a>
                             </div>
@@ -151,30 +151,30 @@ use App\Models\Category;
         </div>
 
         <!-- Right: Recent Messages (5 Cols) -->
-        <div class="lg:col-span-5 bg-white rounded-xl border border-slate-200/80 shadow-xs overflow-hidden">
-            <div class="px-4 py-2.5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+        <div class="lg:col-span-5 bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
+            <div class="px-5 py-3 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
                 <div class="flex items-center gap-2">
-                    <span class="size-1.5 rounded-full bg-blue-500"></span>
+                    <span class="size-2 rounded-full bg-blue-500"></span>
                     <h3 class="font-bold text-xs uppercase tracking-wider text-slate-700">İletişim Mesajları</h3>
                 </div>
-                <a href="<?= url('/podmin/messages') ?>" class="text-[11px] font-semibold text-emerald-700 hover:text-emerald-800 transition-colors flex items-center gap-1">
+                <a href="<?= url('/podmin/messages') ?>" class="text-xs font-semibold text-emerald-700 hover:text-emerald-800 transition-colors flex items-center gap-1">
                     <span>Gelen Kutusu</span>
-                    <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
                 </a>
             </div>
 
             <div class="divide-y divide-slate-100">
                 <?php if (empty($recentMessages)): ?>
-                    <div class="p-6 text-center text-xs text-slate-400 font-medium">Henüz yeni mesaj bulunmuyor.</div>
+                    <div class="p-8 text-center text-sm text-slate-400 font-medium">Henüz yeni mesaj bulunmuyor.</div>
                 <?php else: ?>
                     <?php foreach ($recentMessages as $msg): ?>
-                        <div class="px-3.5 py-2 hover:bg-slate-50/70 transition-colors">
+                        <div class="px-5 py-3 hover:bg-slate-50/70 transition-colors">
                             <div class="flex items-center justify-between gap-2">
-                                <span class="text-xs font-bold text-slate-800 truncate"><?= e($msg['name']) ?></span>
-                                <span class="text-[10px] text-slate-400 shrink-0 font-mono"><?= date('d.m.Y H:i', strtotime($msg['created_at'])) ?></span>
+                                <span class="text-sm font-bold text-slate-800 truncate"><?= e($msg['name']) ?></span>
+                                <span class="text-xs text-slate-400 shrink-0 font-mono"><?= date('d.m.Y H:i', strtotime($msg['created_at'])) ?></span>
                             </div>
-                            <div class="text-[10px] text-slate-400 truncate mt-0.5"><?= e($msg['email']) ?></div>
-                            <p class="text-xs text-slate-600 mt-1 line-clamp-1 leading-relaxed bg-slate-50/80 px-2 py-1 rounded-md border border-slate-100/80 text-[11px]">
+                            <div class="text-xs text-slate-500 truncate mt-0.5"><?= e($msg['email']) ?></div>
+                            <p class="text-xs text-slate-600 mt-1.5 line-clamp-1 leading-relaxed bg-slate-50/80 px-2.5 py-1 rounded-md border border-slate-100">
                                 <?= e($msg['message']) ?>
                             </p>
                         </div>

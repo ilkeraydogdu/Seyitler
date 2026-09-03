@@ -60,7 +60,7 @@ class AuthController
         $password = trim((string)$request->post('password'));
 
         if (empty($username) || empty($password)) {
-            Session::flash('error', 'Lütfen kullanıcı adı ve şifrenizi giriniz.');
+            Session::flash('error', 'Lütfen kullanıcı adı veya e-posta adresi ile şifrenizi giriniz.');
             Response::redirect(url('/podmin/login'));
             return;
         }

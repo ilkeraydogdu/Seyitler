@@ -26,7 +26,7 @@ class Auth
 
     public static function attempt(string $username, string $password): bool
     {
-        $admin = AdminUser::findByUsername($username);
+        $admin = AdminUser::findByIdentifier($username);
         if (!$admin) {
             return false;
         }

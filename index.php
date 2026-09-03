@@ -209,6 +209,7 @@ Router::post('/podmin/messages/delete/{id}', 'App\Controllers\Admin\MessageContr
 Router::get('/podmin/settings', 'App\Controllers\Admin\SettingController@index');
 Router::post('/podmin/settings/update', 'App\Controllers\Admin\SettingController@update');
 Router::post('/podmin/settings/change-password', 'App\Controllers\Admin\SettingController@changePassword');
+Router::post('/podmin/settings/profile', 'App\Controllers\Admin\SettingController@updateProfile');
 
 // Translations
 Router::get('/podmin/translations', 'App\Controllers\Admin\TranslationController@index');

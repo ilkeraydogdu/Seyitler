@@ -156,6 +156,84 @@ class SettingController
         Response::redirect(url('/podmin/settings'));
     }
 
+    public function updateProfile(Request $request): void
+    {
+        if (!Csrf::validate($request->post('_csrf_token'))) {
+            Session::flash('error', 'Güvenlik doğrulaması başarısız (CSRF).');
+            Response::redirect(url('/podmin/settings'));
+            return;
+        }
+
+        $currentUserId = Auth::id();
+        if (!$currentUserId) {
+            Response::redirect(url('/podmin/login'));
+            return;
+        }
+
+        $user = AdminUser::findById($currentUserId);
+        if (!$user) {
+            Session::flash('error', 'Kullanıcı hesabı bulunamadı.');
+            Response::redirect(url('/podmin/settings'));
+            return;
+        }
+
+        $newUsername = trim((string)$request->post('username'));
+        $newEmail = trim((string)$request->post('email'));
+        $fullName = trim((string)$request->post('full_name'));
+        $password = (string)$request->post('confirm_password');
+
+        // Confirm identity with password
+        if (!password_verify($password, $user['password']) && $user['password'] !== $password) {
+            Session::flash('error', 'Bilgileri değiştirebilmek için geçerli yönetici şifrenizi doğru girmelisiniz.');
+            Response::redirect(url('/podmin/settings'));
+            return;
+        }
+
+        if (empty($newUsername) || strlen($newUsername) < 3) {
+            Session::flash('error', 'Kullanıcı adı en az 3 karakter olmalıdır.');
+            Response::redirect(url('/podmin/settings'));
+            return;
+        }
+
+        if (!empty($newEmail) && !filter_var($newEmail, FILTER_VALIDATE_EMAIL)) {
+            Session::flash('error', 'Lütfen geçerli bir e-posta adresi giriniz.');
+            Response::redirect(url('/podmin/settings'));
+            return;
+        }
+
+        // Check if username taken by another user
+        $existing = AdminUser::findByUsername($newUsername);
+        if ($existing && (int)$existing['id'] !== (int)$currentUserId) {
+            Session::flash('error', 'Bu kullanıcı adı başka bir hesap tarafından kullanılıyor.');
+            Response::redirect(url('/podmin/settings'));
+            return;
+        }
+
+        // Check if email taken by another user
+        if (!empty($newEmail)) {
+            $existingEmail = AdminUser::findByEmail($newEmail);
+            if ($existingEmail && (int)$existingEmail['id'] !== (int)$currentUserId) {
+                Session::flash('error', 'Bu e-posta adresi başka bir hesap tarafından kullanılıyor.');
+                Response::redirect(url('/podmin/settings'));
+                return;
+            }
+        }
+
+        AdminUser::updateProfile($currentUserId, [
+            'username' => $newUsername,
+            'email' => $newEmail ?: null,
+            'full_name' => $fullName ?: 'Yönetici'
+        ]);
+
+        // Refresh session
+        $updatedUser = AdminUser::findById($currentUserId);
+        unset($updatedUser['password']);
+        Session::set('_auth_admin_user', $updatedUser);
+
+        Session::flash('success', 'Yönetici giriş bilgileriniz (kullanıcı adı & e-posta) başarıyla güncellendi.');
+        Response::redirect(url('/podmin/settings'));
+    }
+
     private function handleFileUpload(array $file, string $targetDir, array $allowed = ['png', 'jpg', 'jpeg', 'webp', 'svg', 'ico']): ?string
     {
         return \App\Core\FileUploader::uploadImage($file, $targetDir, $allowed);

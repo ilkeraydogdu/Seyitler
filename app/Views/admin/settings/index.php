@@ -301,8 +301,7 @@ $siteDesc = SiteSetting::get('site_description', 'Seyitler Kimya Sanayi A.Ş. - 
                 </div>
             </div>
         </div>
-
-        <!-- Sticky Save Action Bar for Settings -->
+<!-- Sticky Save Action Bar for Settings -->
         <div id="save-action-bar" class="p-4 bg-white/90 backdrop-blur-md rounded-2xl border border-slate-200/80 shadow-md flex items-center justify-between sticky bottom-6 z-20">
             <span class="text-xs text-slate-400 hidden sm:inline">Yapılan ayar değişiklikleri sitede anında aktifleşir.</span>
             <button type="submit" class="w-full sm:w-auto px-8 py-3 rounded-xl font-bold text-xs uppercase tracking-wider text-white bg-gradient-to-r from-emerald-600 to-brand-600 hover:from-emerald-700 hover:to-brand-700 shadow-md shadow-emerald-600/20 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
@@ -314,9 +313,56 @@ $siteDesc = SiteSetting::get('site_description', 'Seyitler Kimya Sanayi A.Ş. - 
     </form>
 
     <!-- ============================================================ -->
-    <!-- TAB 2: DEDICATED ADMIN PASSWORD & SECURITY FORM -->
+    <!-- TAB 2: SECURITY & ADMIN CREDENTIALS -->
     <!-- ============================================================ -->
     <div id="tab-security" class="space-y-6 hidden">
+        
+        <!-- Section 1: Username & Email Change -->
+        <div class="bg-white rounded-3xl border border-slate-200/80 shadow-subtle p-6 sm:p-8 space-y-6">
+            <div class="pb-4 border-b border-slate-100 flex items-center gap-3">
+                <div class="size-9 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold">
+                    <svg class="size-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
+                </div>
+                <div>
+                    <h3 class="font-bold text-slate-900 text-sm">Yönetici Giriş Bilgileri (Kullanıcı Adı & E-posta)</h3>
+                    <p class="text-xs text-slate-400">Giriş yaparken kullanacağınız kullanıcı adı ve e-posta adresini buradan güncelleyebilirsiniz</p>
+                </div>
+            </div>
+
+            <form method="POST" action="<?= url('/podmin/settings/profile') ?>" class="space-y-5 max-w-xl">
+                <?= csrf_field() ?>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Kullanıcı Adı *</label>
+                        <input type="text" name="username" value="<?= e($currentUser['username'] ?? 'admin') ?>" required minlength="3" class="w-full px-4 py-2.5 text-xs rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none text-slate-900 font-bold"/>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Giriş E-posta Adresi *</label>
+                        <input type="email" name="email" value="<?= e($currentUser['email'] ?? 'admin@seyitler.com') ?>" required class="w-full px-4 py-2.5 text-xs rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none text-slate-900 font-bold"/>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Yönetici Adı Soyadı</label>
+                    <input type="text" name="full_name" value="<?= e($currentUser['full_name'] ?? 'Yönetici') ?>" class="w-full px-4 py-2.5 text-xs rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none text-slate-900"/>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">İşlemi Onaylamak İçin Geçerli Şifreniz *</label>
+                    <input type="password" name="confirm_password" required placeholder="Mevcut yönetici şifreniz" class="w-full px-4 py-2.5 text-xs rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none text-slate-900 font-mono"/>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" class="px-7 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider text-white bg-slate-900 hover:bg-black shadow-xs transition-all flex items-center gap-2 cursor-pointer">
+                        <svg class="size-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                        <span>Giriş Bilgilerini Kaydet</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Section 2: Password Change -->
         <div class="bg-white rounded-3xl border border-slate-200/80 shadow-subtle p-6 sm:p-8 space-y-6">
             <div class="pb-4 border-b border-slate-100 flex items-center gap-3">
                 <div class="size-9 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold">
@@ -337,7 +383,7 @@ $siteDesc = SiteSetting::get('site_description', 'Seyitler Kimya Sanayi A.Ş. - 
                         <?= strtoupper(substr($currentUser['username'] ?? 'A', 0, 1)) ?>
                     </div>
                     <div>
-                        <div class="text-xs font-bold text-slate-800">Aktif Yönetici: <span class="text-emerald-700"><?= e($currentUser['username'] ?? 'Admin') ?></span></div>
+                        <div class="text-xs font-bold text-slate-800">Aktif Yönetici: <span class="text-emerald-700"><?= e($currentUser['username'] ?? 'Admin') ?></span> (<?= e($currentUser['email'] ?? 'admin@seyitler.com') ?>)</div>
                         <div class="text-[11px] text-slate-400">Şifreniz en az 6 karakter olmalı ve harf-sayı kombinasyonu içermelidir.</div>
                     </div>
                 </div>
