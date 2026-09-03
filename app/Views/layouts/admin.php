@@ -216,34 +216,31 @@ $siteFavicon = SiteSetting::get('site_favicon', 'assets/images/favicon.png');
         <!-- ============================================================== -->
         <div class="flex-1 flex flex-col min-w-0 bg-transparent overflow-x-hidden overflow-y-auto">
             
-            <!-- Sticky AdminHeader (nb-global aesthetic) -->
-            <header class="sticky top-0 z-30 bg-white border-b border-slate-200 px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div class="flex items-center gap-3">
-                    <button id="sidebar-open-btn" class="lg:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors" type="button" aria-label="Menüyü Aç">
+            <!-- Sticky AdminHeader -->
+            <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-xs border-b border-slate-200 px-5 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-3">
+                <div class="flex items-center gap-2.5">
+                    <button id="sidebar-open-btn" class="lg:hidden p-1.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors" type="button" aria-label="Menüyü Aç">
                         <svg width="20" height="20" style="width:20px;height:20px;min-width:20px;max-width:20px;" class="shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
                     </button>
                     <div>
-                        <h1 class="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
+                        <h1 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-tight">
                             <?= e($pageTitle ?? 'Yönetim Paneli') ?>
                         </h1>
-                        <p class="text-xs text-slate-500 font-normal mt-0.5">
-                            Seyitler Kimya Sanayi A.Ş. Yönetim Portalı
-                        </p>
                     </div>
                 </div>
 
-                <div class="flex items-center space-x-3 self-end sm:self-auto">
-                    <a href="<?= url('/') ?>" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg transition-colors shadow-xs" title="Web Sitesini Aç">
-                        <svg width="14" height="14" style="width:14px;height:14px;min-width:14px;max-width:14px;" class="shrink-0 text-[#0AA64D]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"/></svg>
+                <div class="flex items-center space-x-2.5">
+                    <a href="<?= url('/') ?>" target="_blank" class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 border border-slate-200/80 px-2.5 py-1.5 rounded-lg transition-colors" title="Web Sitesini Yeni Sekmede Aç">
+                        <svg width="13" height="13" style="width:13px;height:13px;min-width:13px;max-width:13px;" class="shrink-0 text-[#0AA64D]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"/></svg>
                         <span>Siteye Git</span>
-                        <svg width="12" height="12" style="width:12px;height:12px;min-width:12px;max-width:12px;" class="shrink-0 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+                        <svg width="11" height="11" style="width:11px;height:11px;min-width:11px;max-width:11px;" class="shrink-0 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
                     </a>
 
-                    <div class="flex items-center space-x-2 bg-slate-100 text-slate-800 px-3 py-1.5 rounded-lg border border-slate-200 shadow-xs">
-                        <div class="w-6 h-6 rounded-full bg-[#0AA64D] text-white flex items-center justify-center text-xs font-bold">
-                            <svg width="14" height="14" style="width:14px;height:14px;min-width:14px;max-width:14px;" class="shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
+                    <div class="flex items-center space-x-1.5 bg-slate-100/90 text-slate-800 px-2.5 py-1 rounded-lg border border-slate-200/80 text-xs">
+                        <div class="w-5 h-5 rounded-full bg-[#0AA64D] text-white flex items-center justify-center text-[10px] font-bold">
+                            <svg width="12" height="12" style="width:12px;height:12px;min-width:12px;max-width:12px;" class="shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
                         </div>
-                        <span class="text-xs font-semibold text-slate-900">
+                        <span class="font-semibold text-slate-800">
                             <?= e($user['username'] ?? 'Yönetici') ?>
                         </span>
                     </div>
@@ -252,30 +249,30 @@ $siteFavicon = SiteSetting::get('site_favicon', 'assets/images/favicon.png');
 
             <!-- Alerts Notification Center -->
             <?php if (has_flash('success')): ?>
-                <div class="mx-6 sm:mx-8 mt-5 p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center gap-3">
-                    <div class="size-6 rounded bg-emerald-600 text-white flex items-center justify-center shrink-0">
-                        <svg class="size-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                <div class="mx-5 sm:mx-6 mt-3 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-center gap-2.5">
+                    <div class="size-5 rounded bg-emerald-600 text-white flex items-center justify-center shrink-0">
+                        <svg class="size-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
                     </div>
                     <span><?= e(flash('success')) ?></span>
                 </div>
             <?php endif; ?>
 
             <?php if (has_flash('error')): ?>
-                <div class="mx-6 sm:mx-8 mt-5 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold flex items-center gap-3">
-                    <div class="size-6 rounded bg-rose-600 text-white flex items-center justify-center shrink-0">
-                        <svg class="size-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 7.5h.008v.008H12v-.008Z"/></svg>
+                <div class="mx-5 sm:mx-6 mt-3 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold flex items-center gap-2.5">
+                    <div class="size-5 rounded bg-rose-600 text-white flex items-center justify-center shrink-0">
+                        <svg class="size-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 7.5h.008v.008H12v-.008Z"/></svg>
                     </div>
                     <span><?= e(flash('error')) ?></span>
                 </div>
             <?php endif; ?>
 
             <!-- Page Body Content Viewport -->
-            <main class="p-6 sm:p-8 flex-1">
+            <main class="p-4 sm:p-5 lg:p-6 flex-1">
                 <?= $content ?>
             </main>
 
             <!-- Admin Portal Footer -->
-            <footer class="px-6 sm:px-8 py-3.5 border-t border-slate-200/80 bg-white/50 text-slate-400 text-xs flex flex-col sm:flex-row items-center justify-between gap-2">
+            <footer class="px-5 sm:px-6 py-2.5 border-t border-slate-200/80 bg-white/60 text-slate-400 text-xs flex flex-col sm:flex-row items-center justify-between gap-2">
                 <div>© <?= date('Y') ?> Seyitler Kimya Sanayi A.Ş. Yönetim Portalı</div>
                 <div>Geliştirici: <a href="https://pofudukdijital.com" target="_blank" rel="noopener noreferrer" class="text-[#0AA64D] font-semibold hover:underline">Pofuduk Dijital</a> <span class="text-slate-500">(İlker Aydoğdu)</span></div>
             </footer>
