@@ -1,0 +1,313 @@
+<?php
+
+namespace App\Controllers\Admin;
+
+use App\Core\Auth;
+use App\Core\Csrf;
+use App\Core\Database;
+use App\Core\Request;
+use App\Core\Response;
+use App\Core\Session;
+use App\Core\View;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\ProductTable;
+
+class ProductController
+{
+    public function __construct()
+    {
+        Auth::requireAuth();
+    }
+
+    public function index(Request $request): void
+    {
+        $products = Product::all();
+        View::render('admin/products/index', [
+            'pageTitle' => 'Ürün Yönetimi - Seyitler Kimya',
+            'products'  => $products,
+        ], 'layouts/admin');
+    }
+
+    public function create(Request $request): void
+    {
+        $categories = Category::all();
+        View::render('admin/products/create', [
+            'pageTitle'  => 'Yeni Ürün Ekle - Seyitler Kimya',
+            'categories' => $categories,
+        ], 'layouts/admin');
+    }
+
+    public function store(Request $request): void
+    {
+        if (!Csrf::validate($request->post('_csrf_token'))) {
+            Session::flash('error', 'Güvenlik doğrulaması başarısız oldu.');
+            Response::redirect(url('/admin/products/create'));
+            return;
+        }
+
+        $titleTr = trim((string)$request->post('title_tr'));
+        $slug = trim((string)$request->post('slug'));
+        if (empty($slug)) {
+            $slug = Product::slugify($titleTr);
+        }
+
+        // Check if slug already exists
+        $existing = Product::findBySlug($slug);
+        if ($existing) {
+            $slug .= '-' . time();
+        }
+
+        // Image Handling
+        $mainImage = trim((string)$request->post('main_image'));
+        if (isset($_FILES['main_image_file']) && $_FILES['main_image_file']['error'] === UPLOAD_ERR_OK) {
+            $uploaded = $this->handleFileUpload($_FILES['main_image_file'], 'uploads/products/');
+            if ($uploaded) {
+                $mainImage = $uploaded;
+            }
+        }
+
+        $featuresRaw = trim((string)$request->post('features'));
+        $featuresArray = array_filter(array_map('trim', explode("\n", $featuresRaw)));
+
+        $data = [
+            'category_id'    => (int)$request->post('category_id'),
+            'slug'           => $slug,
+            'title_tr'       => $titleTr,
+            'title_en'       => trim((string)$request->post('title_en')) ?: $titleTr,
+            'title_ar'       => trim((string)$request->post('title_ar')) ?: $titleTr,
+            'description_tr' => trim((string)$request->post('description_tr')),
+            'description_en' => trim((string)$request->post('description_en')),
+            'description_ar' => trim((string)$request->post('description_ar')),
+            'main_image'     => $mainImage ?: 'assets/images/logo.png',
+            'features'       => json_encode($featuresArray, JSON_UNESCAPED_UNICODE),
+            'gallery_images' => json_encode([], JSON_UNESCAPED_UNICODE),
+            'sort_order'     => (int)$request->post('sort_order'),
+            'is_active'      => $request->post('is_active') ? 1 : 0,
+        ];
+
+        $newId = Product::create($data);
+        Session::flash('success', 'Ürün başarıyla oluşturuldu.');
+        Response::redirect(url('/admin/products/edit/' . $newId));
+    }
+
+    public function edit(Request $request, int $id): void
+    {
+        $product = Product::findById($id);
+        if (!$product) {
+            Session::flash('error', 'Ürün bulunamadı.');
+            Response::redirect(url('/admin/products'));
+            return;
+        }
+
+        $categories = Category::all();
+        $specs = ProductTable::getByProductId($id);
+
+        View::render('admin/products/edit', [
+            'pageTitle'  => 'Ürün Düzenle: ' . Product::getTitle($product),
+            'product'    => $product,
+            'categories' => $categories,
+            'specs'      => $specs,
+        ], 'layouts/admin');
+    }
+
+    public function update(Request $request, int $id): void
+    {
+        if (!Csrf::validate($request->post('_csrf_token'))) {
+            Session::flash('error', 'Güvenlik doğrulaması başarısız oldu.');
+            Response::redirect(url('/admin/products/edit/' . $id));
+            return;
+        }
+
+        $product = Product::findById($id);
+        if (!$product) {
+            Session::flash('error', 'Ürün bulunamadı.');
+            Response::redirect(url('/admin/products'));
+            return;
+        }
+
+        $titleTr = trim((string)$request->post('title_tr'));
+        $slug = trim((string)$request->post('slug'));
+        if (empty($slug)) {
+            $slug = Product::slugify($titleTr);
+        }
+
+        $mainImage = trim((string)$request->post('main_image'));
+        if (isset($_FILES['main_image_file']) && $_FILES['main_image_file']['error'] === UPLOAD_ERR_OK) {
+            $uploaded = $this->handleFileUpload($_FILES['main_image_file'], 'uploads/products/');
+            if ($uploaded) {
+                $mainImage = $uploaded;
+            }
+        }
+
+        $featuresRaw = trim((string)$request->post('features'));
+        $featuresArray = array_values(array_filter(array_map('trim', explode("\n", $featuresRaw))));
+
+        $data = [
+            'category_id'    => (int)$request->post('category_id'),
+            'slug'           => $slug,
+            'title_tr'       => $titleTr,
+            'title_en'       => trim((string)$request->post('title_en')) ?: $titleTr,
+            'title_ar'       => trim((string)$request->post('title_ar')) ?: $titleTr,
+            'description_tr' => trim((string)$request->post('description_tr')),
+            'description_en' => trim((string)$request->post('description_en')),
+            'description_ar' => trim((string)$request->post('description_ar')),
+            'main_image'     => $mainImage ?: $product['main_image'],
+            'features'       => json_encode($featuresArray, JSON_UNESCAPED_UNICODE),
+            'sort_order'     => (int)$request->post('sort_order'),
+            'is_active'      => $request->post('is_active') ? 1 : 0,
+        ];
+
+        Product::update($id, $data);
+        Session::flash('success', 'Ürün bilgileri başarıyla güncellendi.');
+        Response::redirect(url('/admin/products/edit/' . $id));
+    }
+
+    public function delete(Request $request, int $id): void
+    {
+        if (!Csrf::validate($request->post('_csrf_token'))) {
+            Session::flash('error', 'Güvenlik doğrulaması başarısız oldu.');
+            Response::redirect(url('/admin/products'));
+            return;
+        }
+
+        Database::delete('product_tables', 'product_id = :id', [':id' => $id]);
+        Product::delete($id);
+
+        Session::flash('success', 'Ürün ve bağlı teknik tabloları silindi.');
+        Response::redirect(url('/admin/products'));
+    }
+
+    public function addVariant(Request $request, int $productId): void
+    {
+        if (!Csrf::validate($request->post('_csrf_token'))) {
+            Session::flash('error', 'Güvenlik doğrulaması başarısız oldu.');
+            Response::redirect(url('/admin/products/edit/' . $productId));
+            return;
+        }
+
+        $size = trim((string)$request->post('size'));
+        if (empty($size)) {
+            Session::flash('error', 'Lütfen ölçü alanını doldurunuz.');
+            Response::redirect(url('/admin/products/edit/' . $productId));
+            return;
+        }
+
+        ProductTable::create([
+            'product_id' => $productId,
+            'size'       => $size,
+            'width'      => trim((string)$request->post('width')),
+            'length'     => trim((string)$request->post('length')),
+            'height'     => trim((string)$request->post('height')),
+            'box_qty'    => (int)$request->post('box_qty') ?: 1,
+            'case_qty'   => (int)$request->post('case_qty') ?: 100,
+            'sort_order' => 0,
+        ]);
+
+        Session::flash('success', 'Teknik ölçü başarıyla eklendi.');
+        Response::redirect(url('/admin/products/edit/' . $productId));
+    }
+
+    public function deleteVariant(Request $request, int $variantId): void
+    {
+        if (!Csrf::validate($request->post('_csrf_token'))) {
+            Session::flash('error', 'Güvenlik doğrulaması başarısız oldu.');
+            Response::redirect(url('/admin/products'));
+            return;
+        }
+
+        $variant = ProductTable::findById($variantId);
+        $productId = $variant ? (int)$variant['product_id'] : 0;
+
+        ProductTable::delete($variantId);
+        Session::flash('success', 'Teknik ölçü satırı silindi.');
+        Response::redirect(url('/admin/products/edit/' . $productId));
+    }
+
+    public function addGalleryImage(Request $request, int $productId): void
+    {
+        if (!Csrf::validate($request->post('_csrf_token'))) {
+            Session::flash('error', 'Güvenlik doğrulaması başarısız.');
+            Response::redirect(url('/admin/products/edit/' . $productId));
+            return;
+        }
+
+        $product = Product::findById($productId);
+        if (!$product) {
+            Response::redirect(url('/admin/products'));
+            return;
+        }
+
+        $gallery = Product::getGallery($product);
+        $newUrl = trim((string)$request->post('gallery_image_url'));
+
+        if (isset($_FILES['gallery_image_file']) && $_FILES['gallery_image_file']['error'] === UPLOAD_ERR_OK) {
+            $uploaded = $this->handleFileUpload($_FILES['gallery_image_file'], 'uploads/products/');
+            if ($uploaded) {
+                $newUrl = $uploaded;
+            }
+        }
+
+        if (!empty($newUrl)) {
+            $gallery[] = $newUrl;
+            Product::update($productId, [
+                'gallery_images' => json_encode(array_values($gallery), JSON_UNESCAPED_UNICODE),
+            ]);
+            Session::flash('success', 'Galeriye yeni görsel eklendi.');
+        }
+
+        Response::redirect(url('/admin/products/edit/' . $productId));
+    }
+
+    public function deleteGalleryImage(Request $request, int $productId): void
+    {
+        if (!Csrf::validate($request->post('_csrf_token'))) {
+            Session::flash('error', 'Güvenlik doğrulaması başarısız.');
+            Response::redirect(url('/admin/products/edit/' . $productId));
+            return;
+        }
+
+        $product = Product::findById($productId);
+        if (!$product) {
+            Response::redirect(url('/admin/products'));
+            return;
+        }
+
+        $index = (int)$request->post('image_index');
+        $gallery = Product::getGallery($product);
+
+        if (isset($gallery[$index])) {
+            unset($gallery[$index]);
+            Product::update($productId, [
+                'gallery_images' => json_encode(array_values($gallery), JSON_UNESCAPED_UNICODE),
+            ]);
+            Session::flash('success', 'Görsel galeriden kaldırıldı.');
+        }
+
+        Response::redirect(url('/admin/products/edit/' . $productId));
+    }
+
+    private function handleFileUpload(array $file, string $targetDir): ?string
+    {
+        $allowed = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+
+        if (!in_array($ext, $allowed, true)) {
+            return null;
+        }
+
+        $realTargetDir = dirname(__DIR__, 2) . '/' . trim($targetDir, '/') . '/';
+        if (!is_dir($realTargetDir)) {
+            mkdir($realTargetDir, 0777, true);
+        }
+
+        $filename = uniqid('prod_', true) . '.' . $ext;
+        $dest = $realTargetDir . $filename;
+
+        if (move_uploaded_file($file['tmp_name'], $dest)) {
+            return trim($targetDir, '/') . '/' . $filename;
+        }
+
+        return null;
+    }
+}

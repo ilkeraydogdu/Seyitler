@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /seyitler.com/
+
+    # Existing files and directories serve directly
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Route everything else to Front Controller index.php
+    RewriteRule ^(.*)$ index.php [L,QSA]
+</IfModule>
+
+DirectoryIndex index.php
+
+# Prevent access to sensitive dotfiles
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
