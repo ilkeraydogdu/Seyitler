@@ -2197,18 +2197,31 @@ function getUrlLang() {
 }
 
 function getCurrentLanguage() {
+    // 1. Check URL query first
     const urlLang = getUrlLang();
     if (urlLang) {
         localStorage.setItem('seyitler_lang', urlLang);
         return urlLang;
     }
-    return localStorage.getItem('seyitler_lang') || 'tr';
+
+    // 2. Primary Source of Truth: Server rendered HTML lang attribute
+    const docLang = document.documentElement.lang || document.documentElement.getAttribute('lang');
+    if (docLang && (docLang === 'tr' || docLang === 'en' || docLang === 'ar')) {
+        localStorage.setItem('seyitler_lang', docLang);
+        return docLang;
+    }
+
+    return 'tr';
 }
 
 function setLanguage(lang) {
     if (lang !== 'tr' && lang !== 'en' && lang !== 'ar') lang = 'tr';
     localStorage.setItem('seyitler_lang', lang);
 
+    // Set cookie on client side too for extra persistence
+    document.cookie = `site_locale=${lang}; path=/; max-age=31536000; SameSite=Lax`;
+
+    // Redirect or reload with new language
     try {
         const url = new URL(window.location.href);
         if (lang === 'tr') {
@@ -2216,11 +2229,10 @@ function setLanguage(lang) {
         } else {
             url.searchParams.set('lang', lang);
         }
-        window.history.pushState({}, '', url.toString());
-    } catch(e) {}
-
-    applyLanguage(lang);
-    closeAllDropdowns();
+        window.location.href = url.toString();
+    } catch(e) {
+        window.location.reload();
+    }
 }
 
 function updateInternalLinks(lang) {

@@ -110,7 +110,23 @@ Router::get('/security.txt', 'App\Controllers\SeoController@securityTxt');
 Router::get('/lang/{locale}', function (Request $req, string $locale) {
     I18n::setLocale($locale);
     $referer = $_SERVER['HTTP_REFERER'] ?? url('/');
-    Response::redirect($referer);
+
+    // Clean old lang parameter from referer to avoid stickiness
+    $urlParts = parse_url($referer);
+    $path = $urlParts['path'] ?? url('/');
+    $query = [];
+    if (!empty($urlParts['query'])) {
+        parse_str($urlParts['query'], $query);
+    }
+    if ($locale === 'tr') {
+        unset($query['lang']);
+    } else {
+        $query['lang'] = $locale;
+    }
+    $newQuery = !empty($query) ? '?' . http_build_query($query) : '';
+    $finalUrl = $path . $newQuery;
+
+    Response::redirect($finalUrl);
 });
 
 // Legacy HTML redirects to SEO clean URLs
