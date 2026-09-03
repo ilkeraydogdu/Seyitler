@@ -68,7 +68,12 @@ class ProductController
         }
 
         $featuresRaw = trim((string)$request->post('features'));
-        $featuresArray = array_filter(array_map('trim', explode("\n", $featuresRaw)));
+        $featuresArray = array_values(array_filter(array_map('trim', explode("\n", $featuresRaw))));
+        $featuresJson = json_encode($featuresArray, JSON_UNESCAPED_UNICODE);
+
+        $descTr = trim((string)$request->post('description_tr')) ?: trim((string)$request->post('desc_tr'));
+        $descEn = trim((string)$request->post('description_en')) ?: trim((string)$request->post('desc_en'));
+        $descAr = trim((string)$request->post('description_ar')) ?: trim((string)$request->post('desc_ar'));
 
         $data = [
             'category_id'    => (int)$request->post('category_id'),
@@ -76,11 +81,13 @@ class ProductController
             'title_tr'       => $titleTr,
             'title_en'       => trim((string)$request->post('title_en')) ?: $titleTr,
             'title_ar'       => trim((string)$request->post('title_ar')) ?: $titleTr,
-            'description_tr' => trim((string)$request->post('description_tr')),
-            'description_en' => trim((string)$request->post('description_en')),
-            'description_ar' => trim((string)$request->post('description_ar')),
+            'desc_tr'        => $descTr,
+            'desc_en'        => $descEn,
+            'desc_ar'        => $descAr,
             'main_image'     => $mainImage ?: 'assets/images/logo.png',
-            'features'       => json_encode($featuresArray, JSON_UNESCAPED_UNICODE),
+            'features_tr'    => $featuresJson,
+            'features_en'    => $featuresJson,
+            'features_ar'    => $featuresJson,
             'gallery_images' => json_encode([], JSON_UNESCAPED_UNICODE),
             'sort_order'     => (int)$request->post('sort_order'),
             'is_active'      => $request->post('is_active') ? 1 : 0,
@@ -99,6 +106,11 @@ class ProductController
             Response::redirect(url('/podmin/products'));
             return;
         }
+
+        // Bridge column aliases for edit view compatibility
+        $product['description_tr'] = $product['desc_tr'] ?? '';
+        $product['description_en'] = $product['desc_en'] ?? '';
+        $product['description_ar'] = $product['desc_ar'] ?? '';
 
         $categories = Category::all();
         $specs = ProductTable::getByProductId($id);
@@ -142,6 +154,11 @@ class ProductController
 
         $featuresRaw = trim((string)$request->post('features'));
         $featuresArray = array_values(array_filter(array_map('trim', explode("\n", $featuresRaw))));
+        $featuresJson = json_encode($featuresArray, JSON_UNESCAPED_UNICODE);
+
+        $descTr = trim((string)$request->post('description_tr')) ?: trim((string)$request->post('desc_tr'));
+        $descEn = trim((string)$request->post('description_en')) ?: trim((string)$request->post('desc_en'));
+        $descAr = trim((string)$request->post('description_ar')) ?: trim((string)$request->post('desc_ar'));
 
         $data = [
             'category_id'    => (int)$request->post('category_id'),
@@ -149,11 +166,13 @@ class ProductController
             'title_tr'       => $titleTr,
             'title_en'       => trim((string)$request->post('title_en')) ?: $titleTr,
             'title_ar'       => trim((string)$request->post('title_ar')) ?: $titleTr,
-            'description_tr' => trim((string)$request->post('description_tr')),
-            'description_en' => trim((string)$request->post('description_en')),
-            'description_ar' => trim((string)$request->post('description_ar')),
-            'main_image'     => $mainImage ?: $product['main_image'],
-            'features'       => json_encode($featuresArray, JSON_UNESCAPED_UNICODE),
+            'desc_tr'        => $descTr,
+            'desc_en'        => $descEn,
+            'desc_ar'        => $descAr,
+            'main_image'     => $mainImage ?: ($product['main_image'] ?? 'assets/images/logo.png'),
+            'features_tr'    => $featuresJson,
+            'features_en'    => $featuresJson,
+            'features_ar'    => $featuresJson,
             'sort_order'     => (int)$request->post('sort_order'),
             'is_active'      => $request->post('is_active') ? 1 : 0,
         ];

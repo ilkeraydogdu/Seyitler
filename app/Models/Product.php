@@ -7,6 +7,17 @@ use App\Core\I18n;
 
 class Product
 {
+    public static function slugify(string $text): string
+    {
+        $turkish = ['ı', 'ğ', 'ü', 'ş', 'ö', 'ç', 'İ', 'Ğ', 'Ü', 'Ş', 'Ö', 'Ç'];
+        $english = ['i', 'g', 'u', 's', 'o', 'c', 'i', 'g', 'u', 's', 'o', 'c'];
+        $text = str_replace($turkish, $english, $text);
+        $text = mb_strtolower($text, 'UTF-8');
+        $text = preg_replace('/[^a-z0-9\-]/', '-', $text);
+        $text = preg_replace('/-+/', '-', $text);
+        return trim($text, '-');
+    }
+
     public static function allActive(?int $categoryId = null, ?string $search = null): array
     {
         $sql = "SELECT p.*, c.name_tr as category_name_tr, c.name_en as category_name_en, c.name_ar as category_name_ar 

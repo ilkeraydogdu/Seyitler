@@ -41,7 +41,13 @@ class NewsController
             return;
         }
 
+        $slug = \App\Models\Product::slugify($titleTr);
+        if (empty($slug)) {
+            $slug = 'haber-' . time();
+        }
+
         News::create([
+            'slug'       => $slug,
             'title_tr'   => $titleTr,
             'title_en'   => trim((string)$request->post('title_en')) ?: $titleTr,
             'title_ar'   => trim((string)$request->post('title_ar')) ?: $titleTr,

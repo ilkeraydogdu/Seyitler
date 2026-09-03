@@ -50,7 +50,6 @@ class CategoryController
             'name_en'    => trim((string)$request->post('name_en')) ?: $nameTr,
             'name_ar'    => trim((string)$request->post('name_ar')) ?: $nameTr,
             'sort_order' => (int)$request->post('sort_order'),
-            'is_active'  => 1,
         ]);
 
         Session::flash('success', 'Kategori başarıyla eklendi.');
