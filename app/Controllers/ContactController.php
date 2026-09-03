@@ -26,14 +26,14 @@ class ContactController
         $honeypot = trim((string)$request->post('website_url_hp'));
         if ($honeypot !== '') {
             // Silently discard spam bots without leaking details
-            Response::redirect(url('/contact#contact-form'));
+            Response::redirect(url('/contact'));
             return;
         }
 
         // 2. Spam / Flood Protection (Rate Limiter: max 5 messages per 10 minutes per IP)
         if (!RateLimiter::attempt('contact_form', null, 5, 600)) {
             Session::flash('error', __('Çok fazla mesaj gönderimi yapıldı. Lütfen birkaç dakika sonra tekrar deneyiniz.', 'Çok fazla mesaj gönderimi yapıldı. Lütfen birkaç dakika sonra tekrar deneyiniz.'));
-            Response::redirect(url('/contact#contact-form'));
+            Response::redirect(url('/contact'));
             return;
         }
 
@@ -41,7 +41,7 @@ class ContactController
         $token = $request->post('_csrf_token');
         if (!Csrf::validate($token)) {
             Session::flash('error', __('Güvenlik doğrulaması başarısız oldu. Lütfen sayfayı yenileyip tekrar deneyiniz.', 'Güvenlik doğrulaması başarısız oldu. Lütfen sayfayı yenileyip tekrar deneyiniz.'));
-            Response::redirect(url('/contact#contact-form'));
+            Response::redirect(url('/contact'));
             return;
         }
 
@@ -68,13 +68,13 @@ class ContactController
         // 7. Strict Validation
         if ($name === '' || $email === '' || $message === '') {
             Session::flash('error', __('Lütfen ad, e-posta ve mesaj alanlarını eksiksiz doldurunuz.', 'Lütfen ad, e-posta ve mesaj alanlarını eksiksiz doldurunuz.'));
-            Response::redirect(url('/contact#contact-form'));
+            Response::redirect(url('/contact'));
             return;
         }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             Session::flash('error', __('Lütfen geçerli bir e-posta adresi giriniz.', 'Lütfen geçerli bir e-posta adresi giriniz.'));
-            Response::redirect(url('/contact#contact-form'));
+            Response::redirect(url('/contact'));
             return;
         }
 
@@ -94,7 +94,7 @@ class ContactController
             Session::flash('error', __('Mesaj gönderilirken geçici bir hata oluştu. Lütfen doğrudan e-posta veya telefon ile ulaşınız.', 'Mesaj gönderilirken geçici bir hata oluştu. Lütfen doğrudan e-posta veya telefon ile ulaşınız.'));
         }
 
-        // Always redirect back to contact form anchor so user instantly sees notification
-        Response::redirect(url('/contact#contact-form'));
+        // Clean redirect without ugly hash anchors
+        Response::redirect(url('/contact'));
     }
 }

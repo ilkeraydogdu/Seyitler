@@ -8,25 +8,25 @@
     </div>
 
     <?php if ($successMsg = \App\Core\Session::getFlash('success')): ?>
-        <div id="contact-alert" class="p-4 sm:p-5 rounded-xl bg-emerald-50 border-2 border-emerald-400 text-emerald-900 flex items-start gap-3.5 shadow-md animate-fade-in ring-4 ring-emerald-100/80">
-            <div class="p-2 bg-emerald-500 text-white rounded-lg shrink-0 mt-0.5 shadow-sm">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
+        <div id="contact-alert" class="p-6 sm:p-7 rounded-2xl bg-[#0AA64D] text-white flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5 shadow-2xl ring-4 ring-[#0AA64D]/25 mb-6 transition-all duration-300 animate-fade-in">
+            <div class="size-12 bg-white/20 text-white rounded-xl flex items-center justify-center shrink-0 shadow-inner backdrop-blur-sm">
+                <svg class="size-7" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"></path></svg>
             </div>
-            <div>
-                <h4 class="font-bold text-base text-emerald-950"><?= __('Mesajınız Başarıyla İletildi!', 'Mesajınız Başarıyla İletildi!') ?></h4>
-                <p class="text-sm text-emerald-800 mt-1 leading-relaxed"><?= e($successMsg) ?></p>
+            <div class="space-y-1">
+                <h4 class="font-bold text-lg sm:text-xl text-white leading-snug"><?= __('Mesajınız Başarıyla İletildi!', 'Mesajınız Başarıyla İletildi!') ?></h4>
+                <p class="text-sm sm:text-base text-white/95 font-medium leading-relaxed"><?= e($successMsg) ?></p>
             </div>
         </div>
     <?php endif; ?>
 
     <?php if ($errorMsg = \App\Core\Session::getFlash('error')): ?>
-        <div id="contact-alert" class="p-4 sm:p-5 rounded-xl bg-rose-50 border-2 border-rose-300 text-rose-900 flex items-start gap-3.5 shadow-md animate-fade-in ring-4 ring-rose-100/80">
-            <div class="p-2 bg-rose-500 text-white rounded-lg shrink-0 mt-0.5 shadow-sm">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 7.5h.008v.008H12v-.008Z"></path></svg>
+        <div id="contact-alert" class="p-6 sm:p-7 rounded-2xl bg-rose-50/95 border-2 border-rose-500 text-rose-950 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5 shadow-xl ring-4 ring-rose-200/80 mb-6 transition-all duration-300">
+            <div class="size-12 bg-rose-600 text-white rounded-xl flex items-center justify-center shrink-0 shadow-md ring-4 ring-rose-100">
+                <svg class="size-7" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 7.5h.008v.008H12v-.008Z"></path></svg>
             </div>
-            <div>
-                <h4 class="font-bold text-base text-rose-950"><?= __('Form Gönderilemedi', 'Form Gönderilemedi') ?></h4>
-                <p class="text-sm text-rose-800 mt-1 leading-relaxed"><?= e($errorMsg) ?></p>
+            <div class="space-y-1">
+                <h4 class="font-bold text-lg sm:text-xl text-rose-950 leading-snug"><?= __('Form Gönderilemedi', 'Form Gönderilemedi') ?></h4>
+                <p class="text-sm sm:text-base text-rose-900 font-medium leading-relaxed"><?= e($errorMsg) ?></p>
             </div>
         </div>
     <?php endif; ?>
@@ -63,18 +63,17 @@
 </form>
 
 <script>
-    // Auto-scroll to contact alert when form is submitted or redirected
+    // Smooth scroll to contact alert if flash message exists and ensure clean route URL
     document.addEventListener('DOMContentLoaded', function () {
         var alertBox = document.getElementById('contact-alert');
-        var form = document.getElementById('contact-form');
         if (alertBox) {
             setTimeout(function() {
                 alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 150);
-        } else if (window.location.hash === '#contact-form' && form) {
-            setTimeout(function() {
-                form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 150);
+            }, 100);
+        }
+        // Clean any residual hash from URL to keep route perfectly clean
+        if (window.location.hash) {
+            history.replaceState(null, document.title, window.location.pathname + window.location.search);
         }
     });
 </script>
